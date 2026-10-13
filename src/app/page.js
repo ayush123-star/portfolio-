@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import content from "@/data/portfolio.json";
 import PortfolioEditor, { EditBar } from "@/components/PortfolioEditor";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -1237,6 +1243,8 @@ function SectionBg({ image = "" }) {
   );
 }
 
+const noopSubscribe = () => () => {};
+
 /* ---------- Avatar speech (types, pauses, deletes) ---------- */
 function useSpeech(lines, start) {
   const [text, setText] = useState("");
@@ -1247,7 +1255,6 @@ function useSpeech(lines, start) {
     let j = 0;
     let del = false;
     let t;
-    setText("");
     const tick = () => {
       const chars = Array.from(lines[li]);
       if (!del) {
@@ -1273,7 +1280,10 @@ function useSpeech(lines, start) {
         t = setTimeout(tick, 22);
       }
     };
-    t = setTimeout(tick, 700);
+    t = setTimeout(() => {
+      setText("");
+      tick();
+    }, 700);
     return () => {
       clearTimeout(t);
       setTalking(false);
@@ -1448,13 +1458,22 @@ export default function Portfolio() {
     !loading,
   );
   const T = THEMES[theme] || THEMES.sky;
+  // Year is read on the client only, so prerender doesn't capture the build date
+  const year = useSyncExternalStore(
+    noopSubscribe,
+    () => new Date().getFullYear(),
+    () => "",
+  );
 
   // remembered theme
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("pf-theme-v2");
-      if (saved && THEMES[saved]) setTheme(saved);
-    } catch {}
+    const t = setTimeout(() => {
+      try {
+        const saved = localStorage.getItem("pf-theme-v2");
+        if (saved && THEMES[saved]) setTheme(saved);
+      } catch {}
+    }, 0);
+    return () => clearTimeout(t);
   }, []);
   useEffect(() => {
     document.body.style.background = T.bg;
@@ -2103,7 +2122,7 @@ export default function Portfolio() {
         <span>
           Designed &amp; built by <b>{PROFILE.fullName}</b>
         </span>
-        <span className="mono">© {new Date().getFullYear()}</span>
+        <span className="mono">© {year}</span>
       </footer>
 
       {copied && <div className="toast">Email copied ✓</div>}
