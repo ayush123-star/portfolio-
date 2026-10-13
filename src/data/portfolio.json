@@ -1,0 +1,284 @@
+{
+  "profile": {
+    "firstName": "AYUSH",
+    "lastName": "PANDEY",
+    "fullName": "Ayush Pandey",
+    "initials": "AP",
+    "email": "pandeyayush1603@gmail.com",
+    "phone": "+91 90395 67623",
+    "location": "Gwalior, Madhya Pradesh",
+    "github": "https://github.com/ayush123-star",
+    "linkedin": "https://www.linkedin.com/in/ayush-pandey-a9161b275",
+    "resume": "/resume.pdf",
+    "avatarImage": ""
+  },
+  "heroWords": [
+    "DEVELOPER",
+    "ENGINEER",
+    "CODER"
+  ],
+  "about": {
+    "text": "I'm an Electronics & Telecommunication engineering student at MITS Gwalior and a self-driven full-stack developer. I've built and deployed a real-time chat application and interactive JavaScript games, I sharpen my DSA skills every day, and as an IEEE technical team member I love building with others. I'm also learning Japanese to get ready for global tech opportunities.",
+    "highlight": [
+      "full-stack",
+      "real-time",
+      "DSA",
+      "IEEE",
+      "Japanese"
+    ]
+  },
+  "whatIDo": [
+    {
+      "no": "01",
+      "title": "Full-Stack Development",
+      "text": "Building complete web apps — Node.js backends, real-time communication and responsive JavaScript interfaces.",
+      "tags": [
+        "JavaScript",
+        "Node.js",
+        "HTML5",
+        "CSS3",
+        "Real-Time"
+      ]
+    },
+    {
+      "no": "02",
+      "title": "Problem Solving & DSA",
+      "text": "Breaking problems into clean logic. I practise data structures and algorithms and take part in coding contests.",
+      "tags": [
+        "Data Structures",
+        "Algorithms",
+        "Contests"
+      ]
+    },
+    {
+      "no": "03",
+      "title": "Tools & Data",
+      "text": "Shipping with a proper workflow — Git, deployment, and Power BI dashboards that turn data into insight.",
+      "tags": [
+        "Git",
+        "GitHub",
+        "npm",
+        "Render",
+        "Power BI"
+      ]
+    }
+  ],
+  "stack": [
+    {
+      "abbr": "JS",
+      "name": "JavaScript"
+    },
+    {
+      "abbr": "N",
+      "name": "Node.js"
+    },
+    {
+      "abbr": "</>",
+      "name": "HTML5"
+    },
+    {
+      "abbr": "{ }",
+      "name": "CSS3"
+    },
+    {
+      "abbr": "DSA",
+      "name": "Data Structures"
+    },
+    {
+      "abbr": "⚡",
+      "name": "Real-Time Apps"
+    },
+    {
+      "abbr": "Git",
+      "name": "Git"
+    },
+    {
+      "abbr": "GH",
+      "name": "GitHub"
+    },
+    {
+      "abbr": "VS",
+      "name": "VS Code"
+    },
+    {
+      "abbr": "npm",
+      "name": "npm"
+    },
+    {
+      "abbr": "BI",
+      "name": "Power BI"
+    },
+    {
+      "abbr": "🚀",
+      "name": "Render"
+    }
+  ],
+  "marquee": [
+    "Full-Stack Development",
+    "JavaScript",
+    "Node.js",
+    "DSA",
+    "Real-Time Apps",
+    "Responsive Design",
+    "Git & GitHub",
+    "Power BI",
+    "Problem Solving",
+    "Team Work"
+  ],
+  "projects": [
+    {
+      "title": "Real-Time Chat Application",
+      "type": "Full-Stack · Deployed",
+      "emoji": "💬",
+      "description": "A full-stack chat app where messages reach every connected user instantly — no page refresh needed.",
+      "points": [
+        "Node.js backend handling persistent, two-way communication",
+        "Responsive HTML/CSS/JavaScript interface",
+        "Version-controlled with Git and deployed live on Render"
+      ],
+      "tags": [
+        "Node.js",
+        "JavaScript",
+        "Real-Time",
+        "Render"
+      ],
+      "live": "https://my-realtime-chatapp-irvq.onrender.com",
+      "code": "https://github.com/ayush123-star"
+    },
+    {
+      "title": "Tic-Tac-Toe Game",
+      "type": "Interactive Game",
+      "emoji": "⭕",
+      "description": "A two-player browser game with win detection, reset and new-game controls, built in vanilla JavaScript.",
+      "points": [
+        "Game-state logic and dynamic DOM updates without any framework",
+        "Refactored conditional logic to remove runtime glitches",
+        "Fully responsive with smooth, event-driven animations"
+      ],
+      "tags": [
+        "JavaScript",
+        "DOM",
+        "HTML",
+        "CSS"
+      ],
+      "live": "https://ayush123-star.github.io/tic-tac-toe-game/",
+      "code": "https://github.com/ayush123-star/tic-tac-toe-game"
+    },
+    {
+      "title": "Currency Converter",
+      "type": "Web Utility",
+      "emoji": "💱",
+      "description": "Converts an amount between currencies, with country flags that change as you pick a currency.",
+      "points": [
+        "From / To currency selection with live flag updates",
+        "Shows the exchange rate alongside the result",
+        "Clean, mobile-friendly interface"
+      ],
+      "tags": [
+        "JavaScript",
+        "API",
+        "HTML",
+        "CSS"
+      ],
+      "live": "https://ayush123-star.github.io/currency-converter-/",
+      "code": "https://github.com/ayush123-star/currency-converter-"
+    },
+    {
+      "title": "Rock-Paper-Scissors",
+      "type": "Interactive Game",
+      "emoji": "✊",
+      "description": "A quick player-vs-computer game with score tracking, built with vanilla JavaScript.",
+      "points": [
+        "Random computer moves and instant result logic",
+        "Event-driven UI with smooth feedback animations",
+        "Responsive across mobile and desktop"
+      ],
+      "tags": [
+        "JavaScript",
+        "DOM",
+        "HTML",
+        "CSS"
+      ],
+      "live": "",
+      "code": "https://github.com/ayush123-star"
+    }
+  ],
+  "activities": [
+    {
+      "title": "IEEE Technical Team Member",
+      "org": "IEEE, MITS Gwalior",
+      "date": "Current",
+      "type": "Role",
+      "description": "Part of the technical team, working with fellow members on hands-on technical activities and events."
+    },
+    {
+      "title": "Learning Japanese",
+      "org": "JLPT preparation",
+      "date": "Ongoing",
+      "type": "Global Readiness",
+      "description": "Building elementary conversational Japanese for future global tech opportunities."
+    },
+    {
+      "title": "URJA 2026",
+      "org": "MITS Electrical Dept. & IEEE",
+      "date": "Mar 2026",
+      "type": "National Event",
+      "description": "Engaged with energy-sector experts on sustainable technologies at a national-level renewable energy event."
+    },
+    {
+      "title": "Alumni Leadership Talk",
+      "org": "ECE Dept., MITS & IETE Bhopal",
+      "date": "Mar 2026",
+      "type": "Talk",
+      "description": "Attended “Leadership, Discipline & Service: Lessons from the Indian Army.”"
+    },
+    {
+      "title": "GFG-CodeRush",
+      "org": "GeeksforGeeks Campus Body, MITS Gwalior",
+      "date": "Oct 2025",
+      "type": "Coding Contest",
+      "description": "Competed in an online programming contest testing problem-solving and DSA skills."
+    },
+    {
+      "title": "No Code Knockout",
+      "org": "IETE Students' Forum, MITS-DU",
+      "date": "Aug 2025",
+      "type": "Competition",
+      "description": "Explored no-code platforms and built digital layouts in a website design competition."
+    },
+    {
+      "title": "B.Tech, Electronics & Telecommunication",
+      "org": "Madhav Institute of Technology & Science (MITS), Gwalior",
+      "date": "2025 – Present",
+      "type": "Education",
+      "description": "Core coursework in engineering mathematics and electronic systems, alongside self-paced software development."
+    }
+  ],
+  "certificates": [
+    {
+      "title": "MS Power BI Bootcamp",
+      "issuer": "Dept. of E&TC, MITS × IETE Bhopal Centre",
+      "date": "Jan 2026",
+      "image": "",
+      "link": ""
+    },
+    {
+      "title": "Full-Stack Web Development",
+      "issuer": "Ongoing course — frontend frameworks & backend databases",
+      "date": "In progress",
+      "image": "",
+      "link": ""
+    }
+  ],
+  "backgrounds": {
+    "stack": "",
+    "work": "",
+    "journey": "",
+    "certificates": "",
+    "contact": ""
+  },
+  "music": {
+    "src": "",
+    "title": ""
+  }
+}
