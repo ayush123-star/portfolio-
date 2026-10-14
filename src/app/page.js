@@ -1716,6 +1716,16 @@ export default function Portfolio() {
         >
           <Icon>{I.linkedin}</Icon>
         </a>
+        {PROFILE.instagram && (
+          <a
+            href={PROFILE.instagram}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Instagram"
+          >
+            <Icon>{I.instagram}</Icon>
+          </a>
+        )}
         <a href={`mailto:${PROFILE.email}`} aria-label="Email">
           <Icon>{I.mail}</Icon>
         </a>
