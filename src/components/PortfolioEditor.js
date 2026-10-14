@@ -26,6 +26,7 @@ const SECTION_DEFS = {
       { k: "location", l: "Location" },
       { k: "github", l: "GitHub URL" },
       { k: "linkedin", l: "LinkedIn URL" },
+      { k: "instagram", l: "Instagram URL" },
       { k: "resume", l: "Resume path (public/ ki file, e.g. /resume.pdf)" },
       { k: "avatarImage", l: "Avatar image (khali = animated avatar)", t: "img" },
     ],

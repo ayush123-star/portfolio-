@@ -323,6 +323,13 @@ const I = {
       <circle cx="4" cy="4" r="2" />
     </>
   ),
+  instagram: (
+    <>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </>
+  ),
   mail: (
     <>
       <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -1221,7 +1228,10 @@ function SectionBg({ image = "" }) {
             "--r": `${l.r}deg`,
           }}
         >
-          <path d="M0 -16 C 12 -8 12 8 0 16 C -12 8 -12 -8 0 -16 Z" fill="currentColor" />
+          <path
+            d="M0 -16 C 12 -8 12 8 0 16 C -12 8 -12 -8 0 -16 Z"
+            fill="currentColor"
+          />
           <path d="M0 -14 L0 14" stroke="rgba(0,0,0,.18)" strokeWidth="1" />
         </svg>
       ))}
@@ -1729,7 +1739,11 @@ export default function Portfolio() {
           <div id="about" className="anchor a1" />
           <div id="skills" className="anchor a2" />
           <div className="sticky">
-            <EditBar groups={["hero", "skills", "music"]} onEdit={setEditGroup} abs />
+            <EditBar
+              groups={["hero", "skills", "music"]}
+              onEdit={setEditGroup}
+              abs
+            />
             <Scenery />
             <div className="h-texts">
               <div className="h-left">
@@ -2079,6 +2093,17 @@ export default function Portfolio() {
                     <GitHubIcon />
                     <span>GitHub</span>
                   </a>
+                  {PROFILE.instagram && (
+                    <a
+                      className="c-row"
+                      href={PROFILE.instagram}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Icon>{I.instagram}</Icon>
+                      <span>Instagram</span>
+                    </a>
+                  )}
                 </div>
               </Reveal>
               <Reveal
@@ -2128,10 +2153,7 @@ export default function Portfolio() {
       {copied && <div className="toast">Email copied ✓</div>}
 
       {editGroup && (
-        <PortfolioEditor
-          group={editGroup}
-          onClose={() => setEditGroup(null)}
-        />
+        <PortfolioEditor group={editGroup} onClose={() => setEditGroup(null)} />
       )}
 
       {cert && (

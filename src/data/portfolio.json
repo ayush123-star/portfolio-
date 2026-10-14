@@ -9,6 +9,7 @@
     "location": "Gwalior, Madhya Pradesh",
     "github": "https://github.com/ayush123-star",
     "linkedin": "https://www.linkedin.com/in/ayush-pandey-a9161b275",
+    "instagram": "https://www.instagram.com/ayush_pandey_0816/",
     "resume": "/resume.pdf",
     "avatarImage": ""
   },
@@ -18,13 +19,12 @@
     "CODER"
   ],
   "about": {
-    "text": "I'm an Electronics & Telecommunication engineering student at MITS Gwalior and a self-driven full-stack developer. I've built and deployed a real-time chat application and interactive JavaScript games, I sharpen my DSA skills every day, and as an IEEE technical team member I love building with others. I'm also learning Japanese to get ready for global tech opportunities.",
+    "text": "Hi, I'm Ayush Pandey — a developer passionate about building scalable web applications and exploring the intersection of software and hardware. Currently pursuing my B.Tech in Electronics & Telecommunication Engineering at MITS Gwalior, I combine analytical problem-solving with hands-on software development. My core strength lies in full-stack web development and programming, along with a deep understanding of core electronics and hardware-software integration.",
     "highlight": [
+      "scalable",
+      "Electronics",
       "full-stack",
-      "real-time",
-      "DSA",
-      "IEEE",
-      "Japanese"
+      "hardware-software"
     ]
   },
   "whatIDo": [
@@ -65,52 +65,52 @@
   ],
   "stack": [
     {
-      "abbr": "JS",
+      "abbr": "JavaScript",
       "name": "JavaScript"
     },
     {
-      "abbr": "N",
+      "abbr": "HTML",
+      "name": "HTML"
+    },
+    {
+      "abbr": "CSS",
+      "name": "CSS"
+    },
+    {
+      "abbr": "Express.js",
+      "name": "Express.js"
+    },
+    {
+      "abbr": "Node.js",
       "name": "Node.js"
     },
     {
-      "abbr": "</>",
-      "name": "HTML5"
+      "abbr": "MongoDB",
+      "name": "MongoDB"
     },
     {
-      "abbr": "{ }",
-      "name": "CSS3"
+      "abbr": "SQL",
+      "name": "SQL"
     },
     {
-      "abbr": "DSA",
-      "name": "Data Structures"
+      "abbr": "Python",
+      "name": "Python"
     },
     {
-      "abbr": "⚡",
-      "name": "Real-Time Apps"
+      "abbr": "Guitar 🎸",
+      "name": "Guitar 🎸"
     },
     {
-      "abbr": "Git",
-      "name": "Git"
+      "abbr": "Photography 📸",
+      "name": "Photography 📸"
     },
     {
-      "abbr": "GH",
+      "abbr": "GitHub",
       "name": "GitHub"
     },
     {
-      "abbr": "VS",
-      "name": "VS Code"
-    },
-    {
-      "abbr": "npm",
-      "name": "npm"
-    },
-    {
-      "abbr": "BI",
-      "name": "Power BI"
-    },
-    {
-      "abbr": "🚀",
-      "name": "Render"
+      "abbr": "Japanese 🏯",
+      "name": "Japanese 🏯"
     }
   ],
   "marquee": [
@@ -121,7 +121,7 @@
     "Real-Time Apps",
     "Responsive Design",
     "Git & GitHub",
-    "Power BI",
+    "Photography",
     "Problem Solving",
     "Team Work"
   ],
@@ -129,7 +129,7 @@
     {
       "title": "Real-Time Chat Application",
       "type": "Full-Stack · Deployed",
-      "emoji": "💬",
+      "emoji": "",
       "description": "A full-stack chat app where messages reach every connected user instantly — no page refresh needed.",
       "points": [
         "Node.js backend handling persistent, two-way communication",
@@ -186,7 +186,7 @@
     {
       "title": "Rock-Paper-Scissors",
       "type": "Interactive Game",
-      "emoji": "✊",
+      "emoji": "",
       "description": "A quick player-vs-computer game with score tracking, built with vanilla JavaScript.",
       "points": [
         "Random computer moves and instant result logic",
@@ -199,79 +199,215 @@
         "HTML",
         "CSS"
       ],
-      "live": "",
+      "live": "https://ayush123-star.github.io/Rock-Paper-Scissors-1/",
+      "code": "https://github.com/ayush123-star"
+    },
+    {
+      "title": "IEEE Webpage",
+      "type": "Webpage",
+      "emoji": "",
+      "description": "A responsive, accessible event registration portal built for IEEE MTT-S workshops, featuring domain-specific track selection, drag-and-drop document uploads, and comprehensive client-side form validation.",
+      "points": [
+        "Architected a modern, fully responsive user interface using semantic HTML5 and custom modular CSS3.",
+        "Implemented structured form sections tailored for IEEE MTT-S tracks including RF, Microwave, Antenna, and Signal Processing.",
+        "Engineered robust client-side input validation using RegEx for strict email and 10-digit contact number verification.",
+        "Integrated an interactive drag-and-drop resume/CV dropzone supporting multiple file formats (PDF, DOC, DOCX).",
+        "Configured dedicated form reset handlers and state mechanisms to prevent erroneous double-submissions.",
+        "Deployed statically on GitHub Pages with automated CI/CD for high availability and zero downtime."
+      ],
+      "tags": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "UI/UX Design",
+        "Form Validation",
+        "GitHub Pages"
+      ],
+      "live": "https://ayush123-star.github.io/webpage/",
+      "code": "https://github.com/ayush123-star"
+    },
+    {
+      "title": "Real-Time Weather Dashboard",
+      "type": "Frontend · API Integration · Deployed",
+      "emoji": "",
+      "description": "An interactive real-time weather web application that allows users to search for any city globally and view key meteorological parameters, powered by the Open-Meteo REST API.",
+      "points": [
+        "Built an intuitive, responsive web dashboard with clean UI components for global weather searching.",
+        "Integrated Open-Meteo API to fetch and render real-time temperature, humidity, wind speed, atmospheric pressure, and \"feels like\" metrics.",
+        "Implemented dynamic DOM updates and real-time state handling for seamless, page-refresh-free searches.",
+        "Engineered graceful error handling and loading indicators for invalid city queries or network delays.",
+        "Optimized performance with lightweight vanilla JavaScript and custom responsive CSS layouts.",
+        "Deployed the live web app using GitHub Pages for zero-cost, persistent static hosting."
+      ],
+      "tags": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "REST API",
+        "Asynchronous JS",
+        "GitHub Pages"
+      ],
+      "live": "https://ayush123-star.github.io/Whether-Dashboard-/",
+      "code": "https://github.com/ayush123-star"
+    },
+    {
+      "title": "Advanced CSS3 Responsive Architecture",
+      "type": "Frontend · UI/UX · Deployed",
+      "emoji": "",
+      "description": "A modern, modular CSS3 architecture showcasing advanced responsive layouts, CSS Grid, Flexbox systems, custom design tokens, and fluid typography tailored for seamless cross-device compatibility.",
+      "points": [
+        "Architected an advanced multi-breakpoint responsive layout leveraging modern CSS Grid and Flexbox mechanics.",
+        "Engineered a scalable design token hierarchy using CSS custom properties (variables) for consistent theming and spacing.",
+        "Implemented fluid typography and clamp-based sizing to ensure optimal readability across mobile, tablet, and desktop viewports.",
+        "Optimized render performance by strictly relying on zero-dependency, pure CSS animations, and lightweight styling rules.",
+        "Enforced cross-browser accessibility standards with high-contrast UI components, touch-friendly targets, and clean semantic markup.",
+        "Deployed the production build on GitHub Pages for high-availability static web hosting."
+      ],
+      "tags": [
+        "HTML5",
+        "CSS3",
+        "CSS Grid",
+        "Flexbox",
+        "Responsive Web Design",
+        "UI/UX",
+        "GitHub Pages"
+      ],
+      "live": "https://ayush123-star.github.io/Advanced-CSS3-Responsive-Architecture/",
       "code": "https://github.com/ayush123-star"
     }
   ],
   "activities": [
     {
-      "title": "IEEE Technical Team Member",
-      "org": "IEEE, MITS Gwalior",
-      "date": "Current",
-      "type": "Role",
-      "description": "Part of the technical team, working with fellow members on hands-on technical activities and events."
-    },
-    {
-      "title": "Learning Japanese",
-      "org": "JLPT preparation",
-      "date": "Ongoing",
-      "type": "Global Readiness",
-      "description": "Building elementary conversational Japanese for future global tech opportunities."
-    },
-    {
-      "title": "URJA 2026",
-      "org": "MITS Electrical Dept. & IEEE",
-      "date": "Mar 2026",
-      "type": "National Event",
-      "description": "Engaged with energy-sector experts on sustainable technologies at a national-level renewable energy event."
-    },
-    {
-      "title": "Alumni Leadership Talk",
-      "org": "ECE Dept., MITS & IETE Bhopal",
-      "date": "Mar 2026",
-      "type": "Talk",
-      "description": "Attended “Leadership, Discipline & Service: Lessons from the Indian Army.”"
-    },
-    {
-      "title": "GFG-CodeRush",
-      "org": "GeeksforGeeks Campus Body, MITS Gwalior",
-      "date": "Oct 2025",
-      "type": "Coding Contest",
-      "description": "Competed in an online programming contest testing problem-solving and DSA skills."
-    },
-    {
-      "title": "No Code Knockout",
-      "org": "IETE Students' Forum, MITS-DU",
-      "date": "Aug 2025",
-      "type": "Competition",
-      "description": "Explored no-code platforms and built digital layouts in a website design competition."
-    },
-    {
-      "title": "B.Tech, Electronics & Telecommunication",
-      "org": "Madhav Institute of Technology & Science (MITS), Gwalior",
-      "date": "2025 – Present",
+      "title": "Education",
+      "org": "Madhav Institute of technology and Science(MITS), Gwalior",
+      "date": "Aug 2025-2029",
       "type": "Education",
-      "description": "Core coursework in engineering mathematics and electronic systems, alongside self-paced software development."
+      "description": "​Pursuing Bachelor of Technology with coursework focused on core electronics, signal processing, and embedded systems alongside practical development in full-stack web technologies and algorithmic problem solving."
+    },
+    {
+      "title": "Web Development Inter",
+      "org": "Thiranex",
+      "date": "8 Sep 2026 - 7 Oct 2026",
+      "type": "Internship",
+      "description": "​Worked on developing responsive web interfaces and integrating front-end components with back-end services. Collaborated on implementing UI features, optimizing web performance, and debugging application workflows using modern web technologies."
+    },
+    {
+      "title": "Technical Team Member",
+      "org": "IEEE MTT-S Student Branch Chapter, MITS-DU",
+      "date": "October 2026 - Present",
+      "type": "Club / Community",
+      "description": "Contributing to technical initiatives, workshops, and domain activities related to RF, microwave systems, and applied electronics. Collaborating with chapter members to manage technical sessions, build innovative student projects, and support society-level technical operations."
     }
   ],
   "certificates": [
     {
-      "title": "MS Power BI Bootcamp",
-      "issuer": "Dept. of E&TC, MITS × IETE Bhopal Centre",
-      "date": "Jan 2026",
-      "image": "",
+      "title": "No Code Knockout",
+      "issuer": "IETE Students' Forum, MITS-DU",
+      "date": "30th August 2025",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQFzKPnjp_SAUA/feedshare-shrink_800/B4DZlsAqcYHYAg-/0/1758453742118?e=1793836800&v=beta&t=6Wc9gLXJ2tQFqBDjJvF3AYfVs1ZZUOoUNm0ESY3AxH0",
       "link": ""
     },
     {
-      "title": "Full-Stack Web Development",
-      "issuer": "Ongoing course — frontend frameworks & backend databases",
-      "date": "In progress",
-      "image": "",
+      "title": "GFG - Code Rush",
+      "issuer": "",
+      "date": "4th October 2025",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQGES6nZE1AaFA/feedshare-shrink_800/B4DZm_XKWMJEAg-/0/1759852148324?e=1793836800&v=beta&t=00G-wUe_c2hzOmd_Pi_bJ8_RtOivC-8YuD6jmq0A5Hw",
+      "link": ""
+    },
+    {
+      "title": "Alumni Talk Entitled Leadership, Discipline And Service: Lesson From The Indian Army",
+      "issuer": "Department of ETE And IETE Bhopal Center",
+      "date": "18th March 2026",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQGNEpxEKJOWiw/feedshare-shrink_800/B4DZ0_G8iYHcAc-/0/1774880278998?e=1793836800&v=beta&t=SH5CusUnRW2-96awsQLGB-9aV90dTrFf0qVTNzvJ4Mw",
+      "link": ""
+    },
+    {
+      "title": "Renewable Energy At URJA 2026",
+      "issuer": "Department Of Electrical engineering",
+      "date": "15th March 2026",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQGAqh5nJ8Lb_Q/feedshare-shrink_800/B4DZ1AFnmKGUAc-/0/1774896708495?e=1793836800&v=beta&t=NY6CaeTh2XmBQ-oJbNyNLnmZ3OlVvVvaKMCNvF_wR_4",
+      "link": ""
+    },
+    {
+      "title": "MS POWER BOOTCAMP",
+      "issuer": "Department of Electronics and Telecommunications Engineering And IETE Bhopal Center",
+      "date": "22 January 2026",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQHPEog_dvsFBA/feedshare-shrink_800/B4DZ1AGDKwJMAc-/0/1774896821337?e=1793836800&v=beta&t=h_lALYX7MrASq_PswB1fTGRjRRFjJG3ZOvKZFAntMEY",
+      "link": ""
+    },
+    {
+      "title": "Shortlisted For The App Development Inter At UPTOSKILLS Via The National Internship Portal",
+      "issuer": "UPTOSKILLS",
+      "date": "",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQHyXdR5h7dbyg/feedshare-shrink_800/B4DZ_xgf7EKgAc-/0/1786463256491?e=1793836800&v=beta&t=_XDE1R833bTIs3ZX2X7WLROwp8msKrT6QeVWU1rZrxc",
+      "link": ""
+    },
+    {
+      "title": "Shortlisted For PYTHON - AI - ML - DATA SCIENCE - GEN - AI - WEBSITE DEVELOPMENT INTERNSHIP  At ROBOKWIK.COM Through National Internship Portal",
+      "issuer": "ROBOKWIK.COM",
+      "date": "",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQHkXq413fOk-Q/feedshare-shrink_800/B4DaAP5MuBJcAg-/0/1786973048165?e=1793836800&v=beta&t=Pc47XzcJFhWVttN_Oslxi84NM0wmWZ-wLksL9J8Y1iw",
+      "link": ""
+    },
+    {
+      "title": "Shortlisted For The Internship Program Through Skill flow Learning (An ISO-Certified And MSME-Approved  Organization)",
+      "issuer": "Skill Flow Learning",
+      "date": "",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQE3kB09bj-9sA/feedshare-image-high-res/B4DaAQp38TJsAU-/0/1786985807877?e=1793836800&v=beta&t=FEbwlKE-Eh5Q1mjwi2vfksjywn6sWTRQwDvBYFsaDk4",
+      "link": ""
+    },
+    {
+      "title": "Fund My Crazy: Build Night Edition",
+      "issuer": "Google Student Ambassador Program 2026",
+      "date": "",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQFagv4-Hi7_iQ/feedshare-shrink_800/B4DaBSCPDxI4Ag-/0/1788082713060?e=1793836800&v=beta&t=dA6yAkmTsjgb2byadtRMM3phjXj0Geoy9sN1GpduFoI",
+      "link": ""
+    },
+    {
+      "title": "Automate India Hackathon 2026",
+      "issuer": "Powered By HackBriven At Microsoft office Noida",
+      "date": "29th August 2026",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQHcTjk6zNM2_A/feedshare-shrink_800/B4DaB1LqJUGkAc-/0/1788672386013?e=1793836800&v=beta&t=IBLCD0N1WccRhhx5bgA1pXR8jJQreLojj6GneD3Y3xc",
+      "link": ""
+    },
+    {
+      "title": "Offer Letter For Internship In Web Development",
+      "issuer": "Thiranex",
+      "date": "8 Sept 2026",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQG2baeTszJ25w/feedshare-shrink_800/B4DaB_RUCmKkAg-/0/1788841640338?e=1793836800&v=beta&t=JnY1XDPd50G_VWwqDDwq3yQvokPKIzUJwfPsmia55XE",
+      "link": ""
+    },
+    {
+      "title": "SPELLBOUND",
+      "issuer": "IETE Students' Forum, MITS Gwalior",
+      "date": "12th September 2026",
+      "image": "https://media.licdn.com/dms/image/v2/D4E22AQFs7B53FKHxng/feedshare-shrink_800/B4EaCuK_74IIAc-/0/1789628514376?e=1793836800&v=beta&t=YOVNb7oAJUVlIiiLfn9ygOF0S2iNy9zCawR_O-ZSW3w",
+      "link": ""
+    },
+    {
+      "title": "Internship Common Aptitude Test (ICAT)",
+      "issuer": "ICAT",
+      "date": "22nd September 2026",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQGeFfBEP_DRBg/feedshare-shrink_1280/B4DaDOLRztGsAQ-/0/1790165458396?e=1793836800&v=beta&t=7AYI1CNrbR9UzAnaaS9zGNcdzvg1qoi39FmXn2JcPpI",
+      "link": ""
+    },
+    {
+      "title": "Successfully Completed My Web Development Internship At Thiranex",
+      "issuer": "Thiranex",
+      "date": "8 September 2026 - 7 October 2026",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQGGs55yeB2Zyw/feedshare-shrink_800/B4DaEZV3u6IMAg-/0/1791426526706?e=1793836800&v=beta&t=7zgxESbZt89RlzyzhWqPcD6FKJFPtIFa5NlStF93chg",
+      "link": ""
+    },
+    {
+      "title": "Letter Of Recommendation (LOR) From Thiranex",
+      "issuer": "Thiranex",
+      "date": "8 September 2026 - 7 October 2026",
+      "image": "https://media.licdn.com/dms/image/v2/D4D22AQEzhueljJyWSg/feedshare-image-high-res/B4DaEdA6WpKoAY-/0/1791488140965?e=1793836800&v=beta&t=yVF2CmwF3fyPWh4M6sJ_8KWqmsvge80eedTsF7syzgA",
       "link": ""
     }
   ],
   "backgrounds": {
-    "stack": "",
+    "stack": "/uploads/1792006664394-WhatsApp-Image-2026-10-13-at-7-07-00-PM.jpg",
     "work": "",
     "journey": "",
     "certificates": "",
