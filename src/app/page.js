@@ -1846,7 +1846,6 @@ export default function Portfolio() {
 
         {/* ============ TECH STACK ============ */}
         <div className="scene-wrap">
-          <SectionBg image={BACKGROUNDS.stack} />
           <section id="stack" className="section stack-sec">
             <EditBar groups={["stack"]} onEdit={setEditGroup} />
             {/* phone pe "What I Do" cards yahan dikhte hain */}
