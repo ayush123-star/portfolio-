@@ -454,28 +454,41 @@ function Avatar({ talking = false }) {
     let cy = 0;
     let turnS = 0;
     let raf;
+    let rect = null;
     const t0 = performance.now();
+
+    const updateRect = () => {
+      if (svgRef.current) rect = svgRef.current.getBoundingClientRect();
+    };
+    updateRect();
+
     const onMove = (e) => {
-      const el = svgRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
+      if (!rect) updateRect();
+      if (!rect) return;
       tx = Math.max(
         -1,
         Math.min(
           1,
-          (e.clientX - (r.left + r.width / 2)) / (window.innerWidth * 0.5),
+          (e.clientX - (rect.left + rect.width * 0.5)) / (window.innerWidth * 0.5),
         ),
       );
       ty = Math.max(
         -1,
         Math.min(
           1,
-          (e.clientY - (r.top + r.height * 0.42)) / (window.innerHeight * 0.5),
+          (e.clientY - (rect.top + rect.height * 0.42)) / (window.innerHeight * 0.5),
         ),
       );
     };
+
     const set = (ref, v) =>
       ref.current && ref.current.setAttribute("transform", v);
+
+    let prevCx = 999;
+    let prevCy = 999;
+    let prevT = 999;
+    let prevDown = 999;
+
     const loop = (now) => {
       if (coarse || reduce) {
         const t = (now - t0) / 1000;
@@ -495,42 +508,61 @@ function Avatar({ talking = false }) {
       const T = turnS;
       const down = w * 0.75;
 
-      set(
-        headRef,
-        `translate(${(cx * 5).toFixed(2)} ${(cy * 4 + down * 6).toFixed(2)}) rotate(${(cx * 4 + T * 3).toFixed(2)} 200 300)`,
-      );
-      set(
-        featRef,
-        `translate(${(T * 24).toFixed(2)} ${(down * 6).toFixed(2)})`,
-      );
-      set(faceRef, `translate(${(T * 5).toFixed(2)} 0)`);
-      set(hairRef, `translate(${(T * 7).toFixed(2)} 0)`);
-      set(quiffRef, `translate(${(T * 12).toFixed(2)} 0)`);
-      set(earLRef, `translate(${(T * 14).toFixed(2)} 0)`);
-      set(earRRef, `translate(${(T * 14).toFixed(2)} 0)`);
-      if (earLRef.current)
-        earLRef.current.setAttribute(
-          "opacity",
-          (1 - Math.max(0, -T) * 1.1).toFixed(2),
+      // Only write to DOM if values changed noticeably (saves CPU cycles)
+      if (
+        Math.abs(cx - prevCx) > 0.01 ||
+        Math.abs(cy - prevCy) > 0.01 ||
+        Math.abs(T - prevT) > 0.01 ||
+        Math.abs(down - prevDown) > 0.01
+      ) {
+        prevCx = cx;
+        prevCy = cy;
+        prevT = T;
+        prevDown = down;
+
+        set(
+          headRef,
+          `translate(${(cx * 5).toFixed(2)} ${(cy * 4 + down * 6).toFixed(2)}) rotate(${(cx * 4 + T * 3).toFixed(2)} 200 300)`,
         );
-      if (earRRef.current)
-        earRRef.current.setAttribute(
-          "opacity",
-          (1 - Math.max(0, T) * 1.1).toFixed(2),
+        set(
+          featRef,
+          `translate(${(T * 24).toFixed(2)} ${(down * 6).toFixed(2)})`,
         );
-      set(chestRef, `translate(${(T * 18).toFixed(2)} 0)`);
-      set(collarRef, `translate(${(T * 10).toFixed(2)} 0)`);
-      const pt = `translate(${(cx * 8 + T * 5).toFixed(2)} ${(cy * 7 + down * 9).toFixed(2)})`;
-      set(pupilL, pt);
-      set(pupilR, pt);
-      if (svgRef.current) svgRef.current.dataset.working = w > 0.5 ? "1" : "0";
+        set(faceRef, `translate(${(T * 5).toFixed(2)} 0)`);
+        set(hairRef, `translate(${(T * 7).toFixed(2)} 0)`);
+        set(quiffRef, `translate(${(T * 12).toFixed(2)} 0)`);
+        set(earLRef, `translate(${(T * 14).toFixed(2)} 0)`);
+        set(earRRef, `translate(${(T * 14).toFixed(2)} 0)`);
+        if (earLRef.current)
+          earLRef.current.setAttribute(
+            "opacity",
+            (1 - Math.max(0, -T) * 1.1).toFixed(2),
+          );
+        if (earRRef.current)
+          earRRef.current.setAttribute(
+            "opacity",
+            (1 - Math.max(0, T) * 1.1).toFixed(2),
+          );
+        set(chestRef, `translate(${(T * 18).toFixed(2)} 0)`);
+        set(collarRef, `translate(${(T * 10).toFixed(2)} 0)`);
+        const pt = `translate(${(cx * 8 + T * 5).toFixed(2)} ${(cy * 7 + down * 9).toFixed(2)})`;
+        set(pupilL, pt);
+        set(pupilR, pt);
+        if (svgRef.current) svgRef.current.dataset.working = w > 0.5 ? "1" : "0";
+      }
+
       raf = requestAnimationFrame(loop);
     };
-    window.addEventListener("mousemove", onMove);
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("resize", updateRect, { passive: true });
+    window.addEventListener("scroll", updateRect, { passive: true });
     raf = requestAnimationFrame(loop);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("resize", updateRect);
+      window.removeEventListener("scroll", updateRect);
     };
   }, []);
 
@@ -1304,6 +1336,51 @@ function useSpeech(lines, start) {
   return { text, talking };
 }
 
+/* Avatar interactive unit: isolates speech typing & click spin
+   so the entire page doesn't re-render 20 times a second */
+function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
+  const avInRef = useRef(null);
+  const { text: speech, talking } = useSpeech(
+    phase === 2 ? SPEECH_WORK : SPEECH_INTRO,
+    ready,
+  );
+  const spin = () => {
+    const el = avInRef.current;
+    if (!el || el.dataset.spin === "1") return;
+    el.dataset.spin = "1";
+    setTimeout(() => {
+      if (el) el.dataset.spin = "0";
+    }, 1100);
+  };
+
+  return (
+    <div className="av-wrap">
+      <div
+        className="av-in"
+        ref={avInRef}
+        onClick={spin}
+        title="Click me!"
+      >
+        <div className="av-glow" />
+        {avatarImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            className="avatar avatar-img"
+            src={avatarImage}
+            alt={fullName}
+          />
+        ) : (
+          <Avatar talking={talking} />
+        )}
+        <div className="bubble">
+          <span>{speech}</span>
+          <i className="caret" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Rotator({ words }) {
   const [i, setI] = useState(0);
   useEffect(() => {
@@ -1337,9 +1414,9 @@ function Cursor() {
       x = e.clientX;
       y = e.clientY;
       if (dot.current) {
-        dot.current.style.transform = `translate(${x}px, ${y}px)`;
+        dot.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         dot.current.classList.add("visible");
-        ring.current.classList.add("visible");
+        ring.current?.classList.add("visible");
       }
     };
     const over = (e) => {
@@ -1354,12 +1431,12 @@ function Cursor() {
       rx += (x - rx) * 0.18;
       ry += (y - ry) * 0.18;
       if (ring.current)
-        ring.current.style.transform = `translate(${rx}px, ${ry}px)`;
+        ring.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
       raf = requestAnimationFrame(loop);
     };
     loop();
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseover", over);
+    window.addEventListener("mousemove", move, { passive: true });
+    window.addEventListener("mouseover", over, { passive: true });
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", move);
@@ -1377,20 +1454,37 @@ function Cursor() {
 
 function TiltCard({ children }) {
   const ref = useRef(null);
+  const rectRef = useRef(null);
+
+  const onEnter = () => {
+    if (ref.current) rectRef.current = ref.current.getBoundingClientRect();
+  };
+
   const onMove = (e) => {
     const el = ref.current;
-    const r = el.getBoundingClientRect();
+    if (!el) return;
+    if (!rectRef.current) rectRef.current = el.getBoundingClientRect();
+    const r = rectRef.current;
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
     el.style.transform = `perspective(1000px) rotateX(${(0.5 - py) * 7}deg) rotateY(${(px - 0.5) * 7}deg) translateY(-6px)`;
     el.style.setProperty("--mx", `${px * 100}%`);
     el.style.setProperty("--my", `${py * 100}%`);
   };
+
   const onLeave = () => {
-    ref.current.style.transform = "";
+    rectRef.current = null;
+    if (ref.current) ref.current.style.transform = "";
   };
+
   return (
-    <div ref={ref} className="tilt" onMouseMove={onMove} onMouseLeave={onLeave}>
+    <div
+      ref={ref}
+      className="tilt"
+      onMouseEnter={onEnter}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+    >
       {children}
     </div>
   );
@@ -1454,7 +1548,6 @@ export default function Portfolio() {
   const [theme, setTheme] = useState(DEFAULT_THEME);
   const [active, setActive] = useState("home");
   const [scrolled, setScrolled] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [phase, setPhase] = useState(0);
   const [openWid, setOpenWid] = useState(0);
   const [cert, setCert] = useState(null);
@@ -1462,13 +1555,13 @@ export default function Portfolio() {
   const [editGroup, setEditGroup] = useState(null);
   const [form, setForm] = useState({ name: "", message: "" });
   const sceneRef = useRef(null);
-  const avInRef = useRef(null);
+  const progressRef = useRef(null);
   const timelineRef = useRef(null);
   const lineRef = useRef(null);
-  const { text: speech, talking } = useSpeech(
-    phase === 2 ? SPEECH_WORK : SPEECH_INTRO,
-    !loading,
-  );
+  const activeRef = useRef("home");
+  const scrolledRef = useRef(false);
+  const phaseRef = useRef(0);
+
   const T = THEMES[theme] || THEMES.sky;
   // Year is read on the client only, so prerender doesn't capture the build date
   const year = useSyncExternalStore(
@@ -1498,10 +1591,10 @@ export default function Portfolio() {
     } catch {}
   };
 
-  // Loader
+  // Loader: fast, snappy greeting animation without delaying the page
   useEffect(() => {
     let i = 0;
-    const step = 300;
+    const step = 160;
     const iv = setInterval(() => {
       i++;
       if (i < GREETINGS.length) setGreet(i);
@@ -1509,7 +1602,7 @@ export default function Portfolio() {
     }, step);
     const done = setTimeout(
       () => setLoading(false),
-      step * GREETINGS.length + 250,
+      step * GREETINGS.length + 80,
     );
     return () => {
       clearInterval(iv);
@@ -1517,21 +1610,36 @@ export default function Portfolio() {
     };
   }, []);
 
-  // Scroll story + nav + progress + timeline
+  // Scroll story + nav + progress + timeline (60fps rAF throttled & 0 layout thrashing)
   useEffect(() => {
-    const onScroll = () => {
+    let ticking = false;
+
+    const updateScroll = () => {
       const doc = document.documentElement;
       const max = doc.scrollHeight - doc.clientHeight;
       const top = window.scrollY;
-      setProgress(max > 0 ? (top / max) * 100 : 0);
-      setScrolled(top > 30);
+
+      // GPU-accelerated progress bar update (zero React re-renders)
+      if (progressRef.current) {
+        const ratio = max > 0 ? top / max : 0;
+        progressRef.current.style.transform = `scaleX(${ratio})`;
+      }
+
+      const isScrolled = top > 30;
+      if (isScrolled !== scrolledRef.current) {
+        scrolledRef.current = isScrolled;
+        setScrolled(isScrolled);
+      }
 
       let current = "home";
       for (const n of NAV) {
         const el = document.getElementById(n.id);
         if (el && el.getBoundingClientRect().top <= 160) current = n.id;
       }
-      setActive(current);
+      if (current !== activeRef.current) {
+        activeRef.current = current;
+        setActive(current);
+      }
 
       const scene = sceneRef.current;
       if (scene) {
@@ -1548,7 +1656,10 @@ export default function Portfolio() {
         scene.style.setProperty("--p2", p2.toFixed(4));
         const ph = p2 > 0.5 ? 2 : p1 > 0.5 ? 1 : 0;
         scene.dataset.phase = String(ph);
-        setPhase(ph);
+        if (ph !== phaseRef.current) {
+          phaseRef.current = ph;
+          setPhase(ph);
+        }
       }
 
       if (timelineRef.current && lineRef.current) {
@@ -1557,9 +1668,20 @@ export default function Portfolio() {
         lineRef.current.style.height = `calc(${lp} * (100% - 12px))`;
       }
     };
-    onScroll();
+
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    updateScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
@@ -1582,15 +1704,6 @@ export default function Portfolio() {
       }
     } catch {}
   }, []);
-
-  const spin = () => {
-    const el = avInRef.current;
-    if (!el || el.dataset.spin === "1") return;
-    el.dataset.spin = "1";
-    setTimeout(() => {
-      el.dataset.spin = "0";
-    }, 1100);
-  };
 
   const copyEmail = async () => {
     try {
@@ -1625,7 +1738,7 @@ export default function Portfolio() {
 
       <Cursor />
       <MusicPlayer src={MUSIC.src} title={MUSIC.title} />
-      <div className="progress" style={{ width: `${progress}%` }} />
+      <div ref={progressRef} className="progress" />
 
       {/* Navbar */}
       <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
@@ -1780,30 +1893,12 @@ export default function Portfolio() {
               </h2>
             </div>
 
-            <div className="av-wrap">
-              <div
-                className="av-in"
-                ref={avInRef}
-                onClick={spin}
-                title="Click me!"
-              >
-                <div className="av-glow" />
-                {PROFILE.avatarImage ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    className="avatar avatar-img"
-                    src={PROFILE.avatarImage}
-                    alt={PROFILE.fullName}
-                  />
-                ) : (
-                  <Avatar talking={talking} />
-                )}
-                <div className="bubble">
-                  <span>{speech}</span>
-                  <i className="caret" />
-                </div>
-              </div>
-            </div>
+            <AvatarInteractive
+              phase={phase}
+              ready={!loading}
+              avatarImage={PROFILE.avatarImage}
+              fullName={PROFILE.fullName}
+            />
 
             <div className="about-blk">
               <div className="eyebrow mono">ABOUT ME</div>
@@ -2236,21 +2331,21 @@ body{margin:0;background:#f6f8fc}
 .center{text-align:center;margin-top:48px}
 
 /* loader */
-.loader{position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;transition:transform .9s cubic-bezier(.76,0,.24,1)}
-.loader.done{transform:translateY(-100%)}
-.greet{display:flex;align-items:center;gap:14px;font-size:clamp(36px,6vw,64px);font-weight:700;animation:greet .3s ease}
+.loader{position:fixed;inset:0;z-index:200;background:var(--bg);display:grid;place-items:center;transition:transform .6s cubic-bezier(.76,0,.24,1);will-change:transform}
+.loader.done{transform:translateY(-100%);pointer-events:none}
+.greet{display:flex;align-items:center;gap:14px;font-size:clamp(36px,6vw,64px);font-weight:700;animation:greet .25s ease}
 .greet i{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent)}
 @keyframes greet{from{opacity:0;transform:translateY(14px)}}
 
 /* cursor */
-.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:300;border-radius:50%;opacity:0}
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:300;border-radius:50%;opacity:0;will-change:transform}
 .cursor-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--accent2);box-shadow:0 0 14px var(--accent2);transition:opacity .3s}
 .cursor-ring{width:38px;height:38px;margin:-19px 0 0 -19px;border:1.5px solid rgba(var(--acc2-rgb),.55);transition:width .25s,height .25s,margin .25s,background .25s,border-color .25s,opacity .3s}
 .cursor-dot.visible,.cursor-ring.visible{opacity:1}
 .cursor-ring.hover{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(var(--acc-rgb),.08);border-color:var(--accent)}
 html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 
-.progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);z-index:60;box-shadow:0 0 10px var(--accent)}
+.progress{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--accent);z-index:60;box-shadow:0 0 10px var(--accent);transform-origin:left;transform:scaleX(0);will-change:transform}
 
 /* nav */
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
@@ -2327,12 +2422,12 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 
 .av-wrap{position:absolute;left:50%;bottom:0;height:min(76vh,720px);aspect-ratio:400/470;perspective:1200px;transform-origin:bottom center;
   transform:translateX(calc(-50% - (var(--p1) - var(--p2)) * 25vw)) scale(calc(1 - var(--p2) * .14));will-change:transform}
-.av-in{position:relative;height:100%;opacity:0;transform:translateY(35%) rotateY(-80deg);transform-style:preserve-3d;cursor:pointer}
+.av-in{position:relative;height:100%;opacity:0;transform:translateY(35%) rotateY(-80deg);transform-style:preserve-3d;cursor:pointer;will-change:transform,opacity}
 .scene.ready .av-in{animation:avIn 1.4s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes avIn{to{opacity:1;transform:none}}
 .av-in[data-spin="1"] .avatar{animation:spin 1.05s cubic-bezier(.5,0,.25,1)}
 @keyframes spin{to{transform:rotateY(360deg)}}
-.av-glow{position:absolute;left:8%;right:8%;top:22%;bottom:-6%;border-radius:50%;background:radial-gradient(circle at 50% 45%,rgba(var(--acc-rgb),.34),rgba(var(--acc-rgb),.08) 45%,transparent 70%);filter:blur(10px);animation:glowPulse 5s ease-in-out infinite}
+.av-glow{position:absolute;left:8%;right:8%;top:22%;bottom:-6%;border-radius:50%;background:radial-gradient(circle at 50% 45%,rgba(var(--acc-rgb),.34),rgba(var(--acc-rgb),.08) 45%,transparent 70%);filter:blur(10px);will-change:transform,opacity;animation:glowPulse 5s ease-in-out infinite}
 @keyframes glowPulse{50%{opacity:.7;transform:scale(1.05)}}
 .avatar{position:relative;width:100%;height:100%;display:block}
 .avatar-img{object-fit:contain;object-position:bottom;animation:floaty 5s ease-in-out infinite}
@@ -2528,7 +2623,7 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 
 
 /* nature scene */
-.scenery{position:absolute;inset:0;pointer-events:none}
+.scenery{position:absolute;inset:0;pointer-events:none;contain:paint}
 .scenery svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .scenery::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 30%,color-mix(in srgb,var(--bg) 82%,transparent) 58%);opacity:calc(var(--p1) - var(--p2))}
 .sk1{stop-color:var(--sky1)}
