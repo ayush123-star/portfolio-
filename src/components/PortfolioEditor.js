@@ -29,6 +29,7 @@ const SECTION_DEFS = {
       { k: "instagram", l: "Instagram URL" },
       { k: "resume", l: "Resume path (public/ ki file, e.g. /resume.pdf)" },
       { k: "avatarImage", l: "Avatar image (khali = animated avatar)", t: "img" },
+      { k: "logoImage", l: "Navbar photo / logo (khali = initials AP)", t: "img" },
     ],
   },
   heroWords: { kind: "strings", hint: "Rotating words — har line ek word" },

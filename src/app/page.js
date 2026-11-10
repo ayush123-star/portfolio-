@@ -1743,9 +1743,20 @@ export default function Portfolio() {
       {/* Navbar */}
       <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
         <div className="nav-inner">
-          <a href="#home" className="logo">
-            {PROFILE.initials}
-            <span>.</span>
+          <a href="#home" className="logo" aria-label="Home">
+            {PROFILE.logoImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={PROFILE.logoImage}
+                alt={PROFILE.fullName || "Ayush Pandey"}
+                className="logo-img"
+              />
+            ) : (
+              <>
+                {PROFILE.initials}
+                <span>.</span>
+              </>
+            )}
           </a>
           <a href={`mailto:${PROFILE.email}`} className="nav-mail mono">
             {PROFILE.email}
@@ -2352,8 +2363,10 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 .nav.scrolled{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom-color:var(--line)}
 .nav-inner{position:relative;max-width:1280px;margin:0 auto;padding:22px 32px;display:flex;align-items:center;gap:20px;transition:padding .3s}
 .nav.scrolled .nav-inner{padding-top:14px;padding-bottom:14px}
-.logo{font-weight:900;font-size:24px;letter-spacing:.5px}
+.logo{display:inline-flex;align-items:center;font-weight:900;font-size:24px;letter-spacing:.5px;text-decoration:none}
 .logo span{color:var(--accent)}
+.logo-img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--line2);transition:border-color .25s,transform .25s,box-shadow .25s;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.logo:hover .logo-img{border-color:var(--accent);transform:scale(1.06);box-shadow:0 0 16px rgba(var(--acc-rgb),.4)}
 .nav-mail{font-size:12.5px;color:var(--muted);transition:color .2s}
 .nav-mail:hover{color:var(--accent)}
 .nav-links{display:flex;gap:2px;margin-left:auto}
