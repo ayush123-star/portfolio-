@@ -315,6 +315,212 @@ const GitHubIcon = ({ size = 18 }) => (
   </svg>
 );
 
+function TechLogo({ name = "" }) {
+  const n = (name || "").toLowerCase().trim();
+
+  // JavaScript
+  if (n.includes("javascript") || n === "js") {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <rect width="32" height="32" rx="6" fill="#F7DF1E" />
+        <path
+          d="M19.5 12v10.5c0 1.8-1.1 2.6-2.7 2.6-1.4 0-2.3-.7-2.7-1.6l1.8-.9c.2.5.5.8.9.8.6 0 .9-.4.9-1.1V12h1.8zm-6.5 7.8c.4.7 1 1.2 2 1.2 1.1 0 1.7-.6 1.7-1.4 0-1-.8-1.4-2-1.8-1.6-.6-2.6-1.3-2.6-2.8 0-1.5 1.2-2.6 2.8-2.6 1.3 0 2.2.5 2.7 1.5l-1.6 1c-.3-.5-.6-.8-1.1-.8-.5 0-.9.3-.9.8 0 .5.3.8 1.4 1.2 1.7.7 3 1.4 3 3.1 0 1.7-1.4 2.8-3.3 2.8-1.8 0-3-.9-3.5-2l1.6-1z"
+          fill="#000000"
+        />
+      </svg>
+    );
+  }
+
+  // HTML5
+  if (n.includes("html")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <path d="M5 2l2.3 25.4L16 30l8.7-2.6L27 2H5z" fill="#E44D26" />
+        <path d="M16 27.8l6.8-2.1L24.8 4.2H16v23.6z" fill="#F16529" />
+        <path d="M16 12.5H11.2l-.3-3.4H16V5.5H7.7l.9 10.5H16v-3.5zm0 8.6l-3.9-1-.3-2.9H8.4l.5 5.7 7.1 2V21.1z" fill="#EBEBEB" />
+        <path d="M16 12.5v3.5h4.3l-.4 4.8-3.9 1v3.4l7.1-2 .8-9.4H16v-1.3zm0-7v3.6h7.8l.3-3.6H16z" fill="#FFFFFF" />
+      </svg>
+    );
+  }
+
+  // CSS3
+  if (n.includes("css")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <path d="M5 2l2.3 25.4L16 30l8.7-2.6L27 2H5z" fill="#1572B6" />
+        <path d="M16 27.8l6.8-2.1L24.8 4.2H16v23.6z" fill="#33A9DC" />
+        <path d="M16 12.5H11.2l-.3-3.4H16V5.5H7.7l.9 10.5H16v-3.5zm0 8.6l-3.9-1-.3-2.9H8.4l.5 5.7 7.1 2V21.1z" fill="#EBEBEB" />
+        <path d="M16 12.5v3.5h4.3l-.4 4.8-3.9 1v3.4l7.1-2 .8-9.4H16v-1.3zm0-7v3.6h7.8l.3-3.6H16z" fill="#FFFFFF" />
+      </svg>
+    );
+  }
+
+  // Express.js
+  if (n.includes("express")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <rect width="32" height="32" rx="6" fill="#1e2430" />
+        <path
+          d="M8.5 22l4-6.3-3.7-5.7h2.4l2.5 4 2.5-4h2.4l-3.7 5.7 4 6.3h-2.5L16 17.8l-2.8 4.2H8.5zm11.2 0l2.8-4.5h2.2l-2.8 4.5h-2.2z"
+          fill="#ffffff"
+        />
+      </svg>
+    );
+  }
+
+  // Node.js
+  if (n.includes("node")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <path d="M16 2l12 6.9v14.2L16 30 4 23.1V8.9L16 2z" fill="#339933" />
+        <path
+          d="M16 8.5c-3.2 0-4.8 1.6-4.8 3.7 0 2.9 5.1 2.9 5.1 4.7 0 .7-.5 1.1-1.6 1.1-1.2 0-2.4-.5-3.2-1.1l-1 1.9c1.2.9 2.7 1.3 4.2 1.3 3.3 0 5.1-1.7 5.1-3.9 0-3.1-5.1-3.1-5.1-4.7 0-.5.5-.9 1.5-.9.9 0 2 .4 2.8.8l1-1.9c-1.1-.7-2.4-1-4-1z"
+          fill="#ffffff"
+        />
+      </svg>
+    );
+  }
+
+  // MongoDB
+  if (n.includes("mongo")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <path
+          d="M16 2c-.6 3.6-5.5 8.2-5.5 14.5 0 5.2 3.5 9.7 5.5 13.5 2-3.8 5.5-8.3 5.5-13.5C21.5 10.2 16.6 5.6 16 2z"
+          fill="#47A248"
+        />
+        <path
+          d="M16 2v28c.4-.7.9-1.5 1.3-2.3 1.8-3.4 4.2-7 4.2-11.2 0-6.3-4.9-10.9-5.5-14.5z"
+          fill="#499D4A"
+        />
+        <path
+          d="M16 22.5c-.3 0-.6-.3-.6-.6V9.8c0-.3.3-.6.6-.6s.6.3.6.6v12.1c0 .3-.3.6-.6.6z"
+          fill="#ffffff"
+          opacity="0.65"
+        />
+      </svg>
+    );
+  }
+
+  // SQL / Database
+  if (n.includes("sql") || n.includes("database")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <rect width="32" height="32" rx="6" fill="#00758F" />
+        <ellipse cx="16" cy="9" rx="8.5" ry="3.5" fill="#ffffff" />
+        <path
+          d="M7.5 9v6.5c0 1.9 3.8 3.5 8.5 3.5s8.5-1.6 8.5-3.5V9"
+          stroke="#ffffff"
+          strokeWidth="2"
+          fill="none"
+        />
+        <path
+          d="M7.5 15.5V22c0 1.9 3.8 3.5 8.5 3.5s8.5-1.6 8.5-3.5v-6.5"
+          stroke="#ffffff"
+          strokeWidth="2"
+          fill="none"
+        />
+      </svg>
+    );
+  }
+
+  // Python
+  if (n.includes("python")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <path
+          d="M15.9 3c-4.4 0-4.1 1.9-4.1 1.9l.01 2h4.2v.6h-5.9c-2.3 0-4 1.4-4 4.1 0 2.7 1.5 4 3.3 4h1.7v-2.3c0-1.9 1.6-3.4 3.5-3.4h4.1c1.6 0 2.9-1.3 2.9-2.9V5.9c0-1.6-1.4-2.9-3-2.9h-2.7zm-2.3 1.8a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8z"
+          fill="#3776AB"
+        />
+        <path
+          d="M16.1 29c4.4 0 4.1-1.9 4.1-1.9l-.01-2h-4.2v-.6h5.9c2.3 0 4-1.4 4-4.1 0-2.7-1.5-4-3.3-4h-1.7v2.3c0 1.9-1.6 3.4-3.5 3.4h-4.1c-1.6 0-2.9 1.3-2.9 2.9v1.1c0 1.6 1.4 2.9 3 2.9h2.7zm2.3-1.8a.9.9 0 1 1 0-1.8.9.9 0 0 1 0 1.8z"
+          fill="#FFD43B"
+        />
+      </svg>
+    );
+  }
+
+  // GitHub / Git
+  if (n.includes("git")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <rect width="32" height="32" rx="6" fill="#181717" />
+        <path
+          d="M16 6C10.5 6 6 10.5 6 16c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.7.4-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .9-.3 2.8 1a9.8 9.8 0 0 1 5.2 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.7.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.02 10.02 0 0 0 26 16c0-5.5-4.5-10-10-10z"
+          fill="#ffffff"
+        />
+      </svg>
+    );
+  }
+
+  // React
+  if (n.includes("react")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <rect width="32" height="32" rx="6" fill="#20232A" />
+        <circle cx="16" cy="16" r="2.4" fill="#61DAFB" />
+        <ellipse cx="16" cy="16" rx="10" ry="3.8" stroke="#61DAFB" strokeWidth="1.4" fill="none" />
+        <ellipse cx="16" cy="16" rx="10" ry="3.8" stroke="#61DAFB" strokeWidth="1.4" fill="none" transform="rotate(60 16 16)" />
+        <ellipse cx="16" cy="16" rx="10" ry="3.8" stroke="#61DAFB" strokeWidth="1.4" fill="none" transform="rotate(120 16 16)" />
+      </svg>
+    );
+  }
+
+  // Tailwind CSS
+  if (n.includes("tailwind")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <rect width="32" height="32" rx="6" fill="#0F172A" />
+        <path
+          d="M10.8 14.5c.9-3.5 3.1-4.9 6.7-4.2 2.1.4 3.5 1.9 5.1 3.5 2.6 2.7 5.6 5.8 12.1 5.8-2.6 3.5-5.6 4.9-9.1 4.2-2.1-.4-3.5-1.9-5.1-3.5-2.6-2.7-5.6-5.8-9.7-5.8zm-9.1 8c.9-3.5 3.1-4.9 6.7-4.2 2.1.4 3.5 1.9 5.1 3.5 2.6 2.7 5.6 5.8 12.1 5.8-2.6 3.5-5.6 4.9-9.1 4.2-2.1-.4-3.5-1.9-5.1-3.5-2.6-2.7-5.6-5.8-9.7-5.8z"
+          fill="#06B6D4"
+          transform="translate(-2, -3) scale(0.85)"
+        />
+      </svg>
+    );
+  }
+
+  // Guitar 🎸
+  if (n.includes("guitar")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <rect width="32" height="32" rx="6" fill="#EA580C" />
+        <text x="16" y="22" textAnchor="middle" fontSize="18">🎸</text>
+      </svg>
+    );
+  }
+
+  // Photography 📸
+  if (n.includes("photo")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <rect width="32" height="32" rx="6" fill="#0D9488" />
+        <text x="16" y="22" textAnchor="middle" fontSize="18">📸</text>
+      </svg>
+    );
+  }
+
+  // Japanese 🏯
+  if (n.includes("japan")) {
+    return (
+      <svg viewBox="0 0 32 32" width="34" height="34">
+        <rect width="32" height="32" rx="6" fill="#E11D48" />
+        <text x="16" y="22" textAnchor="middle" fontSize="18">🏯</text>
+      </svg>
+    );
+  }
+
+  // Fallback badge with initials
+  return (
+    <svg viewBox="0 0 32 32" width="34" height="34">
+      <rect width="32" height="32" rx="6" fill="rgba(var(--acc-rgb),.15)" stroke="rgba(var(--acc-rgb),.3)" strokeWidth="1" />
+      <text x="16" y="20.5" textAnchor="middle" fill="var(--accent)" fontFamily="'JetBrains Mono', monospace" fontWeight="700" fontSize="11" letterSpacing="0.5">
+        {(name || "").slice(0, 3).toUpperCase()}
+      </text>
+    </svg>
+  );
+}
+
 const I = {
   linkedin: (
     <>
@@ -1970,7 +2176,9 @@ export default function Portfolio() {
               {STACK.map((s, i) => (
                 <Reveal key={s.name} style={{ "--d": `${(i % 6) * 0.06}s` }}>
                   <div className="tile">
-                    <span className="tile-abbr mono">{s.abbr}</span>
+                    <span className="tile-abbr" title={s.name}>
+                      <TechLogo name={s.name || s.abbr} />
+                    </span>
                     <span className="tile-name">{s.name}</span>
                   </div>
                 </Reveal>
@@ -2532,8 +2740,9 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
 .tile{height:100%;display:flex;flex-direction:column;align-items:flex-start;gap:16px;padding:22px 20px;border-radius:18px;border:1px solid var(--line);background:var(--bg2);transition:transform .3s,border-color .3s,box-shadow .3s}
 .tile:hover{transform:translateY(-6px);border-color:rgba(var(--acc-rgb),.45);box-shadow:0 20px 40px -22px rgba(var(--acc-rgb),.6)}
-.tile-abbr{min-width:54px;height:54px;padding:0 10px;display:grid;place-items:center;border-radius:14px;background:rgba(var(--acc-rgb),.1);border:1px solid rgba(var(--acc-rgb),.25);color:var(--accent);font-size:17px;font-weight:600;transition:transform .4s cubic-bezier(.2,.9,.3,1.4)}
-.tile:hover .tile-abbr{transform:rotate(-8deg) scale(1.1)}
+.tile-abbr{width:56px;height:56px;min-width:56px;display:grid;place-items:center;border-radius:14px;background:var(--bg3);border:1px solid var(--line2);box-shadow:0 2px 8px rgba(0,0,0,.04);transition:transform .4s cubic-bezier(.2,.9,.3,1.4),border-color .3s,box-shadow .3s}
+.tile:hover .tile-abbr{transform:rotate(-6deg) scale(1.12);border-color:var(--accent);box-shadow:0 8px 24px -6px rgba(var(--acc-rgb),.4)}
+.tile-abbr svg{display:block}
 .tile-name{font-weight:700;font-size:15.5px}
 .marquee{position:relative;overflow:hidden;padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
 .marquee-track{display:flex;gap:40px;width:max-content;animation:marquee 30s linear infinite;font-size:clamp(22px,3vw,40px);font-weight:900;text-transform:uppercase;letter-spacing:-.5px;white-space:nowrap}
