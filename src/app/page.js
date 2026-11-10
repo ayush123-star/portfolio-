@@ -772,565 +772,432 @@ function Avatar({ talking = false }) {
     };
   }, []);
 
-  const skin = `url(#skin${uid})`;
-  const shade = `url(#shade${uid})`;
-  const hoodie = `url(#hoodie${uid})`;
-  const hairGrad = `url(#hair${uid})`;
-  const hair = "#140f0c";
-  const glassesColor = "#b8c4d4";
+  const plateDark = `url(#plateDark${uid})`;
+  const plateMid = `url(#plateMid${uid})`;
+  const plateLight = `url(#plateLight${uid})`;
+  const visorGrad = `url(#visorGrad${uid})`;
+  const arcGrad = `url(#arcGrad${uid})`;
 
   return (
     <svg
       ref={svgRef}
       viewBox="0 0 400 470"
-      className={`avatar human-avatar${talking ? " talking" : ""}`}
+      className={`avatar cyber-bot${talking ? " talking" : ""}`}
       aria-hidden="true"
     >
       <defs>
-        {/* Natural warm Indian skin tone */}
-        <radialGradient id={`skin${uid}`} cx="0.42" cy="0.38" r="0.78">
-          <stop offset="0%" stopColor="#ebba93" />
-          <stop offset="60%" stopColor="#da9c72" />
-          <stop offset="100%" stopColor="#b8774b" />
-        </radialGradient>
-
-        <linearGradient id={`shade${uid}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#9c5f37" />
-          <stop offset="100%" stopColor="#7a4422" />
+        {/* Mecha chassis plating gradients */}
+        <linearGradient id={`plateDark${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#1e293b" />
+          <stop offset="50%" stopColor="#0f172a" />
+          <stop offset="100%" stopColor="#080d1a" />
         </linearGradient>
-
-        {/* Stylish deep maroon / burgundy hoodie (matching Ayush's photo) */}
-        <linearGradient id={`hoodie${uid}`} x1="0" y1="0" x2="0.2" y2="1">
-          <stop offset="0%" stopColor="#4a1525" />
-          <stop offset="50%" stopColor="#320e19" />
-          <stop offset="100%" stopColor="#1a070d" />
-        </linearGradient>
-
-        {/* Natural rich dark black-brown hair with subtle shine */}
-        <linearGradient id={`hair${uid}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#2c221b" />
-          <stop offset="45%" stopColor="#1a130f" />
-          <stop offset="100%" stopColor="#0f0b08" />
-        </linearGradient>
-
-        {/* Space gray laptop lid */}
-        <linearGradient id={`laptop${uid}`} x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={`plateMid${uid}`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#334155" />
+          <stop offset="50%" stopColor="#1e293b" />
+          <stop offset="100%" stopColor="#0f172a" />
+        </linearGradient>
+        <linearGradient id={`plateLight${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#475569" />
           <stop offset="100%" stopColor="#1e293b" />
         </linearGradient>
 
-        {/* Eye clip paths */}
-        <clipPath id={`eL${uid}`}>
-          <ellipse cx="163" cy="206" rx="20" ry="22" />
-        </clipPath>
-        <clipPath id={`eR${uid}`}>
-          <ellipse cx="237" cy="206" rx="20" ry="22" />
+        {/* Visor 3D curved glass */}
+        <linearGradient id={`visorGrad${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#0a101f" />
+          <stop offset="40%" stopColor="#060913" />
+          <stop offset="100%" stopColor="#020408" />
+        </linearGradient>
+
+        {/* Arc reactor quantum core */}
+        <radialGradient id={`arcGrad${uid}`} cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="35%" stopColor="var(--accent)" />
+          <stop offset="70%" stopColor="var(--accent2)" />
+          <stop offset="100%" stopColor="rgba(var(--acc-rgb), 0)" />
+        </radialGradient>
+
+        {/* Holographic screens for phase 2 */}
+        <linearGradient id={`holoScreen${uid}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="var(--accent2)" stopOpacity="0.08" />
+        </linearGradient>
+
+        <clipPath id={`visorClip${uid}`}>
+          <rect x="124" y="156" width="152" height="106" rx="34" />
         </clipPath>
       </defs>
 
-            <g className="av-body">
-        {/* Maroon Hoodie Torso & Shoulders (matching Ayush's real photo) */}
+      {/* Orbiting Companion Mini-Drone */}
+      <g className="drone-companion">
+        <ellipse cx="335" cy="118" rx="22" ry="12" fill={plateMid} stroke="var(--accent)" strokeWidth="1.5" />
+        <circle cx="335" cy="118" r="6" fill="var(--accent)" className="drone-eye" />
+        <circle cx="335" cy="118" r="9" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="318" y1="118" x2="310" y2="118" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+        <line x1="352" y1="118" x2="360" y2="118" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+        {/* Micro thruster glow */}
+        <ellipse cx="335" cy="132" rx="4" ry="2" fill="var(--accent2)" opacity="0.8" />
+      </g>
+
+      <g className="av-body">
+        {/* Heavy Mecha Torso / Shoulders */}
         <path
-          d="M 52 470 C 56 385 110 330 200 330 C 290 330 344 385 348 470 Z"
-          fill={hoodie}
-          stroke="#19070c"
-          strokeWidth="2.5"
+          d="M 52 470 C 56 385 110 332 200 332 C 290 332 344 385 348 470 Z"
+          fill={plateDark}
+          stroke="#0b1120"
+          strokeWidth="3"
         />
 
-        {/* Left & Right Shoulder Folds */}
+        {/* Left & Right Shoulder Armor Guards */}
         <path
-          d="M 56 470 C 58 408 92 365 136 348 L 120 470 Z"
-          fill="#220810"
-          opacity="0.65"
+          d="M 54 470 C 56 405 92 362 136 348 L 120 470 Z"
+          fill={plateMid}
+          opacity="0.8"
         />
         <path
-          d="M 344 470 C 342 408 308 365 264 348 L 280 470 Z"
-          fill="#220810"
-          opacity="0.65"
+          d="M 346 470 C 344 405 308 362 264 348 L 280 470 Z"
+          fill={plateMid}
+          opacity="0.8"
         />
 
-        {/* Neck & Hoodie Collar */}
+        {/* Shoulder Bevel Highlights */}
+        <path
+          d="M 80 410 L 132 355 L 140 375 L 94 430 Z"
+          fill="var(--accent)"
+          opacity="0.15"
+        />
+        <path
+          d="M 320 410 L 268 355 L 260 375 L 306 430 Z"
+          fill="var(--accent)"
+          opacity="0.15"
+        />
+
+        {/* Neck Hydraulic Cowl */}
         <g ref={collarRef}>
-          {/* Human neck */}
           <path
-            d="M 166 280 L 166 334 C 166 350 234 350 234 334 L 234 280 Z"
-            fill={skin}
-            stroke={shade}
-            strokeWidth="1.2"
-          />
-          {/* Chin shadow on neck */}
-          <path
-            d="M 166 280 C 180 304 220 304 234 280 L 234 298 C 218 316 182 316 166 298 Z"
-            fill={shade}
-            opacity="0.4"
-          />
-          {/* Hoodie collar drape & inner neckline */}
-          <path
-            d="M 152 322 C 160 352 240 352 248 322 C 264 348 246 370 200 370 C 154 370 136 348 152 322 Z"
-            fill="#220810"
-            stroke="#4a1525"
+            d="M 160 286 L 160 338 C 160 354 240 354 240 338 L 240 286 Z"
+            fill={plateMid}
+            stroke="#070c18"
             strokeWidth="2"
           />
-          {/* Hoodie white drawstrings with silver aglets */}
-          <path
-            d="M 184 348 Q 182 376 180 398"
-            fill="none"
-            stroke="#e2e8f0"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
-          <rect x="178" y="396" width="4" height="7" rx="1.5" fill="#94a3b8" />
-          <path
-            d="M 216 348 Q 218 376 220 398"
-            fill="none"
-            stroke="#e2e8f0"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
-          <rect x="218" y="396" width="4" height="7" rx="1.5" fill="#94a3b8" />
+          {/* Hydraulic neck piston struts */}
+          <line x1="174" y1="290" x2="174" y2="340" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
+          <line x1="226" y1="290" x2="226" y2="340" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
+          {/* Collar ring */}
+          <ellipse cx="200" cy="336" rx="58" ry="14" fill="#090f1d" stroke="var(--line2)" strokeWidth="1.5" />
         </g>
 
-        {/* Chest Area with subtle kangaroo pocket and AYUSH developer badge */}
+        {/* Central Mecha Chest Chassis with Quantum Arc Reactor Core */}
         <g ref={chestRef}>
-          {/* Kangaroo Pocket */}
-          <path
-            d="M 145 432 L 160 408 L 240 408 L 255 432 L 255 470 L 145 470 Z"
-            fill="#20070e"
-            opacity="0.7"
-            stroke="#4a1525"
-            strokeWidth="1.5"
+          {/* Hexagonal Armor Breastplate */}
+          <polygon
+            points="148,362 252,362 272,434 200,466 128,434"
+            fill={plateMid}
+            stroke="#0b1120"
+            strokeWidth="2.5"
           />
 
-          {/* Developer badge */}
-          <rect
-            x="166"
-            y="368"
-            width="68"
-            height="20"
-            rx="10"
-            fill="#1e060d"
-            stroke="rgba(255,255,255,0.2)"
-            strokeWidth="1.2"
+          {/* Circuit bus conduits */}
+          <path
+            d="M 154 374 L 180 398 L 180 422"
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            opacity="0.7"
           />
-          <text
-            x="200"
-            y="382"
-            textAnchor="middle"
-            fill="#f8fafc"
-            fontSize="10"
-            fontFamily="'JetBrains Mono', monospace"
-            fontWeight="700"
-            letterSpacing="0.6"
-          >
-            {"</> AYUSH"}
+          <path
+            d="M 246 374 L 220 398 L 220 422"
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            opacity="0.7"
+          />
+
+          {/* Outer Quantum Arc Containment Ring */}
+          <circle cx="200" cy="414" r="28" fill="#060a14" stroke="var(--line2)" strokeWidth="2" />
+          <circle
+            className="arc-gear"
+            cx="200"
+            cy="414"
+            r="23"
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth="2.5"
+            strokeDasharray="5 7"
+          />
+
+          {/* Pulsing Arc Reactor Glow Core */}
+          <circle cx="200" cy="414" r="18" fill={arcGrad} className="arc-core-pulse" />
+          <circle cx="200" cy="414" r="8" fill="#ffffff" />
+
+          {/* Telemetry insignia */}
+          <text x="200" y="455" textAnchor="middle" className="av-chest">
+            {"⚡ AP-DEV"}
           </text>
         </g>
 
-        {/* Waving Arm & Human Hand */}
+        {/* Floating Magnetic Arm & Waving Cyber Hand */}
         <g className="av-arm-wrap">
           <g className="av-arm">
-            {/* Upper sleeve */}
+            {/* Magnetic Levitation Shoulder Joint */}
+            <circle cx="316" cy="370" r="18" fill="#060a14" stroke="var(--accent)" strokeWidth="2" />
+            <circle cx="316" cy="370" r="8" fill="var(--accent)" opacity="0.7" />
+
+            {/* Arm Segment / Bionic Chassis */}
             <path
-              d="M 314 362 C 330 328 344 298 354 268 L 382 278 C 374 318 356 354 330 386 Z"
-              fill={hoodie}
-              stroke="#19070c"
+              d="M 314 362 C 330 332 344 304 352 278 L 380 286 C 374 322 356 358 332 388 Z"
+              fill={plateMid}
+              stroke="#0b1120"
               strokeWidth="2"
             />
-            {/* Ribbed sleeve cuff */}
-            <ellipse
-              cx="368"
-              cy="273"
-              rx="16"
-              ry="7"
-              fill="#220810"
-              stroke="#4a1525"
-              strokeWidth="1.5"
-              transform="rotate(-20 368 273)"
+            {/* Forearm Conduit Cable */}
+            <path
+              d="M 324 366 Q 348 325 364 286"
+              fill="none"
+              stroke="var(--accent)"
+              strokeWidth="2.5"
+              strokeDasharray="4 3"
             />
+            {/* Wrist Cuff */}
+            <rect x="348" y="270" width="34" height="12" rx="4" fill="#060a14" stroke="var(--accent)" strokeWidth="1.5" />
 
-            {/* Natural articulated human hand */}
+            {/* Precision Articulated Cyber Hand */}
             <g className="av-hand-w">
-              {/* Palm */}
-              <path
-                d="M 354 266 C 348 248 358 232 376 234 C 388 235 392 249 386 267 Z"
-                fill={skin}
-                stroke={shade}
-                strokeWidth="1"
-              />
+              {/* Metallic Palm Casing */}
+              <ellipse cx="366" cy="248" rx="20" ry="22" fill={plateMid} stroke="#0b1120" strokeWidth="1.5" />
+              <circle cx="366" cy="248" r="6" fill="var(--accent)" opacity="0.6" />
+
+              {/* Articulated Bionic Digits with Glowing Sensor Tips */}
               {/* Thumb */}
-              <path
-                d="M 354 257 C 344 250 338 242 344 234 C 348 229 354 232 358 242 Z"
-                fill={skin}
-                stroke={shade}
-                strokeWidth="0.8"
-              />
-              {/* Fingers */}
-              <rect
-                x="355"
-                y="212"
-                width="7.5"
-                height="24"
-                rx="3.75"
-                fill={skin}
-                stroke={shade}
-                strokeWidth="0.8"
-                transform="rotate(-6 359 224)"
-              />
-              <rect
-                x="364"
-                y="206"
-                width="8"
-                height="28"
-                rx="4"
-                fill={skin}
-                stroke={shade}
-                strokeWidth="0.8"
-                transform="rotate(2 368 220)"
-              />
-              <rect
-                x="374"
-                y="210"
-                width="7.5"
-                height="25"
-                rx="3.75"
-                fill={skin}
-                stroke={shade}
-                strokeWidth="0.8"
-                transform="rotate(10 378 222)"
-              />
-              <rect
-                x="383"
-                y="218"
-                width="6.5"
-                height="20"
-                rx="3.25"
-                fill={skin}
-                stroke={shade}
-                strokeWidth="0.8"
-                transform="rotate(18 386 228)"
-              />
+              <path d="M 344 256 L 336 244 L 340 236" fill="none" stroke="#475569" strokeWidth="4.5" strokeLinecap="round" />
+              <circle cx="340" cy="236" r="2.5" fill="var(--accent)" />
+              {/* Index */}
+              <path d="M 352 232 L 350 208 L 351 202" fill="none" stroke="#475569" strokeWidth="4.5" strokeLinecap="round" />
+              <circle cx="351" cy="202" r="2.5" fill="var(--accent)" />
+              {/* Middle */}
+              <path d="M 364 228 L 364 198 L 365 194" fill="none" stroke="#475569" strokeWidth="5" strokeLinecap="round" />
+              <circle cx="365" cy="194" r="2.5" fill="var(--accent)" />
+              {/* Ring */}
+              <path d="M 376 230 L 377 202 L 378 198" fill="none" stroke="#475569" strokeWidth="4.5" strokeLinecap="round" />
+              <circle cx="378" cy="198" r="2.5" fill="var(--accent)" />
+              {/* Pinky */}
+              <path d="M 386 236 L 388 214 L 389 210" fill="none" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
+              <circle cx="389" cy="210" r="2" fill="var(--accent)" />
             </g>
           </g>
         </g>
 
-        {/* 3D Realistic Human Head Assembly */}
+        {/* 3D Cybernetic Head Assembly */}
         <g ref={headRef}>
-          {/* Left Ear */}
+          {/* Left Audio / Comms Sensor Array */}
           <g ref={earLRef}>
-            <path
-              d="M 124 186 C 112 186 110 216 124 222 Z"
-              fill={skin}
-              stroke={shade}
-              strokeWidth="1"
-            />
-            <path
-              d="M 121 194 C 116 196 116 210 122 214"
-              fill="none"
-              stroke={shade}
-              strokeWidth="1.5"
-            />
+            <polygon points="108,185 124,175 124,245 108,235" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
+            <line x1="114" y1="192" x2="114" y2="228" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" />
+            <circle cx="114" cy="186" r="2" fill="var(--accent2)" />
           </g>
 
-          {/* Right Ear */}
+          {/* Right Audio / Comms Sensor Array */}
           <g ref={earRRef}>
-            <path
-              d="M 276 186 C 288 186 290 216 276 222 Z"
-              fill={skin}
-              stroke={shade}
-              strokeWidth="1"
-            />
-            <path
-              d="M 279 194 C 284 196 284 210 278 214"
-              fill="none"
-              stroke={shade}
-              strokeWidth="1.5"
-            />
+            <polygon points="292,185 276,175 276,245 292,235" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
+            <line x1="286" y1="192" x2="286" y2="228" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" />
+            <circle cx="286" cy="186" r="2" fill="var(--accent2)" />
           </g>
 
-          {/* Head Base & Cheek Contours */}
+          {/* Outer Helmet Chassis / Chin Guard */}
           <g ref={faceRef}>
-            {/* Human head outline matching Ayush's jawline */}
             <path
-              d="M 124 175 C 120 124 152 104 200 104 C 248 104 280 124 276 175 C 274 228 248 268 200 268 C 152 268 126 228 124 175 Z"
-              fill={skin}
-              stroke={shade}
-              strokeWidth="1.2"
+              d="M 116 195 C 114 140 148 108 200 108 C 252 108 286 140 284 195 C 284 250 252 278 200 278 C 148 278 116 250 116 195 Z"
+              fill={plateDark}
+              stroke="#070c18"
+              strokeWidth="3"
             />
-            {/* Cheek blush / subtle warm glow */}
-            <ellipse cx="148" cy="216" rx="14" ry="7" fill="#e07a68" opacity="0.18" />
-            <ellipse cx="252" cy="216" rx="14" ry="7" fill="#e07a68" opacity="0.18" />
+            {/* Aerodynamic Jaw Reinforcement Plates */}
+            <polygon points="126,220 160,266 140,266 118,228" fill={plateMid} />
+            <polygon points="274,220 240,266 260,266 282,228" fill={plateMid} />
           </g>
 
-          {/* Textured Black Hair Base (tapering to sideburns) */}
+          {/* Top Helmet Cowl / Carbon Crest */}
           <g ref={hairRef}>
             <path
-              d="M 118 168 C 114 116 146 80 200 80 C 254 80 286 116 282 168 C 282 178 280 196 276 204 L 272 176 C 270 128 244 98 200 98 C 156 98 130 128 128 176 L 124 204 C 120 196 118 178 118 168 Z"
-              fill={hairGrad}
+              d="M 124 165 C 130 115 160 92 200 92 C 240 92 270 115 276 165 C 258 135 232 124 200 124 C 168 124 142 135 124 165 Z"
+              fill={plateLight}
             />
           </g>
 
-          {/* Layered Hair Quiff / Side-parted Bangs (matching Ayush's selfie) */}
+          {/* Forehead Brow Guard & Optical Sensor Gem */}
           <g ref={quiffRef}>
             <path
-              d="M 122 145 C 130 108 162 90 204 88 C 248 86 280 106 280 136 C 265 123 240 120 215 122 C 185 124 155 136 136 154 Z"
-              fill={hairGrad}
+              d="M 148 142 C 168 130 232 130 252 142 L 244 154 C 228 146 172 146 156 154 Z"
+              fill={plateMid}
             />
-            <path
-              d="M 132 142 C 152 120 192 114 235 122 C 205 132 170 148 144 165 Z"
-              fill="#2c221b"
-              opacity="0.85"
-            />
-            <path
-              d="M 175 110 C 215 106 250 118 274 140 C 252 135 228 132 205 135 Z"
-              fill="#3a2e24"
-              opacity="0.5"
-            />
+            <circle cx="200" cy="138" r="4.5" fill="var(--accent)" />
+            <circle cx="200" cy="138" r="8" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" />
           </g>
 
-          {/* Facial Features (Beard, Mustache, Glasses, Eyes, Nose, Mouth) */}
+          {/* Curved Obsidian Glass Cyber Visor */}
           <g ref={featRef}>
-            {/* Masculine Dark Eyebrows */}
-            <path
-              d="M 144 186 Q 164 179 182 186"
-              fill="none"
-              stroke={hair}
-              strokeWidth="4.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M 218 186 Q 236 179 256 186"
-              fill="none"
-              stroke={hair}
-              strokeWidth="4.5"
-              strokeLinecap="round"
+            {/* Dark glass visor screen */}
+            <rect
+              x="124"
+              y="156"
+              width="152"
+              height="106"
+              rx="34"
+              fill={visorGrad}
+              stroke="var(--line2)"
+              strokeWidth="2"
             />
 
-            {/* Left Eye */}
-            <g className="av-eye">
-              <ellipse cx="163" cy="204" rx="14" ry="10" fill="#ffffff" stroke={shade} strokeWidth="0.8" />
-              <g clipPath={`url(#eL${uid})`}>
+            {/* Specular gloss reflection highlight arc (creates 3D glass curved bulb effect) */}
+            <path
+              d="M 138 175 Q 200 160 262 175"
+              fill="none"
+              stroke="#ffffff"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              opacity="0.25"
+            />
+
+            {/* Visor HUD scanline effect */}
+            <rect
+              x="124"
+              y="156"
+              width="152"
+              height="106"
+              rx="34"
+              fill="none"
+              className="visor-hud-sweep"
+            />
+
+            {/* Visor Optics (LED Matrix Cyber Eyes & HUD Reticles) */}
+            <g clipPath={`url(#visorClip${uid})`}>
+              {/* Left Eye HUD & Optics */}
+              <g className="av-eye">
+                {/* HUD targeting brackets */}
+                <path d="M 148 194 L 144 194 L 144 216 L 148 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
+                <path d="M 178 194 L 182 194 L 182 216 L 178 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
+                {/* Moving Eye Pupil Unit */}
                 <g ref={pupilL}>
-                  <circle cx="163" cy="204" r="7" fill="#2d1c12" />
-                  <circle cx="163" cy="204" r="4" fill="#0f0905" />
-                  <circle cx="161" cy="202" r="1.8" fill="#ffffff" />
+                  <circle cx="163" cy="205" r="13" fill="rgba(var(--acc-rgb), 0.15)" />
+                  <circle cx="163" cy="205" r="8" fill="var(--accent)" className="eye-optic-glow" />
+                  <circle cx="163" cy="205" r="3.5" fill="#ffffff" />
                 </g>
               </g>
-            </g>
 
-            {/* Right Eye */}
-            <g className="av-eye">
-              <ellipse cx="237" cy="204" rx="14" ry="10" fill="#ffffff" stroke={shade} strokeWidth="0.8" />
-              <g clipPath={`url(#eR${uid})`}>
+              {/* Right Eye HUD & Optics */}
+              <g className="av-eye">
+                {/* HUD targeting brackets */}
+                <path d="M 222 194 L 218 194 L 218 216 L 222 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
+                <path d="M 252 194 L 256 194 L 256 216 L 252 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
+                {/* Moving Eye Pupil Unit */}
                 <g ref={pupilR}>
-                  <circle cx="237" cy="204" r="7" fill="#2d1c12" />
-                  <circle cx="237" cy="204" r="4" fill="#0f0905" />
-                  <circle cx="235" cy="202" r="1.8" fill="#ffffff" />
+                  <circle cx="237" cy="205" r="13" fill="rgba(var(--acc-rgb), 0.15)" />
+                  <circle cx="237" cy="205" r="8" fill="var(--accent)" className="eye-optic-glow" />
+                  <circle cx="237" cy="205" r="3.5" fill="#ffffff" />
                 </g>
               </g>
-            </g>
 
-            {/* Ayush's Developer Glasses with Animated Glint */}
-            <g className="av-glasses">
-              {/* Temples connecting to ears */}
-              <line x1="138" y1="198" x2="124" y2="194" stroke={glassesColor} strokeWidth="2" strokeLinecap="round" />
-              <line x1="262" y1="198" x2="276" y2="194" stroke={glassesColor} strokeWidth="2" strokeLinecap="round" />
-              {/* Left Rim */}
-              <rect
-                x="138"
-                y="190"
-                width="48"
-                height="28"
-                rx="8"
-                fill="rgba(255,255,255,0.06)"
-                stroke={glassesColor}
-                strokeWidth="2.4"
-              />
-              {/* Left Lens Glint */}
-              <path
-                d="M 143 196 L 160 196"
-                stroke="#ffffff"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                className="glasses-glint"
-              />
-              {/* Bridge */}
-              <path
-                d="M 186 200 Q 200 196 214 200"
-                fill="none"
-                stroke={glassesColor}
-                strokeWidth="2.2"
-                strokeLinecap="round"
-              />
-              {/* Right Rim */}
-              <rect
-                x="214"
-                y="190"
-                width="48"
-                height="28"
-                rx="8"
-                fill="rgba(255,255,255,0.06)"
-                stroke={glassesColor}
-                strokeWidth="2.4"
-              />
-              {/* Right Lens Glint */}
-              <path
-                d="M 219 196 L 236 196"
-                stroke="#ffffff"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                className="glasses-glint"
-              />
-            </g>
-
-            {/* Nose Bridge & Nostrils */}
-            <path
-              d="M 198 196 L 196 222 Q 194 227 199 228 Q 204 227 202 222"
-              fill="none"
-              stroke={shade}
-              strokeWidth="1.6"
-              strokeLinecap="round"
-            />
-            <ellipse cx="194" cy="227" rx="3.5" ry="2" fill={shade} opacity="0.45" />
-            <ellipse cx="206" cy="227" rx="3.5" ry="2" fill={shade} opacity="0.45" />
-
-            {/* Well-Groomed Beard & Mustache (matches Ayush's photo) */}
-            {/* Trimmed Mustache */}
-            <path
-              d="M 184 236 Q 200 233 216 236 Q 200 241 184 236 Z"
-              fill={hair}
-              opacity="0.9"
-            />
-            {/* Jawline & Chin Beard */}
-            <path
-              d="M 134 212 C 132 238 152 264 200 266 C 248 264 268 238 266 212 C 262 234 246 258 200 260 C 154 258 138 234 134 212 Z"
-              fill={hair}
-              opacity="0.88"
-            />
-            {/* Goatee / Soul Patch */}
-            <path
-              d="M 195 248 C 195 255 205 255 205 248 Z"
-              fill={hair}
-              opacity="0.9"
-            />
-
-            {/* Natural Human Mouth & Speech Animation */}
-            <g className="av-mouth">
-              <path
-                className="mouth-rest"
-                d="M 188 243 Q 200 248 212 243"
-                fill="none"
-                stroke="#873e23"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-              />
-              <path
-                className="mouth-talk"
-                d="M 188 242 Q 200 253 212 242 Q 200 245 188 242 Z"
-                fill="#661c16"
-                stroke="#873e23"
-                strokeWidth="1.2"
-              />
-              <path
-                className="mouth-teeth"
-                d="M 191 243 Q 200 245 209 243"
-                stroke="#ffffff"
-                strokeWidth="2"
-                strokeLinecap="round"
-                fill="none"
-              />
+              {/* Lower Visor Mouth / Voice Equalizer Waveform */}
+              <g className="av-mouth">
+                {/* Dynamic Audio Spectrum Bars (animate intensely when talking) */}
+                <g className="voice-spectrum">
+                  <rect x="172" y="238" width="3" height="8" rx="1.5" fill="var(--accent)" className="v-bar vb-1" />
+                  <rect x="179" y="235" width="3" height="14" rx="1.5" fill="var(--accent)" className="v-bar vb-2" />
+                  <rect x="186" y="232" width="3" height="20" rx="1.5" fill="var(--accent)" className="v-bar vb-3" />
+                  <rect x="193" y="230" width="3" height="24" rx="1.5" fill="var(--accent2)" className="v-bar vb-4" />
+                  <rect x="200" y="228" width="3" height="28" rx="1.5" fill="#ffffff" className="v-bar vb-5" />
+                  <rect x="207" y="230" width="3" height="24" rx="1.5" fill="var(--accent2)" className="v-bar vb-6" />
+                  <rect x="214" y="232" width="3" height="20" rx="1.5" fill="var(--accent)" className="v-bar vb-7" />
+                  <rect x="221" y="235" width="3" height="14" rx="1.5" fill="var(--accent)" className="v-bar vb-8" />
+                  <rect x="228" y="238" width="3" height="8" rx="1.5" fill="var(--accent)" className="v-bar vb-9" />
+                </g>
+              </g>
             </g>
           </g>
         </g>
       </g>
 
-      {/* Modern Developer Workstation (Phase 2: "What I Do") */}
+      {/* Floating Holographic Cyber Workstation (Phase 2: "What I Do") */}
       <g className="av-desk">
-        {/* Floating code syntax tokens */}
-        <g className="av-syntax-tokens">
-          <text
-            x="42"
-            y="350"
-            fill="var(--accent)"
-            fontSize="10"
-            fontFamily="'JetBrains Mono', monospace"
-            fontWeight="600"
-            className="holo-card l"
-          >
-            {"const dev = 'Ayush';"}
-          </text>
-          <text
-            x="270"
-            y="346"
-            fill="var(--accent2)"
-            fontSize="10"
-            fontFamily="'JetBrains Mono', monospace"
-            fontWeight="600"
-            className="holo-card r"
-          >
-            {"hardware.connect();"}
-          </text>
+        {/* Floating Hologram Code Screens */}
+        <g className="av-holo-screens">
+          {/* Left Hologram Projection */}
+          <g className="holo-card l">
+            <rect x="28" y="260" width="118" height="74" rx="6" fill={`url(#holoScreen${uid})`} stroke="var(--accent)" strokeWidth="1" />
+            <text x="36" y="278" fill="var(--accent)" fontSize="9" fontFamily="'JetBrains Mono', monospace" fontWeight="600">
+              const dev = &apos;Ayush&apos;;
+            </text>
+            <text x="36" y="294" fill="var(--accent2)" fontSize="8" fontFamily="'JetBrains Mono', monospace">
+              stack: [&apos;Full-Stack&apos;]
+            </text>
+            <text x="36" y="310" fill="#22c55e" fontSize="8" fontFamily="'JetBrains Mono', monospace">
+              status: ONLINE ⚡
+            </text>
+            <line x1="36" y1="322" x2="136" y2="322" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
+          </g>
+
+          {/* Right Hologram Projection */}
+          <g className="holo-card r">
+            <rect x="254" y="250" width="122" height="78" rx="6" fill={`url(#holoScreen${uid})`} stroke="var(--accent2)" strokeWidth="1" />
+            <text x="262" y="270" fill="var(--accent2)" fontSize="9" fontFamily="'JetBrains Mono', monospace" fontWeight="600">
+              hardware.connect()
+            </text>
+            <text x="262" y="286" fill="var(--accent)" fontSize="8" fontFamily="'JetBrains Mono', monospace">
+              telecom: &apos;MITS Gwalior&apos;
+            </text>
+            <text x="262" y="302" fill="var(--text)" fontSize="8" fontFamily="'JetBrains Mono', monospace">
+              deploy({`{ latency: 0 }`})
+            </text>
+            <circle cx="362" cy="268" r="3" fill="#22c55e" />
+          </g>
         </g>
 
-        {/* Space-gray aluminum laptop base & keyboard */}
+        {/* Floating Holographic Terminal Console Base */}
         <polygon
-          points="110,414 290,414 310,448 90,448"
-          fill={`url(#laptop${uid})`}
-          stroke="#475569"
+          points="20,422 380,422 350,442 50,442"
+          fill="rgba(var(--acc-rgb), 0.12)"
+          stroke="var(--accent)"
           strokeWidth="1.5"
         />
 
-        {/* Keyboard well & illuminated key rows */}
-        <polygon
-          points="126,418 274,418 286,438 114,438"
-          fill="#0f172a"
-        />
-        <line x1="130" y1="423" x2="270" y2="423" stroke="rgba(255,255,255,0.25)" strokeWidth="1.2" />
-        <line x1="124" y1="429" x2="276" y2="429" stroke="rgba(255,255,255,0.25)" strokeWidth="1.2" />
-        <line x1="118" y1="435" x2="282" y2="435" stroke="rgba(255,255,255,0.25)" strokeWidth="1.2" />
-        {/* Trackpad */}
-        <rect x="180" y="440" width="40" height="5" rx="1.5" fill="#334155" />
+        {/* Neon Holographic Touch Keys Matrix */}
+        <g stroke="var(--accent)" strokeWidth="1" opacity="0.5">
+          <line x1="60" y1="428" x2="340" y2="428" />
+          <line x1="75" y1="435" x2="325" y2="435" />
+          {[90, 120, 150, 180, 210, 240, 270, 300].map((x) => (
+            <line key={x} x1={x} y1="422" x2={x - 8} y2="442" />
+          ))}
+        </g>
 
-        {/* Laptop Display Lid facing Ayush */}
-        <polygon
-          points="136,338 264,338 278,414 122,414"
-          fill="#090d16"
-          stroke="#334155"
-          strokeWidth="1.5"
-        />
-        {/* Code Editor on Screen */}
-        <rect x="142" y="346" width="116" height="60" rx="3" fill="#0b0f19" />
-        <line x1="148" y1="354" x2="198" y2="354" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
-        <line x1="148" y1="362" x2="236" y2="362" stroke="#60a5fa" strokeWidth="2" strokeLinecap="round" />
-        <line x1="154" y1="370" x2="224" y2="370" stroke="#4ade80" strokeWidth="2" strokeLinecap="round" />
-        <line x1="154" y1="378" x2="192" y2="378" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" />
-        <line x1="148" y1="386" x2="182" y2="386" stroke="#facc15" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="250" cy="352" r="2.5" fill="#22c55e" />
-
-        {/* Ayush's human hands typing on the keyboard */}
+        {/* Cyber Bionic Hands Typing on Hologram Console */}
         <g className="av-typing-hands">
+          {/* Left Cyber Hand */}
           <g className="av-hand l">
-            <ellipse cx="140" cy="420" rx="14" ry="9" fill={skin} stroke={shade} strokeWidth="1" />
-            <circle cx="132" cy="424" r="2.8" fill={skin} />
-            <circle cx="138" cy="426" r="2.8" fill={skin} />
-            <circle cx="144" cy="426" r="2.8" fill={skin} />
+            <rect x="116" y="404" width="28" height="18" rx="6" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
+            <circle cx="122" cy="413" r="3" fill="var(--accent)" />
+            <circle cx="130" cy="413" r="3" fill="var(--accent)" />
+            <circle cx="138" cy="413" r="3" fill="var(--accent)" />
           </g>
+
+          {/* Right Cyber Hand */}
           <g className="av-hand r">
-            <ellipse cx="260" cy="420" rx="14" ry="9" fill={skin} stroke={shade} strokeWidth="1" />
-            <circle cx="256" cy="426" r="2.8" fill={skin} />
-            <circle cx="262" cy="426" r="2.8" fill={skin} />
-            <circle cx="268" cy="424" r="2.8" fill={skin} />
+            <rect x="256" y="404" width="28" height="18" rx="6" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
+            <circle cx="262" cy="413" r="3" fill="var(--accent)" />
+            <circle cx="270" cy="413" r="3" fill="var(--accent)" />
+            <circle cx="278" cy="413" r="3" fill="var(--accent)" />
           </g>
         </g>
 
-        {/* Ceramic coffee mug with rising steam */}
-        <g className="av-coffee">
-          <rect x="320" y="412" width="22" height="28" rx="4" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5" />
-          <path d="M 342 418 C 349 418 349 432 342 432" fill="none" stroke="#f8fafc" strokeWidth="2.5" />
-          <ellipse cx="331" cy="414" rx="9" ry="3" fill="#451a03" />
-          {/* Steam wisps */}
+        {/* Quantum Energy Cooling Capacitor (replaces old coffee mug) */}
+        <g className="av-quantum-cell">
+          <rect x="328" y="380" width="22" height="38" rx="6" fill="#0b1120" stroke="var(--accent)" strokeWidth="1.5" />
+          <rect x="332" y="388" width="14" height="22" rx="3" fill="var(--accent)" opacity="0.6" className="arc-core-pulse" />
+          {/* Rising quantum energy wisps */}
           <g className="av-steam">
-            <path d="M 328 406 Q 323 394 330 382" fill="none" stroke="var(--steam)" strokeWidth="1.8" strokeLinecap="round" />
-            <path d="M 334 406 Q 339 394 332 382" fill="none" stroke="var(--steam)" strokeWidth="1.8" strokeLinecap="round" />
+            <path d="M 335 374 Q 330 364 336 354" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+            <path d="M 343 374 Q 348 364 342 354" fill="none" stroke="var(--accent2)" strokeWidth="2" strokeLinecap="round" />
           </g>
         </g>
       </g>
@@ -1769,7 +1636,6 @@ function useSpeech(lines, start) {
    so the entire page doesn't re-render 20 times a second */
 function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
   const avInRef = useRef(null);
-  const model3dRef = useRef(null);
   const { text: speech, talking } = useSpeech(
     phase === 2 ? SPEECH_WORK : SPEECH_INTRO,
     ready,
@@ -1784,65 +1650,25 @@ function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
     }, 1100);
   };
 
-  // 3D holographic cursor parallax tracking & ambient sway
-  useEffect(() => {
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (reduce) return;
-
-    let raf;
-    let tx = 0, ty = 0, cx = 0, cy = 0;
-    const onMove = (e) => {
-      const midX = window.innerWidth / 2;
-      const midY = window.innerHeight / 2;
-      tx = Math.max(-1, Math.min(1, (e.clientX - midX) / midX));
-      ty = Math.max(-1, Math.min(1, (e.clientY - midY) / midY));
-    };
-
-    const loop = (now) => {
-      cx += (tx - cx) * 0.08;
-      cy += (ty - cy) * 0.08;
-      const autoSway = Math.sin((now || 0) * 0.0018) * 2;
-      if (model3dRef.current) {
-        const rotY = (cx * 15 + autoSway).toFixed(2);
-        const rotX = (-cy * 9).toFixed(2);
-        const trX = (cx * 12).toFixed(2);
-        const trY = (cy * 6).toFixed(2);
-        model3dRef.current.style.transform = `perspective(850px) rotateY(${rotY}deg) rotateX(${rotX}deg) translate3d(${trX}px, ${trY}px, 0)`;
-      }
-      raf = requestAnimationFrame(loop);
-    };
-
-    window.addEventListener("mousemove", onMove, { passive: true });
-    raf = requestAnimationFrame(loop);
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("mousemove", onMove);
-    };
-  }, []);
-
   return (
     <div className="av-wrap">
       <div
         className="av-in"
         ref={avInRef}
         onClick={spin}
-        title="Click me to spin! 🌀 Hover to rotate in 3D"
+        title="Click me to spin! 🌀"
       >
         <div className="av-glow" />
-        <div ref={model3dRef} className="avatar-3d-stage">
-          {/* 3D Photorealistic Developer Model (Clean, hands-free portrait) */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+        {avatarImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
           <img
-            className="avatar-3d-model"
-            src={avatarImage || "/uploads/ayush-3d-model-dev.png"}
+            className="avatar avatar-img"
+            src={avatarImage}
             alt={fullName}
           />
-
-          {/* Animated lens glint reflection across developer glasses */}
-          <div className="model-glasses-glint" />
-        </div>
+        ) : (
+          <Avatar talking={talking} />
+        )}
         <div className="bubble">
           <span>{speech}</span>
           <i className="caret" />
@@ -2919,65 +2745,38 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 .avatar-img{object-fit:contain;object-position:bottom;animation:floaty 5s ease-in-out infinite}
 @keyframes floaty{50%{transform:translateY(-10px)}}
 
-.avatar-3d-stage{position:relative;width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;transform-style:preserve-3d;will-change:transform}
-.avatar-3d-model{width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 24px 34px rgba(0,0,0,.38));user-select:none;-webkit-user-drag:none;animation:avatarFloat 4.8s ease-in-out infinite;pointer-events:none}
-@keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.model-glasses-glint{position:absolute;top:32%;left:36%;width:28%;height:10%;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.65) 50%,transparent 80%);opacity:0;pointer-events:none;border-radius:6px;animation:modelGlint 5.5s ease-in-out infinite}
-@keyframes modelGlint{0%,75%{opacity:0;transform:translateX(-24px) skewX(-15deg)}85%{opacity:.85;transform:translateX(0) skewX(-15deg)}95%,100%{opacity:0;transform:translateX(24px) skewX(-15deg)}}
-
-.bubble{position:absolute;top:8%;left:66%;min-height:44px;padding:12px 18px;border-radius:18px 18px 18px 4px;background:var(--bubble-bg);color:var(--bubble-fg);font-weight:700;font-size:clamp(13px,1.1vw,16px);white-space:nowrap;box-shadow:0 14px 40px -12px rgba(0,0,0,.6);opacity:0;transform:scale(.6);transform-origin:bottom left;transition:opacity .3s,transform .5s cubic-bezier(.2,.9,.3,1.4)}
-.scene.ready .bubble{opacity:max(calc(1 - var(--p1) * 3), calc(var(--p2) * 3 - 2));transform:none;transition-delay:.8s}
-.bubble .caret{background:var(--bubble-fg)}
-
-.about-blk{position:absolute;right:7vw;top:50%;width:min(580px,44vw);opacity:calc(var(--p1) - var(--p2) * 1.8);transform:translateY(calc(-50% + (1 - var(--p1)) * 60px - var(--p2) * 60px));pointer-events:none}
-.about-text{margin:16px 0 26px;font-size:clamp(20px,1.9vw,28px);line-height:1.45;font-weight:600;letter-spacing:-.2px}
-.about-text span{opacity:clamp(.14, calc(var(--r) * (var(--n) + 6) - var(--i)), 1);transition:opacity .2s}
-.about-text span.hl{color:var(--accent)}
-.about-meta{display:flex;flex-wrap:wrap;gap:10px;opacity:clamp(0, calc(var(--r) * 3 - 2), 1)}
-.about-meta span{padding:8px 14px;border-radius:999px;border:1px solid var(--line2);font-size:13.5px;color:var(--muted)}
-
-.what-title{position:absolute;left:8vw;top:50%;opacity:calc(var(--p2) * 1.6 - .6);transform:translateY(-50%) translateX(calc((1 - var(--p2)) * -90px));pointer-events:none}
-.what-title h2{margin:12px 0 0;font-size:clamp(56px,7vw,116px);font-weight:900;line-height:.9;letter-spacing:-2px}
-.what-blk{position:absolute;right:5vw;top:50%;width:min(420px,29vw);display:grid;gap:14px;opacity:calc(var(--p2) * 1.6 - .6);transform:translateY(-50%) translateX(calc((1 - var(--p2)) * 90px));pointer-events:none}
-.scene[data-phase="2"] .what-blk{pointer-events:auto}
-@media (min-width:901px){
-  .scene[data-phase="2"] .bubble{left:auto;right:64%;border-radius:18px 18px 4px 18px;transform-origin:bottom right}
-}
-
-.scroll-cue{position:absolute;left:8vw;bottom:34px;display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:3px;color:var(--muted);opacity:calc(1 - var(--p1) * 4)}
-.mouse{position:relative;width:22px;height:34px;border:2px solid var(--line2);border-radius:12px}
-.mouse i{position:absolute;left:50%;top:6px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:var(--accent);animation:wheel 1.6s infinite}
-@keyframes wheel{to{opacity:0;transform:translateY(12px)}}
-
-/* cyber-bot avatar parts */
-.av-acc-fill{fill:var(--accent)}
-.av-acc-stroke{stroke:var(--accent)}
-.av-acc2-fill{fill:var(--accent2)}
-.av-acc2-stroke{stroke:var(--accent2)}
-.av-body{transform-box:view-box;transform-origin:200px 470px;animation:breathe 4s ease-in-out infinite}
-@keyframes breathe{50%{transform:translateY(-4px)}}
-.human-avatar .av-glasses{transform-box:fill-box;transform-origin:center}
-.glasses-glint{animation:glint 4.5s ease-in-out infinite}
-@keyframes glint{
-  0%,70%{opacity:0;transform:translateX(-10px)}
-  80%{opacity:.8;transform:translateX(0)}
-  90%,100%{opacity:0;transform:translateX(10px)}
-}
-.av-mouth .mouth-talk,.av-mouth .mouth-teeth{display:none}
-.talking .av-mouth .mouth-rest{display:none}
-.talking .av-mouth .mouth-talk{display:block;animation:humanTalk .22s ease-in-out infinite alternate}
-.talking .av-mouth .mouth-teeth{display:block;animation:humanTalk .22s ease-in-out infinite alternate}
-@keyframes humanTalk{from{transform:scaleY(.4)}to{transform:scaleY(1.3)}}
-.av-eye{transform-box:fill-box;transform-origin:center;animation:blinkEye 5s infinite}
-@keyframes blinkEye{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
-.avatar[data-working="0"] .av-body{animation:breathe 4.5s ease-in-out infinite}
-@keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-3.5px)}}
 .avatar[data-working="1"] .av-body{animation:typebob .45s ease-in-out infinite alternate}
 @keyframes typebob{to{transform:translateY(2.5px)}}
+.av-chest{fill:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;opacity:.9}
+.arc-gear{transform-box:fill-box;transform-origin:center;animation:arcSpin 8s linear infinite}
+@keyframes arcSpin{to{transform:rotate(360deg)}}
+.arc-core-pulse{animation:arcPulse 2.4s ease-in-out infinite alternate}
+@keyframes arcPulse{0%{opacity:.75;transform:scale(.94)}100%{opacity:1;transform:scale(1.06)}}
+.drone-companion{transform-box:fill-box;transform-origin:center;animation:droneBob 3.6s ease-in-out infinite alternate}
+@keyframes droneBob{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-12px) rotate(4deg)}}
+.drone-eye{animation:droneBlink 2.8s ease-in-out infinite alternate}
+@keyframes droneBlink{0%,75%{opacity:1}85%{opacity:.2}95%,100%{opacity:1}}
+.av-eye{transform-box:fill-box;transform-origin:center;animation:blinkEye 5s infinite}
+@keyframes blinkEye{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
+.eye-optic-glow{filter:drop-shadow(0 0 6px var(--accent))}
+.av-mouth{transform-box:fill-box;transform-origin:center}
+.voice-spectrum{transform-box:fill-box;transform-origin:center bottom}
+.voice-spectrum .v-bar{transform-box:fill-box;transform-origin:center bottom;opacity:.45}
+.talking .voice-spectrum .v-bar{animation:audioWave .3s ease-in-out infinite alternate}
+.talking .v-bar.vb-1{animation-delay:.02s}
+.talking .v-bar.vb-2{animation-delay:.08s}
+.talking .v-bar.vb-3{animation-delay:.15s}
+.talking .v-bar.vb-4{animation-delay:.22s}
+.talking .v-bar.vb-5{animation-delay:.05s}
+.talking .v-bar.vb-6{animation-delay:.18s}
+.talking .v-bar.vb-7{animation-delay:.11s}
+.talking .v-bar.vb-8{animation-delay:.25s}
+.talking .v-bar.vb-9{animation-delay:.07s}
+@keyframes audioWave{from{transform:scaleY(.35);opacity:.4}to{transform:scaleY(1.4);opacity:1}}
 .av-arm-wrap{opacity:clamp(0, calc(1 - var(--p2) * 2.5), 1)}
-.av-arm{transform-box:view-box;transform-origin:314px 362px;animation:armWave 7s ease-in-out 2.6s infinite}
+.av-arm{transform-box:view-box;transform-origin:316px 370px;animation:armWave 7s ease-in-out 2.6s infinite}
 @keyframes armWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(7deg)}9%{transform:rotate(-4deg)}14%{transform:rotate(7deg)}19%{transform:rotate(-4deg)}24%{transform:rotate(5deg)}29%{transform:rotate(0)}}
-.av-hand-w{transform-box:view-box;transform-origin:368px 273px;animation:handWave 7s ease-in-out 2.6s infinite}
+.av-hand-w{transform-box:view-box;transform-origin:366px 270px;animation:handWave 7s ease-in-out 2.6s infinite}
 @keyframes handWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(14deg)}9%{transform:rotate(-12deg)}14%{transform:rotate(14deg)}19%{transform:rotate(-12deg)}24%{transform:rotate(10deg)}29%{transform:rotate(0)}}
 .av-desk{opacity:clamp(0, calc(var(--p2) * 2), 1);transform:translateY(calc((1 - var(--p2)) * 170px))}
 .holo-card{transform-box:fill-box;transform-origin:center;animation:holoFloat 4s ease-in-out infinite alternate}
