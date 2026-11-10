@@ -1832,20 +1832,12 @@ function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
       >
         <div className="av-glow" />
         <div ref={model3dRef} className="avatar-3d-stage">
-          {/* 3D Photorealistic Body Layer */}
+          {/* 3D Photorealistic Developer Model (Clean, hands-free portrait) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            className="avatar-3d-body"
-            src="/uploads/ayush-3d-body-layer.png"
+            className="avatar-3d-model"
+            src={avatarImage || "/uploads/ayush-3d-model-dev.png"}
             alt={fullName}
-          />
-
-          {/* 3D Articulated Waving Hand Layer (Saying "Hi! 👋") */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className="avatar-3d-hand"
-            src="/uploads/ayush-3d-hand-layer.png"
-            alt="Ayush Waving Hi"
           />
 
           {/* Animated lens glint reflection across developer glasses */}
@@ -2928,17 +2920,7 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 @keyframes floaty{50%{transform:translateY(-10px)}}
 
 .avatar-3d-stage{position:relative;width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;transform-style:preserve-3d;will-change:transform}
-.avatar-3d-body{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 24px 34px rgba(0,0,0,.38));user-select:none;-webkit-user-drag:none;animation:avatarFloat 4.8s ease-in-out infinite;pointer-events:none}
-.avatar-3d-hand{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 20px 28px rgba(0,0,0,.25));transform-origin:16.7% 79.1%;will-change:transform;user-select:none;-webkit-user-drag:none;animation:avatarFloat 4.8s ease-in-out infinite, waveHi 3.5s ease-in-out infinite;pointer-events:none}
-@keyframes waveHi{
-  0%,100%{transform:rotate(0deg)}
-  8%{transform:rotate(17deg) translateY(-3px)}
-  18%{transform:rotate(-14deg) translateY(1px)}
-  28%{transform:rotate(16deg) translateY(-2px)}
-  38%{transform:rotate(-12deg) translateY(1px)}
-  48%{transform:rotate(10deg) translateY(-1px)}
-  58%{transform:rotate(0deg) translateY(0)}
-}
+.avatar-3d-model{width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 24px 34px rgba(0,0,0,.38));user-select:none;-webkit-user-drag:none;animation:avatarFloat 4.8s ease-in-out infinite;pointer-events:none}
 @keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .model-glasses-glint{position:absolute;top:32%;left:36%;width:28%;height:10%;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.65) 50%,transparent 80%);opacity:0;pointer-events:none;border-radius:6px;animation:modelGlint 5.5s ease-in-out infinite}
 @keyframes modelGlint{0%,75%{opacity:0;transform:translateX(-24px) skewX(-15deg)}85%{opacity:.85;transform:translateX(0) skewX(-15deg)}95%,100%{opacity:0;transform:translateX(24px) skewX(-15deg)}}
