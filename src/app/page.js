@@ -1758,8 +1758,8 @@ export default function Portfolio() {
               </>
             )}
           </a>
-          <a href={`mailto:${PROFILE.email}`} className="nav-mail mono">
-            {PROFILE.email}
+          <a href="#home" className="nav-name">
+            {PROFILE.fullName || "Ayush Pandey"}
           </a>
           <div className={`nav-links ${menuOpen ? "open" : ""}`}>
             {NAV.filter((n) => n.id !== "home").map((n) => (
@@ -2367,8 +2367,8 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 .logo span{color:var(--accent)}
 .logo-img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--line2);transition:border-color .25s,transform .25s,box-shadow .25s;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .logo:hover .logo-img{border-color:var(--accent);transform:scale(1.06);box-shadow:0 0 16px rgba(var(--acc-rgb),.4)}
-.nav-mail{font-size:12.5px;color:var(--muted);transition:color .2s}
-.nav-mail:hover{color:var(--accent)}
+.nav-name{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.2px;text-decoration:none;transition:color .2s;white-space:nowrap}
+.nav-name:hover{color:var(--accent)}
 .nav-links{display:flex;gap:2px;margin-left:auto}
 .nav-links a{position:relative;padding:8px 12px;font-size:13px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-links a::after{content:"";position:absolute;left:12px;right:12px;bottom:2px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .3s}
@@ -2755,7 +2755,10 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 
 /* ===== responsive ===== */
 @media (max-width:1100px){
-  .rail,.nav-mail{display:none}
+  .rail{display:none}
+}
+@media (max-width:540px){
+  .nav-name{display:none}
 }
 @media (max-width:900px){
   .menu-btn{display:grid}
