@@ -772,343 +772,433 @@ function Avatar({ talking = false }) {
     };
   }, []);
 
-  const skin = `url(#skin${uid})`;
-  const hood = `url(#hood${uid})`;
-  const hairFill = `url(#hairg${uid})`;
-  const hair = "#16100c";
-  const shade = "#9a5f3a";
+  const plateDark = `url(#plateDark${uid})`;
+  const plateMid = `url(#plateMid${uid})`;
+  const plateLight = `url(#plateLight${uid})`;
+  const visorGrad = `url(#visorGrad${uid})`;
+  const arcGrad = `url(#arcGrad${uid})`;
 
   return (
     <svg
       ref={svgRef}
       viewBox="0 0 400 470"
-      className={`avatar${talking ? " talking" : ""}`}
+      className={`avatar cyber-bot${talking ? " talking" : ""}`}
       aria-hidden="true"
     >
       <defs>
-        <radialGradient id={`skin${uid}`} cx="0.42" cy="0.38" r="0.75">
-          <stop offset="0" stopColor="#e2ab80" />
-          <stop offset="1" stopColor="#b5774b" />
+        {/* Mecha chassis plating gradients */}
+        <linearGradient id={`plateDark${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#1e293b" />
+          <stop offset="50%" stopColor="#0f172a" />
+          <stop offset="100%" stopColor="#080d1a" />
+        </linearGradient>
+        <linearGradient id={`plateMid${uid}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#334155" />
+          <stop offset="50%" stopColor="#1e293b" />
+          <stop offset="100%" stopColor="#0f172a" />
+        </linearGradient>
+        <linearGradient id={`plateLight${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#475569" />
+          <stop offset="100%" stopColor="#1e293b" />
+        </linearGradient>
+
+        {/* Visor 3D curved glass */}
+        <linearGradient id={`visorGrad${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#0a101f" />
+          <stop offset="40%" stopColor="#060913" />
+          <stop offset="100%" stopColor="#020408" />
+        </linearGradient>
+
+        {/* Arc reactor quantum core */}
+        <radialGradient id={`arcGrad${uid}`} cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="35%" stopColor="var(--accent)" />
+          <stop offset="70%" stopColor="var(--accent2)" />
+          <stop offset="100%" stopColor="rgba(var(--acc-rgb), 0)" />
         </radialGradient>
-        <linearGradient id={`hood${uid}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#283044" />
-          <stop offset="1" stopColor="#151a26" />
+
+        {/* Holographic screens for phase 2 */}
+        <linearGradient id={`holoScreen${uid}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.18" />
+          <stop offset="100%" stopColor="var(--accent2)" stopOpacity="0.08" />
         </linearGradient>
-        <linearGradient id={`hairg${uid}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#2c2018" />
-          <stop offset="1" stopColor={hair} />
-        </linearGradient>
-        <linearGradient id={`lid${uid}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#2d3549" />
-          <stop offset="1" stopColor="#1a2030" />
-        </linearGradient>
-        <clipPath id={`eL${uid}`}>
-          <ellipse cx="163" cy="206" rx="21" ry="23" />
-        </clipPath>
-        <clipPath id={`eR${uid}`}>
-          <ellipse cx="237" cy="206" rx="21" ry="23" />
+
+        <clipPath id={`visorClip${uid}`}>
+          <rect x="124" y="156" width="152" height="106" rx="34" />
         </clipPath>
       </defs>
 
+      {/* Orbiting Companion Mini-Drone */}
+      <g className="drone-companion">
+        <ellipse cx="335" cy="118" rx="22" ry="12" fill={plateMid} stroke="var(--accent)" strokeWidth="1.5" />
+        <circle cx="335" cy="118" r="6" fill="var(--accent)" className="drone-eye" />
+        <circle cx="335" cy="118" r="9" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="318" y1="118" x2="310" y2="118" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+        <line x1="352" y1="118" x2="360" y2="118" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+        {/* Micro thruster glow */}
+        <ellipse cx="335" cy="132" rx="4" ry="2" fill="var(--accent2)" opacity="0.8" />
+      </g>
+
       <g className="av-body">
-        {/* hoodie */}
+        {/* Heavy Mecha Torso / Shoulders */}
         <path
-          d="M50 470 C 54 390 112 336 200 336 C 288 336 346 390 350 470 Z"
-          fill={hood}
+          d="M 52 470 C 56 385 110 332 200 332 C 290 332 344 385 348 470 Z"
+          fill={plateDark}
+          stroke="#0b1120"
+          strokeWidth="3"
         />
+
+        {/* Left & Right Shoulder Armor Guards */}
+        <path
+          d="M 54 470 C 56 405 92 362 136 348 L 120 470 Z"
+          fill={plateMid}
+          opacity="0.8"
+        />
+        <path
+          d="M 346 470 C 344 405 308 362 264 348 L 280 470 Z"
+          fill={plateMid}
+          opacity="0.8"
+        />
+
+        {/* Shoulder Bevel Highlights */}
+        <path
+          d="M 80 410 L 132 355 L 140 375 L 94 430 Z"
+          fill="var(--accent)"
+          opacity="0.15"
+        />
+        <path
+          d="M 320 410 L 268 355 L 260 375 L 306 430 Z"
+          fill="var(--accent)"
+          opacity="0.15"
+        />
+
+        {/* Neck Hydraulic Cowl */}
         <g ref={collarRef}>
           <path
-            d="M200 336 C 160 336 136 342 128 350 C 146 398 254 398 272 350 C 264 342 240 336 200 336 Z"
-            fill="#0a0d14"
-            opacity=".6"
+            d="M 160 286 L 160 338 C 160 354 240 354 240 338 L 240 286 Z"
+            fill={plateMid}
+            stroke="#070c18"
+            strokeWidth="2"
           />
+          {/* Hydraulic neck piston struts */}
+          <line x1="174" y1="290" x2="174" y2="340" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
+          <line x1="226" y1="290" x2="226" y2="340" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
+          {/* Collar ring */}
+          <ellipse cx="200" cy="336" rx="58" ry="14" fill="#090f1d" stroke="var(--line2)" strokeWidth="1.5" />
         </g>
-        {/* neck */}
-        <path
-          d="M174 280 L 174 338 Q 200 364 226 338 L 226 280 Z"
-          fill={shade}
-        />
+
+        {/* Central Mecha Chest Chassis with Quantum Arc Reactor Core */}
         <g ref={chestRef}>
+          {/* Hexagonal Armor Breastplate */}
+          <polygon
+            points="148,362 252,362 272,434 200,466 128,434"
+            fill={plateMid}
+            stroke="#0b1120"
+            strokeWidth="2.5"
+          />
+
+          {/* Circuit bus conduits */}
           <path
-            className="av-acc-stroke"
-            d="M180 372 L 175 420"
-            strokeWidth="3.5"
+            d="M 154 374 L 180 398 L 180 422"
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth="2"
             strokeLinecap="round"
+            opacity="0.7"
           />
           <path
-            className="av-acc-stroke"
-            d="M220 372 L 225 420"
-            strokeWidth="3.5"
+            d="M 246 374 L 220 398 L 220 422"
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth="2"
             strokeLinecap="round"
+            opacity="0.7"
           />
-          <circle className="av-acc-fill" cx="175" cy="424" r="4.5" />
-          <circle className="av-acc-fill" cx="225" cy="424" r="4.5" />
+
+          {/* Outer Quantum Arc Containment Ring */}
+          <circle cx="200" cy="414" r="28" fill="#060a14" stroke="var(--line2)" strokeWidth="2" />
+          <circle
+            className="arc-gear"
+            cx="200"
+            cy="414"
+            r="23"
+            fill="none"
+            stroke="var(--accent)"
+            strokeWidth="2.5"
+            strokeDasharray="5 7"
+          />
+
+          {/* Pulsing Arc Reactor Glow Core */}
+          <circle cx="200" cy="414" r="18" fill={arcGrad} className="arc-core-pulse" />
+          <circle cx="200" cy="414" r="8" fill="#ffffff" />
+
+          {/* Telemetry insignia */}
           <text x="200" y="455" textAnchor="middle" className="av-chest">
-            {"</>"}
+            {"⚡ AP-DEV"}
           </text>
         </g>
 
-        {/* waving arm (fades out when he starts working) */}
+        {/* Floating Magnetic Arm & Waving Cyber Hand */}
         <g className="av-arm-wrap">
           <g className="av-arm">
+            {/* Magnetic Levitation Shoulder Joint */}
+            <circle cx="316" cy="370" r="18" fill="#060a14" stroke="var(--accent)" strokeWidth="2" />
+            <circle cx="316" cy="370" r="8" fill="var(--accent)" opacity="0.7" />
+
+            {/* Arm Segment / Bionic Chassis */}
             <path
-              d="M292 372 C 314 344 330 316 338 286 L 370 294 C 364 330 348 364 324 394 Z"
-              fill={hood}
-              stroke="#0a0d14"
+              d="M 314 362 C 330 332 344 304 352 278 L 380 286 C 374 322 356 358 332 388 Z"
+              fill={plateMid}
+              stroke="#0b1120"
               strokeWidth="2"
             />
-            <path d="M336 290 L 371 299 L 375 284 L 340 275 Z" fill="#0f131c" />
+            {/* Forearm Conduit Cable */}
+            <path
+              d="M 324 366 Q 348 325 364 286"
+              fill="none"
+              stroke="var(--accent)"
+              strokeWidth="2.5"
+              strokeDasharray="4 3"
+            />
+            {/* Wrist Cuff */}
+            <rect x="348" y="270" width="34" height="12" rx="4" fill="#060a14" stroke="var(--accent)" strokeWidth="1.5" />
+
+            {/* Precision Articulated Cyber Hand */}
             <g className="av-hand-w">
-              <ellipse
-                cx="334"
-                cy="256"
-                rx="9"
-                ry="15"
-                transform="rotate(-35 334 256)"
-                fill={skin}
-              />
-              <rect x="339" y="216" width="11" height="32" rx="5.5" fill={skin} />
-              <rect x="351" y="207" width="11" height="34" rx="5.5" fill={skin} />
-              <rect x="363" y="208" width="11" height="34" rx="5.5" fill={skin} />
-              <rect x="374" y="217" width="10" height="30" rx="5" fill={skin} />
-              <ellipse cx="358" cy="254" rx="23" ry="26" fill={skin} />
+              {/* Metallic Palm Casing */}
+              <ellipse cx="366" cy="248" rx="20" ry="22" fill={plateMid} stroke="#0b1120" strokeWidth="1.5" />
+              <circle cx="366" cy="248" r="6" fill="var(--accent)" opacity="0.6" />
+
+              {/* Articulated Bionic Digits with Glowing Sensor Tips */}
+              {/* Thumb */}
+              <path d="M 344 256 L 336 244 L 340 236" fill="none" stroke="#475569" strokeWidth="4.5" strokeLinecap="round" />
+              <circle cx="340" cy="236" r="2.5" fill="var(--accent)" />
+              {/* Index */}
+              <path d="M 352 232 L 350 208 L 351 202" fill="none" stroke="#475569" strokeWidth="4.5" strokeLinecap="round" />
+              <circle cx="351" cy="202" r="2.5" fill="var(--accent)" />
+              {/* Middle */}
+              <path d="M 364 228 L 364 198 L 365 194" fill="none" stroke="#475569" strokeWidth="5" strokeLinecap="round" />
+              <circle cx="365" cy="194" r="2.5" fill="var(--accent)" />
+              {/* Ring */}
+              <path d="M 376 230 L 377 202 L 378 198" fill="none" stroke="#475569" strokeWidth="4.5" strokeLinecap="round" />
+              <circle cx="378" cy="198" r="2.5" fill="var(--accent)" />
+              {/* Pinky */}
+              <path d="M 386 236 L 388 214 L 389 210" fill="none" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
+              <circle cx="389" cy="210" r="2" fill="var(--accent)" />
             </g>
           </g>
         </g>
 
-        {/* head */}
+        {/* 3D Cybernetic Head Assembly */}
         <g ref={headRef}>
+          {/* Left Audio / Comms Sensor Array */}
           <g ref={earLRef}>
-            <ellipse cx="116" cy="218" rx="17" ry="25" fill={skin} />
-            <ellipse
-              cx="118"
-              cy="219"
-              rx="8"
-              ry="13"
-              fill={shade}
-              opacity=".5"
-            />
+            <polygon points="108,185 124,175 124,245 108,235" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
+            <line x1="114" y1="192" x2="114" y2="228" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" />
+            <circle cx="114" cy="186" r="2" fill="var(--accent2)" />
           </g>
+
+          {/* Right Audio / Comms Sensor Array */}
           <g ref={earRRef}>
-            <ellipse cx="284" cy="218" rx="17" ry="25" fill={skin} />
-            <ellipse
-              cx="282"
-              cy="219"
-              rx="8"
-              ry="13"
-              fill={shade}
-              opacity=".5"
-            />
+            <polygon points="292,185 276,175 276,245 292,235" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
+            <line x1="286" y1="192" x2="286" y2="228" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" />
+            <circle cx="286" cy="186" r="2" fill="var(--accent2)" />
           </g>
+
+          {/* Outer Helmet Chassis / Chin Guard */}
           <g ref={faceRef}>
-            <ellipse cx="200" cy="208" rx="86" ry="100" fill={skin} />
-          </g>
-
-          <g ref={featRef}>
-            <ellipse
-              cx="148"
-              cy="250"
-              rx="15"
-              ry="8"
-              fill="#e3735a"
-              opacity=".22"
-            />
-            <ellipse
-              cx="252"
-              cy="250"
-              rx="15"
-              ry="8"
-              fill="#e3735a"
-              opacity=".22"
-            />
-
-            <g className="av-brows">
-              <path
-                d="M140 170 Q 162 154 186 166"
-                fill="none"
-                stroke={hair}
-                strokeWidth="8"
-                strokeLinecap="round"
-              />
-              <path
-                d="M214 166 Q 238 154 260 170"
-                fill="none"
-                stroke={hair}
-                strokeWidth="8"
-                strokeLinecap="round"
-              />
-            </g>
-
-            <g className="av-eye">
-              <ellipse cx="163" cy="206" rx="21" ry="23" fill="#fff" />
-              <g clipPath={`url(#eL${uid})`}>
-                <g ref={pupilL}>
-                  <circle cx="165" cy="209" r="12.5" fill="#3b2415" />
-                  <circle cx="165" cy="209" r="6.5" fill="#0b0705" />
-                  <circle cx="160.5" cy="204" r="3.6" fill="#fff" />
-                </g>
-              </g>
-              <path
-                d="M142 206 Q 163 160 184 206"
-                fill="none"
-                stroke={hair}
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-            </g>
-            <g className="av-eye">
-              <ellipse cx="237" cy="206" rx="21" ry="23" fill="#fff" />
-              <g clipPath={`url(#eR${uid})`}>
-                <g ref={pupilR}>
-                  <circle cx="235" cy="209" r="12.5" fill="#3b2415" />
-                  <circle cx="235" cy="209" r="6.5" fill="#0b0705" />
-                  <circle cx="230.5" cy="204" r="3.6" fill="#fff" />
-                </g>
-              </g>
-              <path
-                d="M216 206 Q 237 160 258 206"
-                fill="none"
-                stroke={hair}
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-            </g>
-
             <path
-              d="M195 222 Q 191 238 200 240 Q 206 240 207 236"
-              fill="none"
-              stroke={shade}
-              strokeWidth="4"
-              strokeLinecap="round"
+              d="M 116 195 C 114 140 148 108 200 108 C 252 108 286 140 284 195 C 284 250 252 278 200 278 C 148 278 116 250 116 195 Z"
+              fill={plateDark}
+              stroke="#070c18"
+              strokeWidth="3"
             />
-
-            <g className="av-mouth">
-              <path
-                d="M170 258 Q 200 292 230 258 Q 200 270 170 258 Z"
-                fill="#3d1a12"
-              />
-              <path
-                d="M178 262 Q 200 269 222 262 L 219 268 Q 200 275 181 268 Z"
-                fill="#fff"
-              />
-              <path
-                d="M187 277 Q 200 284 213 277 Q 200 280 187 277 Z"
-                fill="#e0776b"
-              />
-            </g>
+            {/* Aerodynamic Jaw Reinforcement Plates */}
+            <polygon points="126,220 160,266 140,266 118,228" fill={plateMid} />
+            <polygon points="274,220 240,266 260,266 282,228" fill={plateMid} />
           </g>
 
+          {/* Top Helmet Cowl / Carbon Crest */}
           <g ref={hairRef}>
             <path
-              d="M112 222 C 102 150 132 102 190 96 C 248 90 292 120 292 178 C 292 198 290 212 287 222 C 282 192 268 170 250 156 C 230 172 192 176 162 162 C 142 174 122 194 112 222 Z"
-              fill={hairFill}
+              d="M 124 165 C 130 115 160 92 200 92 C 240 92 270 115 276 165 C 258 135 232 124 200 124 C 168 124 142 135 124 165 Z"
+              fill={plateLight}
             />
           </g>
+
+          {/* Forehead Brow Guard & Optical Sensor Gem */}
           <g ref={quiffRef}>
             <path
-              d="M146 118 C 154 78 214 58 256 80 C 278 92 290 112 286 132 C 266 110 232 100 200 108 C 180 112 162 122 146 118 Z"
-              fill={hairFill}
+              d="M 148 142 C 168 130 232 130 252 142 L 244 154 C 228 146 172 146 156 154 Z"
+              fill={plateMid}
             />
+            <circle cx="200" cy="138" r="4.5" fill="var(--accent)" />
+            <circle cx="200" cy="138" r="8" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" />
+          </g>
+
+          {/* Curved Obsidian Glass Cyber Visor */}
+          <g ref={featRef}>
+            {/* Dark glass visor screen */}
+            <rect
+              x="124"
+              y="156"
+              width="152"
+              height="106"
+              rx="34"
+              fill={visorGrad}
+              stroke="var(--line2)"
+              strokeWidth="2"
+            />
+
+            {/* Specular gloss reflection highlight arc (creates 3D glass curved bulb effect) */}
             <path
-              d="M178 92 C 200 80 232 82 252 96"
+              d="M 138 175 Q 200 160 262 175"
               fill="none"
-              stroke="#3b2c21"
-              strokeWidth="4"
+              stroke="#ffffff"
+              strokeWidth="2.5"
               strokeLinecap="round"
+              opacity="0.25"
             />
+
+            {/* Visor HUD scanline effect */}
+            <rect
+              x="124"
+              y="156"
+              width="152"
+              height="106"
+              rx="34"
+              fill="none"
+              className="visor-hud-sweep"
+            />
+
+            {/* Visor Optics (LED Matrix Cyber Eyes & HUD Reticles) */}
+            <g clipPath={`url(#visorClip${uid})`}>
+              {/* Left Eye HUD & Optics */}
+              <g className="av-eye">
+                {/* HUD targeting brackets */}
+                <path d="M 148 194 L 144 194 L 144 216 L 148 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
+                <path d="M 178 194 L 182 194 L 182 216 L 178 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
+                {/* Moving Eye Pupil Unit */}
+                <g ref={pupilL}>
+                  <circle cx="163" cy="205" r="13" fill="rgba(var(--acc-rgb), 0.15)" />
+                  <circle cx="163" cy="205" r="8" fill="var(--accent)" className="eye-optic-glow" />
+                  <circle cx="163" cy="205" r="3.5" fill="#ffffff" />
+                </g>
+              </g>
+
+              {/* Right Eye HUD & Optics */}
+              <g className="av-eye">
+                {/* HUD targeting brackets */}
+                <path d="M 222 194 L 218 194 L 218 216 L 222 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
+                <path d="M 252 194 L 256 194 L 256 216 L 252 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
+                {/* Moving Eye Pupil Unit */}
+                <g ref={pupilR}>
+                  <circle cx="237" cy="205" r="13" fill="rgba(var(--acc-rgb), 0.15)" />
+                  <circle cx="237" cy="205" r="8" fill="var(--accent)" className="eye-optic-glow" />
+                  <circle cx="237" cy="205" r="3.5" fill="#ffffff" />
+                </g>
+              </g>
+
+              {/* Lower Visor Mouth / Voice Equalizer Waveform */}
+              <g className="av-mouth">
+                {/* Dynamic Audio Spectrum Bars (animate intensely when talking) */}
+                <g className="voice-spectrum">
+                  <rect x="172" y="238" width="3" height="8" rx="1.5" fill="var(--accent)" className="v-bar vb-1" />
+                  <rect x="179" y="235" width="3" height="14" rx="1.5" fill="var(--accent)" className="v-bar vb-2" />
+                  <rect x="186" y="232" width="3" height="20" rx="1.5" fill="var(--accent)" className="v-bar vb-3" />
+                  <rect x="193" y="230" width="3" height="24" rx="1.5" fill="var(--accent2)" className="v-bar vb-4" />
+                  <rect x="200" y="228" width="3" height="28" rx="1.5" fill="#ffffff" className="v-bar vb-5" />
+                  <rect x="207" y="230" width="3" height="24" rx="1.5" fill="var(--accent2)" className="v-bar vb-6" />
+                  <rect x="214" y="232" width="3" height="20" rx="1.5" fill="var(--accent)" className="v-bar vb-7" />
+                  <rect x="221" y="235" width="3" height="14" rx="1.5" fill="var(--accent)" className="v-bar vb-8" />
+                  <rect x="228" y="238" width="3" height="8" rx="1.5" fill="var(--accent)" className="v-bar vb-9" />
+                </g>
+              </g>
+            </g>
           </g>
         </g>
       </g>
 
-      {/* desk + laptop (slides up when he starts working) */}
+      {/* Floating Holographic Cyber Workstation (Phase 2: "What I Do") */}
       <g className="av-desk">
-        <g className="av-code">
-          <text x="66" y="300">
-            {"</>"}
-          </text>
-          <text x="292" y="286">
-            {"{ }"}
-          </text>
-          <text x="44" y="372">
-            {"( )"}
-          </text>
+        {/* Floating Hologram Code Screens */}
+        <g className="av-holo-screens">
+          {/* Left Hologram Projection */}
+          <g className="holo-card l">
+            <rect x="28" y="260" width="118" height="74" rx="6" fill={`url(#holoScreen${uid})`} stroke="var(--accent)" strokeWidth="1" />
+            <text x="36" y="278" fill="var(--accent)" fontSize="9" fontFamily="'JetBrains Mono', monospace" fontWeight="600">
+              const dev = &apos;Ayush&apos;;
+            </text>
+            <text x="36" y="294" fill="var(--accent2)" fontSize="8" fontFamily="'JetBrains Mono', monospace">
+              stack: [&apos;Full-Stack&apos;]
+            </text>
+            <text x="36" y="310" fill="#22c55e" fontSize="8" fontFamily="'JetBrains Mono', monospace">
+              status: ONLINE ⚡
+            </text>
+            <line x1="36" y1="322" x2="136" y2="322" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
+          </g>
+
+          {/* Right Hologram Projection */}
+          <g className="holo-card r">
+            <rect x="254" y="250" width="122" height="78" rx="6" fill={`url(#holoScreen${uid})`} stroke="var(--accent2)" strokeWidth="1" />
+            <text x="262" y="270" fill="var(--accent2)" fontSize="9" fontFamily="'JetBrains Mono', monospace" fontWeight="600">
+              hardware.connect()
+            </text>
+            <text x="262" y="286" fill="var(--accent)" fontSize="8" fontFamily="'JetBrains Mono', monospace">
+              telecom: &apos;MITS Gwalior&apos;
+            </text>
+            <text x="262" y="302" fill="var(--text)" fontSize="8" fontFamily="'JetBrains Mono', monospace">
+              deploy({`{ latency: 0 }`})
+            </text>
+            <circle cx="362" cy="268" r="3" fill="#22c55e" />
+          </g>
         </g>
-        <path d="M92 426 C 96 404 108 398 126 404 L 134 426 Z" fill={hood} />
-        <ellipse
-          className="av-hand l"
-          cx="130"
-          cy="412"
-          rx="15"
-          ry="9"
-          fill={skin}
+
+        {/* Floating Holographic Terminal Console Base */}
+        <polygon
+          points="20,422 380,422 350,442 50,442"
+          fill="rgba(var(--acc-rgb), 0.12)"
+          stroke="var(--accent)"
+          strokeWidth="1.5"
         />
-        <path d="M308 426 C 304 404 292 398 274 404 L 266 426 Z" fill={hood} />
-        <ellipse
-          className="av-hand r"
-          cx="270"
-          cy="412"
-          rx="15"
-          ry="9"
-          fill={skin}
-        />
-        <path
-          d="M124 322 Q 124 314 132 314 L 268 314 Q 276 314 276 322 L 282 422 L 118 422 Z"
-          fill={`url(#lid${uid})`}
-        />
-        <circle
-          className="av-logo av-acc-fill"
-          cx="200"
-          cy="368"
-          r="24"
-          opacity=".16"
-        />
-        <circle className="av-logo av-acc-fill" cx="200" cy="368" r="10" />
-        <rect
-          className="av-desk-top"
-          x="0"
-          y="420"
-          width="400"
-          height="10"
-          rx="3"
-          fill="#262d3d"
-        />
-        <rect
-          className="av-desk-front"
-          x="0"
-          y="430"
-          width="400"
-          height="40"
-          fill="#121722"
-        />
-        <rect
-          className="av-acc2-fill"
-          x="312"
-          y="384"
-          width="30"
-          height="36"
-          rx="5"
-        />
-        <path
-          className="av-acc2-stroke"
-          d="M342 392 q 13 0 13 10 q 0 10 -13 10"
-          fill="none"
-          strokeWidth="5"
-        />
-        <g className="av-steam">
-          <path
-            d="M321 376 q -5 -8 0 -16 q 5 -8 0 -16"
-            fill="none"
-            stroke="#fff"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
-          <path
-            d="M333 376 q -5 -8 0 -16 q 5 -8 0 -16"
-            fill="none"
-            stroke="#fff"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
+
+        {/* Neon Holographic Touch Keys Matrix */}
+        <g stroke="var(--accent)" strokeWidth="1" opacity="0.5">
+          <line x1="60" y1="428" x2="340" y2="428" />
+          <line x1="75" y1="435" x2="325" y2="435" />
+          {[90, 120, 150, 180, 210, 240, 270, 300].map((x) => (
+            <line key={x} x1={x} y1="422" x2={x - 8} y2="442" />
+          ))}
+        </g>
+
+        {/* Cyber Bionic Hands Typing on Hologram Console */}
+        <g className="av-typing-hands">
+          {/* Left Cyber Hand */}
+          <g className="av-hand l">
+            <rect x="116" y="404" width="28" height="18" rx="6" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
+            <circle cx="122" cy="413" r="3" fill="var(--accent)" />
+            <circle cx="130" cy="413" r="3" fill="var(--accent)" />
+            <circle cx="138" cy="413" r="3" fill="var(--accent)" />
+          </g>
+
+          {/* Right Cyber Hand */}
+          <g className="av-hand r">
+            <rect x="256" y="404" width="28" height="18" rx="6" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
+            <circle cx="262" cy="413" r="3" fill="var(--accent)" />
+            <circle cx="270" cy="413" r="3" fill="var(--accent)" />
+            <circle cx="278" cy="413" r="3" fill="var(--accent)" />
+          </g>
+        </g>
+
+        {/* Quantum Energy Cooling Capacitor (replaces old coffee mug) */}
+        <g className="av-quantum-cell">
+          <rect x="328" y="380" width="22" height="38" rx="6" fill="#0b1120" stroke="var(--accent)" strokeWidth="1.5" />
+          <rect x="332" y="388" width="14" height="22" rx="3" fill="var(--accent)" opacity="0.6" className="arc-core-pulse" />
+          {/* Rising quantum energy wisps */}
+          <g className="av-steam">
+            <path d="M 335 374 Q 330 364 336 354" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
+            <path d="M 343 374 Q 348 364 342 354" fill="none" stroke="var(--accent2)" strokeWidth="2" strokeLinecap="round" />
+          </g>
         </g>
       </g>
     </svg>
@@ -1116,305 +1206,268 @@ function Avatar({ talking = false }) {
 }
 
 /* ================================================================
-   🏡 NATURE SCENE behind the hero — sky, sun/moon, clouds, birds,
-   hills, trees and a cosy little house (smoke + cat)
+   🌌 CYBER-COSMIC SCENERY
+   - Dynamic laser constellation canvas tracking cursor in real-time
+   - 3D perspective cyber horizon grid with infinite vanishing point
+   - Glowing nebula celestial clouds & telemetry rings
    ================================================================ */
-const rnd = (n) => {
-  const x = Math.sin(n * 12.9898) * 43758.5453;
-  return x - Math.floor(x);
-};
-const STARS = Array.from({ length: 45 }, (_, i) => [
-  Math.round(rnd(i + 1) * 1600),
-  Math.round(rnd(i + 101) * 430) + 15,
-  (i % 3) * 0.6 + 0.8,
-]);
-const FLOWERS = Array.from({ length: 22 }, (_, i) => [
-  40 + i * 72 + (i % 3) * 14,
-  822 + ((i * 37) % 56),
-  ["#f9a8c4", "#fde68a", "#ffffff", "#c4b5fd"][i % 4],
-]);
-const PINES = [
-  [250, 648, 1],
-  [292, 656, 0.8],
-  [880, 640, 0.9],
-  [925, 632, 1.1],
-  [968, 642, 0.8],
-  [1180, 640, 0.9],
-];
-
 function Scenery() {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let raf;
+    const mouse = { x: -9999, y: -9999, active: false };
+
+    // 60 dynamic energy star nodes
+    const COUNT = 60;
+    const particles = [];
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = canvas.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      if (particles.length === 0 && width > 0 && height > 0) {
+        for (let i = 0; i < COUNT; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height * 0.85,
+            vx: (Math.random() - 0.5) * 0.45,
+            vy: (Math.random() - 0.5) * 0.35,
+            r: Math.random() * 1.6 + 0.8,
+            isSec: i % 3 === 0,
+          });
+        }
+      }
+    };
+    resize();
+
+    const onMove = (e) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+      mouse.active = true;
+    };
+    const onLeave = () => {
+      mouse.active = false;
+    };
+
+    const maxDist = 120;
+    const mouseDist = 160;
+
+    const render = () => {
+      if (width === 0 || height === 0) {
+        raf = requestAnimationFrame(render);
+        return;
+      }
+      ctx.clearRect(0, 0, width, height);
+
+      // Read accent color from computed style
+      const style = getComputedStyle(canvas);
+      const accRgb = style.getPropertyValue("--acc-rgb").trim() || "124,199,255";
+      const acc2Rgb = style.getPropertyValue("--acc2-rgb").trim() || "196,181,253";
+
+      // Update & connect
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0) { p.x = 0; p.vx *= -1; }
+        else if (p.x > width) { p.x = width; p.vx *= -1; }
+        if (p.y < 0) { p.y = 0; p.vy *= -1; }
+        else if (p.y > height * 0.85) { p.y = height * 0.85; p.vy *= -1; }
+
+        if (mouse.active) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < mouseDist && dist > 0) {
+            const force = (1 - dist / mouseDist) * 0.8;
+            p.x += (dx / dist) * force;
+            p.y += (dy / dist) * force;
+
+            const alpha = (1 - dist / mouseDist) * 0.5;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = `rgba(${accRgb}, ${alpha.toFixed(2)})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Inter-node laser lines
+      ctx.lineWidth = 0.75;
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < maxDist) {
+            const alpha = (1 - dist / maxDist) * 0.25;
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(${accRgb}, ${alpha.toFixed(2)})`;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw star particles
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        const rgb = p.isSec ? acc2Rgb : accRgb;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgb(${rgb})`;
+        ctx.fill();
+      }
+
+      raf = requestAnimationFrame(render);
+    };
+
+    window.addEventListener("resize", resize, { passive: true });
+    window.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("mouseleave", onLeave);
+    raf = requestAnimationFrame(render);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
+
   return (
-    <div className="scenery" aria-hidden="true">
-      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+    <div className="scenery cyber-scenery" aria-hidden="true">
+      {/* 3D Cyber Horizon & Cosmic Glow */}
+      <svg
+        className="cyber-grid-svg"
+        viewBox="0 0 1600 900"
+        preserveAspectRatio="xMidYMax slice"
+      >
         <defs>
-          <linearGradient id="sc-sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" className="sk1" />
-            <stop offset="0.8" className="sk2" />
+          <radialGradient id="nebula1" cx="25%" cy="25%" r="50%">
+            <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.22" />
+            <stop offset="60%" stopColor="var(--accent)" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="nebula2" cx="75%" cy="30%" r="55%">
+            <stop offset="0%" stopColor="var(--accent2)" stopOpacity="0.2" />
+            <stop offset="65%" stopColor="var(--accent2)" stopOpacity="0.03" />
+            <stop offset="100%" stopColor="var(--accent2)" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id="horizonGlow" cx="50%" cy="100%" r="70%">
+            <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.4" />
+            <stop offset="40%" stopColor="var(--accent2)" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="var(--bg)" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--bg)" stopOpacity="0" />
+            <stop offset="40%" stopColor="var(--accent)" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="var(--accent)" stopOpacity="0.7" />
           </linearGradient>
-          <g id="sc-cloud">
-            <ellipse cx="0" cy="0" rx="78" ry="26" />
-            <circle cx="-34" cy="-14" r="28" />
-            <circle cx="10" cy="-26" r="36" />
-            <circle cx="48" cy="-10" r="24" />
-          </g>
         </defs>
 
-        <rect width="1600" height="900" fill="url(#sc-sky)" />
+        {/* Nebula cosmic orbs */}
+        <circle cx="380" cy="220" r="340" fill="url(#nebula1)" />
+        <circle cx="1220" cy="260" r="380" fill="url(#nebula2)" />
 
-        <g className="sc-stars">
-          {STARS.map(([x, y, r], i) => (
-            <circle
-              key={i}
-              cx={x}
-              cy={y}
-              r={r}
-              style={{ animationDelay: `${(i % 5) * 0.7}s` }}
+        {/* Horizon Glow */}
+        <ellipse cx="800" cy="620" rx="750" ry="180" fill="url(#horizonGlow)" />
+        <line
+          x1="0"
+          y1="620"
+          x2="1600"
+          y2="620"
+          stroke="var(--accent)"
+          strokeWidth="1.5"
+          strokeOpacity="0.45"
+        />
+
+        {/* 3D Perspective Ground Grid (receding to 800, 620) */}
+        <g className="cyber-grid-lines" stroke="url(#gridFade)" strokeWidth="1.2">
+          {[-700, -500, -320, -160, 0, 160, 320, 500, 700].map((dx, i) => (
+            <line
+              key={`ray-${i}`}
+              x1="800"
+              y1="620"
+              x2={800 + dx * 2.2}
+              y2="920"
+            />
+          ))}
+          {[635, 655, 682, 718, 765, 825, 900].map((y, i) => (
+            <line
+              key={`rung-${i}`}
+              x1="0"
+              y1={y}
+              x2="1600"
+              y2={y}
+              strokeOpacity={(i + 1) * 0.12}
             />
           ))}
         </g>
 
-        <g className="sc-sun">
-          <circle className="glow" cx="1250" cy="165" r="100" />
-          <circle className="glow" cx="1250" cy="165" r="78" />
-          <circle className="core" cx="1250" cy="165" r="60" />
-        </g>
-
-        <g className="sc-clouds">
-          <g className="cloud" style={{ "--dur": "120s", "--delay": "-30s" }}>
-            <use href="#sc-cloud" transform="translate(0 150) scale(1.35)" />
-          </g>
-          <g className="cloud" style={{ "--dur": "95s", "--delay": "-70s" }}>
-            <use href="#sc-cloud" transform="translate(0 260) scale(0.9)" />
-          </g>
-          <g className="cloud" style={{ "--dur": "140s", "--delay": "-100s" }}>
-            <use href="#sc-cloud" transform="translate(0 95) scale(1)" />
-          </g>
-          <g className="cloud" style={{ "--dur": "105s", "--delay": "-5s" }}>
-            <use href="#sc-cloud" transform="translate(0 330) scale(0.7)" />
-          </g>
-        </g>
-
-        <g className="birds">
-          <g className="bird b1">
-            <path d="M0 0 q 10 -9 20 0 q 10 -9 20 0" />
-          </g>
-          <g className="bird b2">
-            <path d="M0 0 q 8 -7 16 0 q 8 -7 16 0" />
-          </g>
-          <g className="bird b3">
-            <path d="M0 0 q 7 -6 14 0 q 7 -6 14 0" />
-          </g>
-        </g>
-
-        {/* hills */}
-        <g className="ly-far">
-          <path
-            className="far"
-            d="M-200 615 L0 600 C 200 520 380 540 560 580 C 760 625 900 520 1100 540 C 1300 560 1450 500 1600 530 C 1680 545 1740 540 1800 530 L1800 900 L-200 900 Z"
+        {/* Subtle Cyber Data telemetry rings in distance */}
+        <g opacity="0.25" stroke="var(--accent)">
+          <circle
+            cx="800"
+            cy="380"
+            r="280"
+            fill="none"
+            strokeWidth="1"
+            strokeDasharray="6 14"
           />
-        </g>
-        <g className="ly-mid">
-          <path
-            className="mid"
-            d="M-200 690 L0 680 C 180 620 360 640 520 660 C 700 690 860 610 1060 630 C 1260 650 1420 600 1600 620 C 1680 628 1740 622 1800 618 L1800 900 L-200 900 Z"
+          <circle
+            cx="800"
+            cy="380"
+            r="360"
+            fill="none"
+            strokeWidth="0.8"
+            strokeDasharray="18 24"
           />
-          {PINES.map(([x, y, k], i) => (
-            <g key={i} transform={`translate(${x} ${y}) scale(${k})`}>
-              <path
-                className="pine"
-                d="M0 -58 L 20 -14 L 10 -14 L 26 12 L -26 12 L -10 -14 L -20 -14 Z"
-              />
-              <rect x="-4" y="12" width="8" height="12" fill="#7a5538" />
-            </g>
-          ))}
-        </g>
-
-        {/* cosy house */}
-        <g className="ly-house">
-          <g className="house">
-            <circle className="smoke s1" cx="1471" cy="574" r="12" />
-            <circle className="smoke s2" cx="1471" cy="574" r="12" />
-            <circle className="smoke s3" cx="1471" cy="574" r="12" />
-            <rect x="1460" y="586" width="22" height="52" fill="#b9a58a" />
-            <rect
-              x="1455"
-              y="580"
-              width="32"
-              height="9"
-              rx="2"
-              fill="#9c886e"
-            />
-            <rect x="1338" y="645" width="164" height="127" fill="#efe1c6" />
-            <rect
-              x="1346"
-              y="742"
-              width="26"
-              height="12"
-              rx="4"
-              fill="#e1cfae"
-            />
-            <rect
-              x="1470"
-              y="722"
-              width="22"
-              height="11"
-              rx="4"
-              fill="#e1cfae"
-            />
-            <rect
-              x="1348"
-              y="652"
-              width="18"
-              height="9"
-              rx="3"
-              fill="#e1cfae"
-            />
-            <path d="M1318 652 L1420 570 L1522 652 Z" fill="#5d6677" />
-            <path
-              d="M1318 652 L1420 570 L1522 652"
-              fill="none"
-              stroke="#454d5c"
-              strokeWidth="6"
-              strokeLinejoin="round"
-            />
-            <circle
-              className="win"
-              cx="1420"
-              cy="622"
-              r="12"
-              stroke="#8a6a4f"
-              strokeWidth="4"
-            />
-            <rect
-              className="win"
-              x="1354"
-              y="672"
-              width="36"
-              height="32"
-              rx="3"
-              stroke="#8a6a4f"
-              strokeWidth="4"
-            />
-            <path
-              d="M1372 672 V704 M1354 688 H1390"
-              stroke="#8a6a4f"
-              strokeWidth="3"
-            />
-            <rect
-              className="win"
-              x="1450"
-              y="672"
-              width="36"
-              height="32"
-              rx="3"
-              stroke="#8a6a4f"
-              strokeWidth="4"
-            />
-            <path
-              d="M1468 672 V704 M1450 688 H1486"
-              stroke="#8a6a4f"
-              strokeWidth="3"
-            />
-            <path d="M1404 772 V722 a16 16 0 0 1 32 0 V772 Z" fill="#c9443a" />
-            <circle cx="1429" cy="748" r="2.6" fill="#f3d27a" />
-            <rect
-              x="1396"
-              y="770"
-              width="48"
-              height="7"
-              rx="3"
-              fill="#cdbb9c"
-            />
-            {/* lamp post */}
-            <rect x="1288" y="676" width="6" height="98" fill="#3f4654" />
-            <rect
-              x="1281"
-              y="664"
-              width="20"
-              height="16"
-              rx="4"
-              fill="#3f4654"
-            />
-            <circle className="lamp" cx="1291" cy="674" r="22" />
-            <rect
-              x="1285"
-              y="668"
-              width="12"
-              height="9"
-              rx="2"
-              fill="#ffe7a3"
-            />
-            {/* bushes */}
-            <circle className="bush" cx="1338" cy="770" r="20" />
-            <circle className="bush" cx="1362" cy="776" r="16" />
-            <circle className="bush" cx="1500" cy="772" r="18" />
-            {/* cat */}
-            <g className="cat">
-              <path
-                className="cat-tail"
-                d="M1556 768 C 1580 762 1582 740 1570 731"
-                fill="none"
-                stroke="#f0a55b"
-                strokeWidth="6"
-                strokeLinecap="round"
-              />
-              <ellipse cx="1545" cy="754" rx="16" ry="20" fill="#f0a55b" />
-              <ellipse cx="1541" cy="758" rx="7" ry="11" fill="#fff4e6" />
-              <circle cx="1539" cy="728" r="13" fill="#f0a55b" />
-              <path
-                d="M1528 721 L1530 706 L1539 716 Z M1541 716 L1549 706 L1551 721 Z"
-                fill="#f0a55b"
-              />
-              <circle cx="1535" cy="727" r="1.8" fill="#2b1d12" />
-              <circle cx="1544" cy="727" r="1.8" fill="#2b1d12" />
-            </g>
-          </g>
-        </g>
-
-        <g className="ly-near">
-          <path
-            className="near"
-            d="M-200 785 L0 780 C 240 740 480 760 700 775 C 940 792 1180 745 1400 755 C 1500 760 1560 750 1600 752 L1800 750 L1800 900 L-200 900 Z"
+          <circle
+            cx="800"
+            cy="380"
+            r="160"
+            fill="none"
+            strokeWidth="1.2"
+            strokeDasharray="4 8"
           />
-          {FLOWERS.map(([x, y, c], i) => (
-            <g key={i}>
-              <path d={`M${x} ${y} v12`} stroke="#4f8f4a" strokeWidth="2" />
-              <circle cx={x} cy={y} r="4.5" fill={c} />
-            </g>
-          ))}
-        </g>
-
-        {/* big tree on the left */}
-        <g className="ly-tree">
-          <rect x="108" y="640" width="24" height="150" rx="6" fill="#86603f" />
-          <g className="tree-top">
-            <circle className="t2" cx="70" cy="640" r="52" />
-            <circle className="t2" cx="176" cy="636" r="54" />
-            <circle className="t1" cx="120" cy="598" r="72" />
-            <circle className="t1" cx="88" cy="566" r="40" />
-            <circle className="t1" cx="158" cy="572" r="38" />
-          </g>
         </g>
       </svg>
+
+      {/* Interactive Laser Constellation Canvas */}
+      <canvas ref={canvasRef} className="cyber-canvas" />
     </div>
   );
 }
 
 /* ================================================================
-   🌿 SECTION BACKGROUND — har section ke peeche nature scene
-   layered pahadiyan + girte hue patte + chamakte jugnu.
-   Colours theme se aate hain (light: green · dark: night forest)
+   ⚡ SECTION BACKGROUND — Cyber matrix wave & quantum energy motes
    ================================================================ */
-const LEAVES = Array.from({ length: 14 }, (_, i) => ({
-  x: Math.round(rnd(i + 301) * 96),
-  y: Math.round(rnd(i + 311) * 70),
-  s: 0.7 + rnd(i + 321) * 0.8,
-  d: 12 + Math.round(rnd(i + 331) * 10),
-  dl: -Math.round(rnd(i + 341) * 18),
-  r: Math.round(rnd(i + 351) * 360),
-  c: i % 3 === 0 ? "var(--accent)" : "var(--tree1)",
-}));
-const MOTES = Array.from({ length: 20 }, (_, i) => ({
+const rnd = (n) => {
+  const x = Math.sin(n * 12.9898) * 43758.5453;
+  return x - Math.floor(x);
+};
+const MOTES = Array.from({ length: 24 }, (_, i) => ({
   x: Math.round(rnd(i + 401) * 100),
   y: Math.round(rnd(i + 411) * 100),
   s: 2 + Math.round(rnd(i + 421) * 3),
@@ -1423,7 +1476,6 @@ const MOTES = Array.from({ length: 20 }, (_, i) => ({
 }));
 
 function SectionBg({ image = "" }) {
-  // Photo set hai to wahi dikhao (overlay ke saath, taaki text padhne mein aaye)
   if (image) {
     return (
       <div className="sec-bg sec-photo" aria-hidden="true">
@@ -1433,52 +1485,64 @@ function SectionBg({ image = "" }) {
     );
   }
   return (
-    <div className="sec-bg" aria-hidden="true">
+    <div className="sec-bg sec-cyber" aria-hidden="true">
+      {/* Sleek cybernetic horizon wave */}
       <svg
-        className="sec-hills"
+        className="sec-grid-svg"
         viewBox="0 0 1600 360"
         preserveAspectRatio="none"
       >
+        <defs>
+          <linearGradient id="secCyberGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--accent)" stopOpacity="0" />
+            <stop offset="50%" stopColor="var(--accent)" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="var(--accent)" stopOpacity="0.2" />
+          </linearGradient>
+        </defs>
         <path
-          className="sec-h3"
-          d="M0 220 C 200 150 380 170 560 210 C 760 255 900 150 1100 180 C 1300 210 1460 150 1600 190 L1600 360 L0 360 Z"
+          className="sec-wave-1"
+          d="M0 260 Q 400 190 800 240 T 1600 220 L 1600 360 L 0 360 Z"
+          fill="url(#secCyberGrad)"
         />
         <path
-          className="sec-h2"
-          d="M0 262 C 220 200 420 240 640 270 C 860 300 1040 220 1260 252 C 1380 268 1500 240 1600 250 L1600 360 L0 360 Z"
+          className="sec-wave-2"
+          d="M0 295 Q 400 240 800 280 T 1600 270 L 1600 360 L 0 360 Z"
+          fill="var(--bg2)"
+          opacity="0.6"
         />
-        <path
-          className="sec-h1"
-          d="M0 312 C 260 282 520 302 780 318 C 1040 334 1300 298 1600 312 L1600 360 L0 360 Z"
+        {/* Cyber perspective grid lines */}
+        <line
+          x1="0"
+          y1="260"
+          x2="1600"
+          y2="260"
+          stroke="var(--accent)"
+          strokeOpacity="0.18"
+          strokeDasharray="8 6"
+        />
+        <line
+          x1="0"
+          y1="300"
+          x2="1600"
+          y2="300"
+          stroke="var(--accent)"
+          strokeOpacity="0.25"
+          strokeDasharray="12 8"
+        />
+        <line
+          x1="0"
+          y1="340"
+          x2="1600"
+          y2="340"
+          stroke="var(--accent)"
+          strokeOpacity="0.35"
         />
       </svg>
-      {LEAVES.map((l, i) => (
-        <svg
-          key={i}
-          className="sec-leaf"
-          viewBox="-20 -20 40 40"
-          style={{
-            left: `${l.x}%`,
-            top: `${l.y}%`,
-            width: `${18 * l.s}px`,
-            height: `${18 * l.s}px`,
-            color: l.c,
-            animationDuration: `${l.d}s`,
-            animationDelay: `${l.dl}s`,
-            "--r": `${l.r}deg`,
-          }}
-        >
-          <path
-            d="M0 -16 C 12 -8 12 8 0 16 C -12 8 -12 -8 0 -16 Z"
-            fill="currentColor"
-          />
-          <path d="M0 -14 L0 14" stroke="rgba(0,0,0,.18)" strokeWidth="1" />
-        </svg>
-      ))}
+      {/* Floating Quantum Energy Motes */}
       {MOTES.map((m, i) => (
         <span
           key={i}
-          className="sec-mote"
+          className="sec-quantum-mote"
           style={{
             left: `${m.x}%`,
             top: `${m.y}%`,
@@ -2678,7 +2742,7 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 .mouse i{position:absolute;left:50%;top:6px;width:3px;height:7px;margin-left:-1.5px;border-radius:2px;background:var(--accent);animation:wheel 1.6s infinite}
 @keyframes wheel{to{opacity:0;transform:translateY(12px)}}
 
-/* avatar parts */
+/* cyber-bot avatar parts */
 .av-acc-fill{fill:var(--accent)}
 .av-acc-stroke{stroke:var(--accent)}
 .av-acc2-fill{fill:var(--accent2)}
@@ -2687,33 +2751,47 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 @keyframes breathe{50%{transform:translateY(-4px)}}
 .avatar[data-working="1"] .av-body{animation:typebob .45s ease-in-out infinite alternate}
 @keyframes typebob{to{transform:translateY(2.5px)}}
-.av-chest{fill:var(--accent);font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;opacity:.85}
+.av-chest{fill:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;opacity:.9}
+.arc-gear{transform-box:fill-box;transform-origin:center;animation:arcSpin 8s linear infinite}
+@keyframes arcSpin{to{transform:rotate(360deg)}}
+.arc-core-pulse{animation:arcPulse 2.4s ease-in-out infinite alternate}
+@keyframes arcPulse{0%{opacity:.75;transform:scale(.94)}100%{opacity:1;transform:scale(1.06)}}
+.drone-companion{transform-box:fill-box;transform-origin:center;animation:droneBob 3.6s ease-in-out infinite alternate}
+@keyframes droneBob{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-12px) rotate(4deg)}}
+.drone-eye{animation:droneBlink 2.8s ease-in-out infinite alternate}
+@keyframes droneBlink{0%,75%{opacity:1}85%{opacity:.2}95%,100%{opacity:1}}
 .av-eye{transform-box:fill-box;transform-origin:center;animation:blinkEye 5s infinite}
 @keyframes blinkEye{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
-.av-mouth{transform-box:fill-box;transform-origin:50% 25%}
-.talking .av-mouth{animation:talk .2s ease-in-out infinite alternate}
-@keyframes talk{from{transform:scaleY(.6) scaleX(.94)}to{transform:scaleY(1.3)}}
-.av-brows{transform-box:fill-box}
-.talking .av-brows{animation:brow .5s ease-in-out infinite alternate}
-@keyframes brow{to{transform:translateY(-3px)}}
+.eye-optic-glow{filter:drop-shadow(0 0 6px var(--accent))}
+.av-mouth{transform-box:fill-box;transform-origin:center}
+.voice-spectrum{transform-box:fill-box;transform-origin:center bottom}
+.voice-spectrum .v-bar{transform-box:fill-box;transform-origin:center bottom;opacity:.45}
+.talking .voice-spectrum .v-bar{animation:audioWave .3s ease-in-out infinite alternate}
+.talking .v-bar.vb-1{animation-delay:.02s}
+.talking .v-bar.vb-2{animation-delay:.08s}
+.talking .v-bar.vb-3{animation-delay:.15s}
+.talking .v-bar.vb-4{animation-delay:.22s}
+.talking .v-bar.vb-5{animation-delay:.05s}
+.talking .v-bar.vb-6{animation-delay:.18s}
+.talking .v-bar.vb-7{animation-delay:.11s}
+.talking .v-bar.vb-8{animation-delay:.25s}
+.talking .v-bar.vb-9{animation-delay:.07s}
+@keyframes audioWave{from{transform:scaleY(.35);opacity:.4}to{transform:scaleY(1.4);opacity:1}}
 .av-arm-wrap{opacity:clamp(0, calc(1 - var(--p2) * 2.5), 1)}
-.av-arm{transform-box:view-box;transform-origin:318px 388px;animation:armWave 7s ease-in-out 2.6s infinite}
-@keyframes armWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(6deg)}9%{transform:rotate(-3deg)}14%{transform:rotate(6deg)}19%{transform:rotate(-3deg)}24%{transform:rotate(4deg)}29%{transform:rotate(0)}}
-.av-hand-w{transform-box:view-box;transform-origin:358px 282px;animation:handWave 7s ease-in-out 2.6s infinite}
-@keyframes handWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(18deg)}9%{transform:rotate(-14deg)}14%{transform:rotate(18deg)}19%{transform:rotate(-14deg)}24%{transform:rotate(12deg)}29%{transform:rotate(0)}}
+.av-arm{transform-box:view-box;transform-origin:316px 370px;animation:armWave 7s ease-in-out 2.6s infinite}
+@keyframes armWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(7deg)}9%{transform:rotate(-4deg)}14%{transform:rotate(7deg)}19%{transform:rotate(-4deg)}24%{transform:rotate(5deg)}29%{transform:rotate(0)}}
+.av-hand-w{transform-box:view-box;transform-origin:366px 270px;animation:handWave 7s ease-in-out 2.6s infinite}
+@keyframes handWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(14deg)}9%{transform:rotate(-12deg)}14%{transform:rotate(14deg)}19%{transform:rotate(-12deg)}24%{transform:rotate(10deg)}29%{transform:rotate(0)}}
 .av-desk{opacity:clamp(0, calc(var(--p2) * 2), 1);transform:translateY(calc((1 - var(--p2)) * 170px))}
+.holo-card{transform-box:fill-box;transform-origin:center;animation:holoFloat 4s ease-in-out infinite alternate}
+.holo-card.r{animation-delay:-2s}
+@keyframes holoFloat{0%{transform:translateY(0)}100%{transform:translateY(-6px)}}
 .av-hand{transform-box:fill-box;animation:typing .2s ease-in-out infinite alternate}
 .av-hand.r{animation-delay:.1s}
 @keyframes typing{to{transform:translateY(-2.5px)}}
-.av-logo{animation:logo 2.4s ease-in-out infinite}
-@keyframes logo{50%{opacity:.35}}
-.av-code text{fill:var(--accent);font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;opacity:0;transform-box:fill-box;animation:codeUp 3.6s ease-in infinite}
-.av-code text:nth-child(2){animation-delay:1.2s}
-.av-code text:nth-child(3){animation-delay:2.4s}
-@keyframes codeUp{0%{opacity:0;transform:translateY(10px)}20%{opacity:.9}100%{opacity:0;transform:translateY(-90px)}}
 .av-steam path{opacity:0;transform-box:fill-box;animation:steam 2.4s ease-in-out infinite}
 .av-steam path:nth-child(2){animation-delay:.8s}
-@keyframes steam{0%{opacity:0;transform:translateY(6px)}40%{opacity:.5}100%{opacity:0;transform:translateY(-22px)}}
+@keyframes steam{0%{opacity:0;transform:translateY(6px)}40%{opacity:.6}100%{opacity:0;transform:translateY(-22px)}}
 
 /* ===== what i do cards ===== */
 .wid{position:relative;padding:20px 24px;border:1px dashed var(--line2);background:var(--glass);backdrop-filter:blur(6px);cursor:pointer;transition:background .35s,border-color .35s}
@@ -2844,116 +2922,23 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 @keyframes toast{from{opacity:0;transform:translate(-50%,20px)}}
 
 
-/* nature scene */
+/* cyber-cosmic scenery */
 .scenery{position:absolute;inset:0;pointer-events:none;contain:paint}
-.scenery svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cyber-scenery{overflow:hidden}
+.cyber-grid-svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cyber-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
 .scenery::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 30%,color-mix(in srgb,var(--bg) 82%,transparent) 58%);opacity:calc(var(--p1) - var(--p2))}
-.sk1{stop-color:var(--sky1)}
-.sk2{stop-color:var(--bg)}
-.sc-stars circle{fill:#fff;opacity:var(--star-op);animation:twinkle 3s ease-in-out infinite alternate}
-@keyframes twinkle{to{opacity:calc(var(--star-op) * .3)}}
-.sc-sun .glow{fill:var(--sun);opacity:.2}
-.sc-sun .core{fill:var(--sun)}
-.sc-sun{transform-box:fill-box;transform-origin:center;animation:sunPulse 6s ease-in-out infinite}
-@keyframes sunPulse{50%{transform:scale(1.04)}}
-.cloud{fill:var(--cloud);opacity:var(--cloud-op);animation:drift var(--dur) linear infinite;animation-delay:var(--delay)}
-@keyframes drift{from{transform:translateX(-300px)}to{transform:translateX(1900px)}}
-.bird path{fill:none;stroke:var(--bird);stroke-width:3;stroke-linecap:round;transform-box:fill-box;transform-origin:center;animation:flap .45s ease-in-out infinite alternate}
-@keyframes flap{to{transform:scaleY(.35)}}
-.bird.b1{animation:fly1 34s linear infinite}
-.bird.b2{animation:fly1 34s linear -2s infinite}
-.bird.b3{animation:fly2 46s linear -20s infinite}
-@keyframes fly1{from{transform:translate(-120px,250px)}to{transform:translate(1750px,150px)}}
-@keyframes fly2{from{transform:translate(1750px,200px)}to{transform:translate(-120px,300px)}}
-.far{fill:var(--far)}
-.mid{fill:var(--mid)}
-.near{fill:var(--near)}
-.pine{fill:var(--tree2)}
-.t1{fill:var(--tree1)}
-.t2{fill:var(--tree2)}
-.bush{fill:var(--bush)}
-.win{fill:var(--win)}
-.lamp{fill:#ffd27a;opacity:calc(var(--lamp-op) * .35)}
-.house{filter:brightness(var(--house-dim))}
-.smoke{fill:var(--smoke);opacity:0;transform-box:fill-box;transform-origin:center;animation:smoke 4.5s ease-out infinite}
-.smoke.s2{animation-delay:1.5s}
-.smoke.s3{animation-delay:3s}
-@keyframes smoke{0%{opacity:0;transform:translate(0,0) scale(.5)}15%{opacity:.85}100%{opacity:0;transform:translate(-36px,-120px) scale(2)}}
-.cat-tail{transform-box:view-box;transform-origin:1556px 768px;animation:swish 2.6s ease-in-out infinite alternate}
-@keyframes swish{to{transform:rotate(-18deg)}}
-.tree-top{transform-box:view-box;transform-origin:120px 790px;animation:sway 6s ease-in-out infinite alternate}
-@keyframes sway{from{transform:rotate(-1.3deg)}to{transform:rotate(1.3deg)}}
-.ly-far{transform:translateX(calc(var(--p1) * -30px))}
-.ly-mid{transform:translateX(calc(var(--p1) * -60px))}
-.ly-house{transform:translateX(calc(var(--p1) * 480px))}
-.ly-tree{transform:translateX(calc((var(--p1) - var(--p2)) * -320px))}
 
 /* section landscapes */
 .scene-wrap{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,var(--sky-soft) 70%)}
-.bg-scene{position:absolute;inset:0;z-index:-1;pointer-events:none}
-.bg-top{position:absolute;top:0;left:0;width:100%;height:clamp(140px,19vw,300px)}
-.bg-bottom{position:absolute;bottom:0;left:0;width:100%;height:clamp(250px,37.5vw,600px)}
 .scene-wrap>.section{padding-bottom:120px}
 .sec-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,var(--sky-soft) 0%,var(--bg) 70%)}
 .sec-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
 .sec-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,transparent) 0%,color-mix(in srgb,var(--bg) 70%,transparent) 60%,var(--bg) 100%)}
-.sec-hills{position:absolute;left:0;bottom:0;width:100%;height:clamp(160px,22vw,320px)}
-.sec-h3{fill:var(--far);opacity:.45}
-.sec-h2{fill:var(--mid);opacity:.5}
-.sec-h1{fill:var(--near);opacity:.6}
-.sec-leaf{position:absolute;opacity:0;animation:leafFall linear infinite}
-@keyframes leafFall{0%{opacity:0;transform:translate3d(0,0,0) rotate(var(--r))}10%{opacity:.75}90%{opacity:.75}100%{opacity:0;transform:translate3d(90px,35vh,0) rotate(calc(var(--r) + 300deg))}}
-.sec-mote{position:absolute;border-radius:50%;background:var(--firefly);box-shadow:0 0 8px var(--firefly);opacity:0;animation:mote ease-in-out infinite}
-@keyframes mote{0%,100%{opacity:.1;transform:translate(0,0)}50%{opacity:.9;transform:translate(12px,-16px)}}
-@media (prefers-reduced-motion: reduce){.sec-leaf,.sec-mote{animation:none;opacity:.5}}
-.fade0{stop-color:var(--bg);stop-opacity:0}
-.rock{fill:var(--rock)}
-.rock2{fill:var(--rock2)}
-.snow{fill:var(--snow)}
-.water{fill:var(--water)}
-.water2{fill:var(--water2)}
-.sand{fill:var(--sand)}
-.field1{fill:var(--field1)}
-.row{fill:none;stroke:var(--field2);stroke-width:7;opacity:.7}
-.wool{fill:var(--wool)}
-.obj{filter:brightness(var(--house-dim))}
-.ripple{fill:none;stroke:rgba(255,255,255,.65);stroke-width:3;stroke-linecap:round;animation:shimmer 3s ease-in-out infinite alternate}
-@keyframes shimmer{to{transform:translateX(16px);opacity:.25}}
-.boat-drift{animation:boatDrift 26s ease-in-out infinite alternate}
-.sail-drift{animation:boatDrift 36s ease-in-out infinite alternate}
-@keyframes boatDrift{to{transform:translateX(280px)}}
-.boat{transform-box:fill-box;transform-origin:50% 100%;animation:rock 3s ease-in-out infinite alternate}
-@keyframes rock{from{transform:rotate(-3deg)}to{transform:rotate(3deg) translateY(2px)}}
-.duck{transform-box:fill-box;transform-origin:center;animation:swim 18s linear infinite}
-@keyframes swim{0%{transform:translateX(0) scaleX(1)}49%{transform:translateX(220px) scaleX(1)}50%{transform:translateX(220px) scaleX(-1)}99%{transform:translateX(0) scaleX(-1)}100%{transform:translateX(0) scaleX(1)}}
-.reeds{transform-box:view-box;transform-origin:160px 560px;animation:sway 3.5s ease-in-out infinite alternate}
-.blades{transform-box:view-box;transform-origin:1240px 290px;animation:spinB 9s linear infinite}
-@keyframes spinB{to{transform:rotate(360deg)}}
-.sheep{animation:graze 2.2s ease-in-out infinite alternate}
-@keyframes graze{to{transform:translateY(2px)}}
-.kite{transform-box:fill-box;transform-origin:50% 100%;animation:kite 4s ease-in-out infinite alternate}
-@keyframes kite{from{transform:rotate(-8deg)}to{transform:rotate(8deg) translateY(-14px)}}
-.balloon{animation:bob var(--bd,7s) ease-in-out infinite alternate}
-@keyframes bob{to{transform:translateY(-20px)}}
-.road{fill:none;stroke:var(--road);stroke-width:22;stroke-linecap:round}
-.road-dash{fill:none;stroke:rgba(255,255,255,.8);stroke-width:2.5;stroke-dasharray:12 14;animation:dash 1.2s linear infinite}
-@keyframes dash{to{stroke-dashoffset:-26}}
-.sign-text{fill:#fff8e6;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600}
-.wave{fill:none;stroke:rgba(255,255,255,.55);stroke-width:3;stroke-linecap:round;animation:waterWave 7s linear infinite}
-.wave.w2{animation-duration:9s;opacity:.7}
-.wave.w3{animation-duration:5.5s}
-@keyframes waterWave{to{transform:translateX(-160px)}}
-.beam{transform-box:view-box;transform-origin:1340px 249px;opacity:var(--beam-op);animation:sweep 5s ease-in-out infinite alternate}
-@keyframes sweep{from{transform:rotate(-12deg)}to{transform:rotate(14deg)}}
-.palm{transform-box:view-box;transform-origin:244px 412px;animation:sway 3.5s ease-in-out infinite alternate}
-.crab{animation:crab 7s ease-in-out infinite alternate}
-@keyframes crab{to{transform:translateX(140px)}}
-.foam{animation:shimmer 4s ease-in-out infinite alternate}
-.flag{transform-box:view-box;transform-origin:1274px 426px;animation:flag 6s ease-in-out infinite}
-@keyframes flag{0%,40%{transform:rotate(-90deg)}50%,90%{transform:rotate(0)}100%{transform:rotate(-90deg)}}
-.tree-top.g2{transform-origin:161px 540px}
-.firefly{fill:var(--firefly);animation:float var(--fd,6s) ease-in-out infinite alternate}
-@keyframes float{to{transform:translate(18px,-26px);opacity:.25}}
+.sec-grid-svg{position:absolute;left:0;bottom:0;width:100%;height:clamp(160px,22vw,320px)}
+.sec-quantum-mote{position:absolute;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);opacity:0;animation:quantumMote 6s ease-in-out infinite}
+@keyframes quantumMote{0%,100%{opacity:.15;transform:translate(0,0)}50%{opacity:.95;transform:translate(14px,-24px) scale(1.3)}}
+@media (prefers-reduced-motion: reduce){.sec-quantum-mote{animation:none;opacity:.5}}
 
 /* light-mode helpers */
 .project,.tile,.t-card,.cert,.form,.palette-pop{box-shadow:var(--card-shadow)}
