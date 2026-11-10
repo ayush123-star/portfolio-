@@ -772,438 +772,349 @@ function Avatar({ talking = false }) {
     };
   }, []);
 
-  const plateDark = `url(#plateDark${uid})`;
-  const plateMid = `url(#plateMid${uid})`;
-  const plateLight = `url(#plateLight${uid})`;
-  const visorGrad = `url(#visorGrad${uid})`;
-  const arcGrad = `url(#arcGrad${uid})`;
+  const skin = `url(#skin${uid})`;
+  const hood = `url(#hood${uid})`;
+  const hairFill = `url(#hairg${uid})`;
+  const hair = "#16100c";
+  const shade = "#9a5f3a";
 
   return (
     <svg
       ref={svgRef}
       viewBox="0 0 400 470"
-      className={`avatar cyber-bot${talking ? " talking" : ""}`}
+      className={`avatar${talking ? " talking" : ""}`}
       aria-hidden="true"
     >
       <defs>
-        {/* Mecha chassis plating gradients */}
-        <linearGradient id={`plateDark${uid}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1e293b" />
-          <stop offset="50%" stopColor="#0f172a" />
-          <stop offset="100%" stopColor="#080d1a" />
-        </linearGradient>
-        <linearGradient id={`plateMid${uid}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#334155" />
-          <stop offset="50%" stopColor="#1e293b" />
-          <stop offset="100%" stopColor="#0f172a" />
-        </linearGradient>
-        <linearGradient id={`plateLight${uid}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#475569" />
-          <stop offset="100%" stopColor="#1e293b" />
-        </linearGradient>
-
-        {/* Visor 3D curved glass */}
-        <linearGradient id={`visorGrad${uid}`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#0a101f" />
-          <stop offset="40%" stopColor="#060913" />
-          <stop offset="100%" stopColor="#020408" />
-        </linearGradient>
-
-        {/* Arc reactor quantum core */}
-        <radialGradient id={`arcGrad${uid}`} cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#ffffff" />
-          <stop offset="35%" stopColor="var(--accent)" />
-          <stop offset="70%" stopColor="var(--accent2)" />
-          <stop offset="100%" stopColor="rgba(var(--acc-rgb), 0)" />
+        <radialGradient id={`skin${uid}`} cx="0.42" cy="0.38" r="0.75">
+          <stop offset="0" stopColor="#e2ab80" />
+          <stop offset="1" stopColor="#b5774b" />
         </radialGradient>
-
-        {/* Holographic screens for phase 2 */}
-        <linearGradient id={`holoScreen${uid}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.18" />
-          <stop offset="100%" stopColor="var(--accent2)" stopOpacity="0.08" />
+        <linearGradient id={`hood${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#283044" />
+          <stop offset="1" stopColor="#151a26" />
         </linearGradient>
-
-        <clipPath id={`visorClip${uid}`}>
-          <rect x="124" y="156" width="152" height="106" rx="34" />
+        <linearGradient id={`hairg${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#2c2018" />
+          <stop offset="1" stopColor={hair} />
+        </linearGradient>
+        <linearGradient id={`lid${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#2d3549" />
+          <stop offset="1" stopColor="#1a2030" />
+        </linearGradient>
+        <clipPath id={`eL${uid}`}>
+          <ellipse cx="163" cy="206" rx="21" ry="23" />
+        </clipPath>
+        <clipPath id={`eR${uid}`}>
+          <ellipse cx="237" cy="206" rx="21" ry="23" />
         </clipPath>
       </defs>
 
-      {/* Orbiting Companion Mini-Drone */}
-      <g className="drone-companion">
-        <ellipse cx="335" cy="118" rx="22" ry="12" fill={plateMid} stroke="var(--accent)" strokeWidth="1.5" />
-        <circle cx="335" cy="118" r="6" fill="var(--accent)" className="drone-eye" />
-        <circle cx="335" cy="118" r="9" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" />
-        <line x1="318" y1="118" x2="310" y2="118" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
-        <line x1="352" y1="118" x2="360" y2="118" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
-        {/* Micro thruster glow */}
-        <ellipse cx="335" cy="132" rx="4" ry="2" fill="var(--accent2)" opacity="0.8" />
-      </g>
-
       <g className="av-body">
-        {/* Heavy Mecha Torso / Shoulders */}
+        {/* hoodie */}
         <path
-          d="M 52 470 C 56 385 110 332 200 332 C 290 332 344 385 348 470 Z"
-          fill={plateDark}
-          stroke="#0b1120"
-          strokeWidth="3"
+          d="M50 470 C 54 390 112 336 200 336 C 288 336 346 390 350 470 Z"
+          fill={hood}
         />
-
-        {/* Left & Right Shoulder Armor Guards */}
-        <path
-          d="M 54 470 C 56 405 92 362 136 348 L 120 470 Z"
-          fill={plateMid}
-          opacity="0.8"
-        />
-        <path
-          d="M 346 470 C 344 405 308 362 264 348 L 280 470 Z"
-          fill={plateMid}
-          opacity="0.8"
-        />
-
-        {/* Shoulder Bevel Highlights */}
-        <path
-          d="M 80 410 L 132 355 L 140 375 L 94 430 Z"
-          fill="var(--accent)"
-          opacity="0.15"
-        />
-        <path
-          d="M 320 410 L 268 355 L 260 375 L 306 430 Z"
-          fill="var(--accent)"
-          opacity="0.15"
-        />
-
-        {/* Neck Hydraulic Cowl */}
         <g ref={collarRef}>
           <path
-            d="M 160 286 L 160 338 C 160 354 240 354 240 338 L 240 286 Z"
-            fill={plateMid}
-            stroke="#070c18"
-            strokeWidth="2"
+            d="M200 336 C 160 336 136 342 128 350 C 146 398 254 398 272 350 C 264 342 240 336 200 336 Z"
+            fill="#0a0d14"
+            opacity=".6"
           />
-          {/* Hydraulic neck piston struts */}
-          <line x1="174" y1="290" x2="174" y2="340" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
-          <line x1="226" y1="290" x2="226" y2="340" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
-          {/* Collar ring */}
-          <ellipse cx="200" cy="336" rx="58" ry="14" fill="#090f1d" stroke="var(--line2)" strokeWidth="1.5" />
         </g>
-
-        {/* Central Mecha Chest Chassis with Quantum Arc Reactor Core */}
+        {/* neck */}
+        <path
+          d="M174 280 L 174 338 Q 200 364 226 338 L 226 280 Z"
+          fill={shade}
+        />
         <g ref={chestRef}>
-          {/* Hexagonal Armor Breastplate */}
-          <polygon
-            points="148,362 252,362 272,434 200,466 128,434"
-            fill={plateMid}
-            stroke="#0b1120"
-            strokeWidth="2.5"
-          />
-
-          {/* Circuit bus conduits */}
           <path
-            d="M 154 374 L 180 398 L 180 422"
-            fill="none"
-            stroke="var(--accent)"
-            strokeWidth="2"
+            className="av-acc-stroke"
+            d="M180 372 L 175 420"
+            strokeWidth="3.5"
             strokeLinecap="round"
-            opacity="0.7"
           />
           <path
-            d="M 246 374 L 220 398 L 220 422"
-            fill="none"
-            stroke="var(--accent)"
-            strokeWidth="2"
+            className="av-acc-stroke"
+            d="M220 372 L 225 420"
+            strokeWidth="3.5"
             strokeLinecap="round"
-            opacity="0.7"
           />
-
-          {/* Outer Quantum Arc Containment Ring */}
-          <circle cx="200" cy="414" r="28" fill="#060a14" stroke="var(--line2)" strokeWidth="2" />
-          <circle
-            className="arc-gear"
-            cx="200"
-            cy="414"
-            r="23"
-            fill="none"
-            stroke="var(--accent)"
-            strokeWidth="2.5"
-            strokeDasharray="5 7"
-          />
-
-          {/* Pulsing Arc Reactor Glow Core */}
-          <circle cx="200" cy="414" r="18" fill={arcGrad} className="arc-core-pulse" />
-          <circle cx="200" cy="414" r="8" fill="#ffffff" />
-
-          {/* Telemetry insignia */}
+          <circle className="av-acc-fill" cx="175" cy="424" r="4.5" />
+          <circle className="av-acc-fill" cx="225" cy="424" r="4.5" />
           <text x="200" y="455" textAnchor="middle" className="av-chest">
-            {"⚡ AP-DEV"}
+            {"</>"}
           </text>
         </g>
 
-        {/* Floating Magnetic Arm & Waving Cyber Hand */}
+        {/* waving arm (fades out when he starts working) */}
         <g className="av-arm-wrap">
           <g className="av-arm">
-            {/* Magnetic Levitation Shoulder Joint */}
-            <circle cx="316" cy="370" r="18" fill="#060a14" stroke="var(--accent)" strokeWidth="2" />
-            <circle cx="316" cy="370" r="8" fill="var(--accent)" opacity="0.7" />
-
-            {/* Arm Segment / Bionic Chassis */}
             <path
-              d="M 314 362 C 330 332 344 304 352 278 L 380 286 C 374 322 356 358 332 388 Z"
-              fill={plateMid}
-              stroke="#0b1120"
+              d="M292 372 C 314 344 330 316 338 286 L 370 294 C 364 330 348 364 324 394 Z"
+              fill={hood}
+              stroke="#0a0d14"
               strokeWidth="2"
             />
-            {/* Forearm Conduit Cable */}
-            <path
-              d="M 324 366 Q 348 325 364 286"
-              fill="none"
-              stroke="var(--accent)"
-              strokeWidth="2.5"
-              strokeDasharray="4 3"
-            />
-            {/* Wrist Cuff */}
-            <rect x="348" y="270" width="34" height="12" rx="4" fill="#060a14" stroke="var(--accent)" strokeWidth="1.5" />
-
-            {/* Precision Articulated Cyber Hand */}
+            <path d="M336 290 L 371 299 L 375 284 L 340 275 Z" fill="#0f131c" />
             <g className="av-hand-w">
-              {/* Metallic Palm Casing */}
-              <ellipse cx="366" cy="248" rx="20" ry="22" fill={plateMid} stroke="#0b1120" strokeWidth="1.5" />
-              <circle cx="366" cy="248" r="6" fill="var(--accent)" opacity="0.6" />
-
-              {/* Articulated Bionic Digits with Glowing Sensor Tips */}
-              {/* Thumb */}
-              <path d="M 344 256 L 336 244 L 340 236" fill="none" stroke="#475569" strokeWidth="4.5" strokeLinecap="round" />
-              <circle cx="340" cy="236" r="2.5" fill="var(--accent)" />
-              {/* Index */}
-              <path d="M 352 232 L 350 208 L 351 202" fill="none" stroke="#475569" strokeWidth="4.5" strokeLinecap="round" />
-              <circle cx="351" cy="202" r="2.5" fill="var(--accent)" />
-              {/* Middle */}
-              <path d="M 364 228 L 364 198 L 365 194" fill="none" stroke="#475569" strokeWidth="5" strokeLinecap="round" />
-              <circle cx="365" cy="194" r="2.5" fill="var(--accent)" />
-              {/* Ring */}
-              <path d="M 376 230 L 377 202 L 378 198" fill="none" stroke="#475569" strokeWidth="4.5" strokeLinecap="round" />
-              <circle cx="378" cy="198" r="2.5" fill="var(--accent)" />
-              {/* Pinky */}
-              <path d="M 386 236 L 388 214 L 389 210" fill="none" stroke="#475569" strokeWidth="4" strokeLinecap="round" />
-              <circle cx="389" cy="210" r="2" fill="var(--accent)" />
+              <ellipse
+                cx="334"
+                cy="256"
+                rx="9"
+                ry="15"
+                transform="rotate(-35 334 256)"
+                fill={skin}
+              />
+              <rect x="339" y="216" width="11" height="32" rx="5.5" fill={skin} />
+              <rect x="351" y="207" width="11" height="34" rx="5.5" fill={skin} />
+              <rect x="363" y="208" width="11" height="34" rx="5.5" fill={skin} />
+              <rect x="374" y="217" width="10" height="30" rx="5" fill={skin} />
+              <ellipse cx="358" cy="254" rx="23" ry="26" fill={skin} />
             </g>
           </g>
         </g>
 
-        {/* 3D Cybernetic Head Assembly */}
+        {/* head */}
         <g ref={headRef}>
-          {/* Left Audio / Comms Sensor Array */}
           <g ref={earLRef}>
-            <polygon points="108,185 124,175 124,245 108,235" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
-            <line x1="114" y1="192" x2="114" y2="228" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" />
-            <circle cx="114" cy="186" r="2" fill="var(--accent2)" />
-          </g>
-
-          {/* Right Audio / Comms Sensor Array */}
-          <g ref={earRRef}>
-            <polygon points="292,185 276,175 276,245 292,235" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
-            <line x1="286" y1="192" x2="286" y2="228" stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" />
-            <circle cx="286" cy="186" r="2" fill="var(--accent2)" />
-          </g>
-
-          {/* Outer Helmet Chassis / Chin Guard */}
-          <g ref={faceRef}>
-            <path
-              d="M 116 195 C 114 140 148 108 200 108 C 252 108 286 140 284 195 C 284 250 252 278 200 278 C 148 278 116 250 116 195 Z"
-              fill={plateDark}
-              stroke="#070c18"
-              strokeWidth="3"
+            <ellipse cx="116" cy="218" rx="17" ry="25" fill={skin} />
+            <ellipse
+              cx="118"
+              cy="219"
+              rx="8"
+              ry="13"
+              fill={shade}
+              opacity=".5"
             />
-            {/* Aerodynamic Jaw Reinforcement Plates */}
-            <polygon points="126,220 160,266 140,266 118,228" fill={plateMid} />
-            <polygon points="274,220 240,266 260,266 282,228" fill={plateMid} />
+          </g>
+          <g ref={earRRef}>
+            <ellipse cx="284" cy="218" rx="17" ry="25" fill={skin} />
+            <ellipse
+              cx="282"
+              cy="219"
+              rx="8"
+              ry="13"
+              fill={shade}
+              opacity=".5"
+            />
+          </g>
+          <g ref={faceRef}>
+            <ellipse cx="200" cy="208" rx="86" ry="100" fill={skin} />
           </g>
 
-          {/* Top Helmet Cowl / Carbon Crest */}
+          <g ref={featRef}>
+            <ellipse
+              cx="148"
+              cy="250"
+              rx="15"
+              ry="8"
+              fill="#e3735a"
+              opacity=".22"
+            />
+            <ellipse
+              cx="252"
+              cy="250"
+              rx="15"
+              ry="8"
+              fill="#e3735a"
+              opacity=".22"
+            />
+
+            <g className="av-brows">
+              <path
+                d="M140 170 Q 162 154 186 166"
+                fill="none"
+                stroke={hair}
+                strokeWidth="8"
+                strokeLinecap="round"
+              />
+              <path
+                d="M214 166 Q 238 154 260 170"
+                fill="none"
+                stroke={hair}
+                strokeWidth="8"
+                strokeLinecap="round"
+              />
+            </g>
+
+            <g className="av-eye">
+              <ellipse cx="163" cy="206" rx="21" ry="23" fill="#fff" />
+              <g clipPath={`url(#eL${uid})`}>
+                <g ref={pupilL}>
+                  <circle cx="165" cy="209" r="12.5" fill="#3b2415" />
+                  <circle cx="165" cy="209" r="6.5" fill="#0b0705" />
+                  <circle cx="160.5" cy="204" r="3.6" fill="#fff" />
+                </g>
+              </g>
+              <path
+                d="M142 206 Q 163 160 184 206"
+                fill="none"
+                stroke={hair}
+                strokeWidth="3.5"
+                strokeLinecap="round"
+              />
+            </g>
+            <g className="av-eye">
+              <ellipse cx="237" cy="206" rx="21" ry="23" fill="#fff" />
+              <g clipPath={`url(#eR${uid})`}>
+                <g ref={pupilR}>
+                  <circle cx="235" cy="209" r="12.5" fill="#3b2415" />
+                  <circle cx="235" cy="209" r="6.5" fill="#0b0705" />
+                  <circle cx="230.5" cy="204" r="3.6" fill="#fff" />
+                </g>
+              </g>
+              <path
+                d="M216 206 Q 237 160 258 206"
+                fill="none"
+                stroke={hair}
+                strokeWidth="3.5"
+                strokeLinecap="round"
+              />
+            </g>
+
+            <path
+              d="M195 222 Q 191 238 200 240 Q 206 240 207 236"
+              fill="none"
+              stroke={shade}
+              strokeWidth="4"
+              strokeLinecap="round"
+            />
+
+            <g className="av-mouth">
+              <path
+                d="M170 258 Q 200 292 230 258 Q 200 270 170 258 Z"
+                fill="#3d1a12"
+              />
+              <path
+                d="M178 262 Q 200 269 222 262 L 219 268 Q 200 275 181 268 Z"
+                fill="#fff"
+              />
+              <path
+                d="M187 277 Q 200 284 213 277 Q 200 280 187 277 Z"
+                fill="#e0776b"
+              />
+            </g>
+          </g>
+
           <g ref={hairRef}>
             <path
-              d="M 124 165 C 130 115 160 92 200 92 C 240 92 270 115 276 165 C 258 135 232 124 200 124 C 168 124 142 135 124 165 Z"
-              fill={plateLight}
+              d="M112 222 C 102 150 132 102 190 96 C 248 90 292 120 292 178 C 292 198 290 212 287 222 C 282 192 268 170 250 156 C 230 172 192 176 162 162 C 142 174 122 194 112 222 Z"
+              fill={hairFill}
             />
           </g>
-
-          {/* Forehead Brow Guard & Optical Sensor Gem */}
           <g ref={quiffRef}>
             <path
-              d="M 148 142 C 168 130 232 130 252 142 L 244 154 C 228 146 172 146 156 154 Z"
-              fill={plateMid}
+              d="M146 118 C 154 78 214 58 256 80 C 278 92 290 112 286 132 C 266 110 232 100 200 108 C 180 112 162 122 146 118 Z"
+              fill={hairFill}
             />
-            <circle cx="200" cy="138" r="4.5" fill="var(--accent)" />
-            <circle cx="200" cy="138" r="8" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" />
-          </g>
-
-          {/* Curved Obsidian Glass Cyber Visor */}
-          <g ref={featRef}>
-            {/* Dark glass visor screen */}
-            <rect
-              x="124"
-              y="156"
-              width="152"
-              height="106"
-              rx="34"
-              fill={visorGrad}
-              stroke="var(--line2)"
-              strokeWidth="2"
-            />
-
-            {/* Specular gloss reflection highlight arc (creates 3D glass curved bulb effect) */}
             <path
-              d="M 138 175 Q 200 160 262 175"
+              d="M178 92 C 200 80 232 82 252 96"
               fill="none"
-              stroke="#ffffff"
-              strokeWidth="2.5"
+              stroke="#3b2c21"
+              strokeWidth="4"
               strokeLinecap="round"
-              opacity="0.25"
             />
-
-            {/* Visor HUD scanline effect */}
-            <rect
-              x="124"
-              y="156"
-              width="152"
-              height="106"
-              rx="34"
-              fill="none"
-              className="visor-hud-sweep"
-            />
-
-            {/* Visor Optics (LED Matrix Cyber Eyes & HUD Reticles) */}
-            <g clipPath={`url(#visorClip${uid})`}>
-              {/* Left Eye HUD & Optics */}
-              <g className="av-eye">
-                {/* HUD targeting brackets */}
-                <path d="M 148 194 L 144 194 L 144 216 L 148 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
-                <path d="M 178 194 L 182 194 L 182 216 L 178 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
-                {/* Moving Eye Pupil Unit */}
-                <g ref={pupilL}>
-                  <circle cx="163" cy="205" r="13" fill="rgba(var(--acc-rgb), 0.15)" />
-                  <circle cx="163" cy="205" r="8" fill="var(--accent)" className="eye-optic-glow" />
-                  <circle cx="163" cy="205" r="3.5" fill="#ffffff" />
-                </g>
-              </g>
-
-              {/* Right Eye HUD & Optics */}
-              <g className="av-eye">
-                {/* HUD targeting brackets */}
-                <path d="M 222 194 L 218 194 L 218 216 L 222 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
-                <path d="M 252 194 L 256 194 L 256 216 L 252 216" fill="none" stroke="var(--accent)" strokeWidth="1.2" opacity="0.6" />
-                {/* Moving Eye Pupil Unit */}
-                <g ref={pupilR}>
-                  <circle cx="237" cy="205" r="13" fill="rgba(var(--acc-rgb), 0.15)" />
-                  <circle cx="237" cy="205" r="8" fill="var(--accent)" className="eye-optic-glow" />
-                  <circle cx="237" cy="205" r="3.5" fill="#ffffff" />
-                </g>
-              </g>
-
-              {/* Lower Visor Mouth / Voice Equalizer Waveform */}
-              <g className="av-mouth">
-                {/* Dynamic Audio Spectrum Bars (animate intensely when talking) */}
-                <g className="voice-spectrum">
-                  <rect x="172" y="238" width="3" height="8" rx="1.5" fill="var(--accent)" className="v-bar vb-1" />
-                  <rect x="179" y="235" width="3" height="14" rx="1.5" fill="var(--accent)" className="v-bar vb-2" />
-                  <rect x="186" y="232" width="3" height="20" rx="1.5" fill="var(--accent)" className="v-bar vb-3" />
-                  <rect x="193" y="230" width="3" height="24" rx="1.5" fill="var(--accent2)" className="v-bar vb-4" />
-                  <rect x="200" y="228" width="3" height="28" rx="1.5" fill="#ffffff" className="v-bar vb-5" />
-                  <rect x="207" y="230" width="3" height="24" rx="1.5" fill="var(--accent2)" className="v-bar vb-6" />
-                  <rect x="214" y="232" width="3" height="20" rx="1.5" fill="var(--accent)" className="v-bar vb-7" />
-                  <rect x="221" y="235" width="3" height="14" rx="1.5" fill="var(--accent)" className="v-bar vb-8" />
-                  <rect x="228" y="238" width="3" height="8" rx="1.5" fill="var(--accent)" className="v-bar vb-9" />
-                </g>
-              </g>
-            </g>
           </g>
         </g>
       </g>
 
-      {/* Floating Holographic Cyber Workstation (Phase 2: "What I Do") */}
+      {/* desk + laptop (slides up when he starts working) */}
       <g className="av-desk">
-        {/* Floating Hologram Code Screens */}
-        <g className="av-holo-screens">
-          {/* Left Hologram Projection */}
-          <g className="holo-card l">
-            <rect x="28" y="260" width="118" height="74" rx="6" fill={`url(#holoScreen${uid})`} stroke="var(--accent)" strokeWidth="1" />
-            <text x="36" y="278" fill="var(--accent)" fontSize="9" fontFamily="'JetBrains Mono', monospace" fontWeight="600">
-              const dev = &apos;Ayush&apos;;
-            </text>
-            <text x="36" y="294" fill="var(--accent2)" fontSize="8" fontFamily="'JetBrains Mono', monospace">
-              stack: [&apos;Full-Stack&apos;]
-            </text>
-            <text x="36" y="310" fill="#22c55e" fontSize="8" fontFamily="'JetBrains Mono', monospace">
-              status: ONLINE ⚡
-            </text>
-            <line x1="36" y1="322" x2="136" y2="322" stroke="var(--accent)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
-          </g>
-
-          {/* Right Hologram Projection */}
-          <g className="holo-card r">
-            <rect x="254" y="250" width="122" height="78" rx="6" fill={`url(#holoScreen${uid})`} stroke="var(--accent2)" strokeWidth="1" />
-            <text x="262" y="270" fill="var(--accent2)" fontSize="9" fontFamily="'JetBrains Mono', monospace" fontWeight="600">
-              hardware.connect()
-            </text>
-            <text x="262" y="286" fill="var(--accent)" fontSize="8" fontFamily="'JetBrains Mono', monospace">
-              telecom: &apos;MITS Gwalior&apos;
-            </text>
-            <text x="262" y="302" fill="var(--text)" fontSize="8" fontFamily="'JetBrains Mono', monospace">
-              deploy({`{ latency: 0 }`})
-            </text>
-            <circle cx="362" cy="268" r="3" fill="#22c55e" />
-          </g>
+        <g className="av-code">
+          <text x="66" y="300">
+            {"</>"}
+          </text>
+          <text x="292" y="286">
+            {"{ }"}
+          </text>
+          <text x="44" y="372">
+            {"( )"}
+          </text>
         </g>
-
-        {/* Floating Holographic Terminal Console Base */}
-        <polygon
-          points="20,422 380,422 350,442 50,442"
-          fill="rgba(var(--acc-rgb), 0.12)"
-          stroke="var(--accent)"
-          strokeWidth="1.5"
+        <path d="M92 426 C 96 404 108 398 126 404 L 134 426 Z" fill={hood} />
+        <ellipse
+          className="av-hand l"
+          cx="130"
+          cy="412"
+          rx="15"
+          ry="9"
+          fill={skin}
         />
-
-        {/* Neon Holographic Touch Keys Matrix */}
-        <g stroke="var(--accent)" strokeWidth="1" opacity="0.5">
-          <line x1="60" y1="428" x2="340" y2="428" />
-          <line x1="75" y1="435" x2="325" y2="435" />
-          {[90, 120, 150, 180, 210, 240, 270, 300].map((x) => (
-            <line key={x} x1={x} y1="422" x2={x - 8} y2="442" />
-          ))}
-        </g>
-
-        {/* Cyber Bionic Hands Typing on Hologram Console */}
-        <g className="av-typing-hands">
-          {/* Left Cyber Hand */}
-          <g className="av-hand l">
-            <rect x="116" y="404" width="28" height="18" rx="6" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
-            <circle cx="122" cy="413" r="3" fill="var(--accent)" />
-            <circle cx="130" cy="413" r="3" fill="var(--accent)" />
-            <circle cx="138" cy="413" r="3" fill="var(--accent)" />
-          </g>
-
-          {/* Right Cyber Hand */}
-          <g className="av-hand r">
-            <rect x="256" y="404" width="28" height="18" rx="6" fill={plateMid} stroke="#070c18" strokeWidth="1.5" />
-            <circle cx="262" cy="413" r="3" fill="var(--accent)" />
-            <circle cx="270" cy="413" r="3" fill="var(--accent)" />
-            <circle cx="278" cy="413" r="3" fill="var(--accent)" />
-          </g>
-        </g>
-
-        {/* Quantum Energy Cooling Capacitor (replaces old coffee mug) */}
-        <g className="av-quantum-cell">
-          <rect x="328" y="380" width="22" height="38" rx="6" fill="#0b1120" stroke="var(--accent)" strokeWidth="1.5" />
-          <rect x="332" y="388" width="14" height="22" rx="3" fill="var(--accent)" opacity="0.6" className="arc-core-pulse" />
-          {/* Rising quantum energy wisps */}
-          <g className="av-steam">
-            <path d="M 335 374 Q 330 364 336 354" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
-            <path d="M 343 374 Q 348 364 342 354" fill="none" stroke="var(--accent2)" strokeWidth="2" strokeLinecap="round" />
-          </g>
+        <path d="M308 426 C 304 404 292 398 274 404 L 266 426 Z" fill={hood} />
+        <ellipse
+          className="av-hand r"
+          cx="270"
+          cy="412"
+          rx="15"
+          ry="9"
+          fill={skin}
+        />
+        <path
+          d="M124 322 Q 124 314 132 314 L 268 314 Q 276 314 276 322 L 282 422 L 118 422 Z"
+          fill={`url(#lid${uid})`}
+        />
+        <circle
+          className="av-logo av-acc-fill"
+          cx="200"
+          cy="368"
+          r="24"
+          opacity=".16"
+        />
+        <circle className="av-logo av-acc-fill" cx="200" cy="368" r="10" />
+        <rect
+          className="av-desk-top"
+          x="0"
+          y="420"
+          width="400"
+          height="10"
+          rx="3"
+          fill="#262d3d"
+        />
+        <rect
+          className="av-desk-front"
+          x="0"
+          y="430"
+          width="400"
+          height="40"
+          fill="#121722"
+        />
+        <rect
+          className="av-acc2-fill"
+          x="312"
+          y="384"
+          width="30"
+          height="36"
+          rx="5"
+        />
+        <path
+          className="av-acc2-stroke"
+          d="M342 392 q 13 0 13 10 q 0 10 -13 10"
+          fill="none"
+          strokeWidth="5"
+        />
+        <g className="av-steam">
+          <path
+            d="M321 376 q -5 -8 0 -16 q 5 -8 0 -16"
+            fill="none"
+            stroke="#fff"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
+          <path
+            d="M333 376 q -5 -8 0 -16 q 5 -8 0 -16"
+            fill="none"
+            stroke="#fff"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+          />
         </g>
       </g>
     </svg>
   );
 }
+
 
 /* ================================================================
    🏡 NATURE SCENE behind the hero — sky, sun/moon, clouds, birds,
@@ -1640,7 +1551,6 @@ function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
     phase === 2 ? SPEECH_WORK : SPEECH_INTRO,
     ready,
   );
-
   const spin = () => {
     const el = avInRef.current;
     if (!el || el.dataset.spin === "1") return;
@@ -1656,7 +1566,7 @@ function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
         className="av-in"
         ref={avInRef}
         onClick={spin}
-        title="Click me to spin! 🌀"
+        title="Click me!"
       >
         <div className="av-glow" />
         {avatarImage ? (
@@ -2745,49 +2655,43 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 .avatar-img{object-fit:contain;object-position:bottom;animation:floaty 5s ease-in-out infinite}
 @keyframes floaty{50%{transform:translateY(-10px)}}
 
+/* avatar parts */
+.av-acc-fill{fill:var(--accent)}
+.av-acc-stroke{stroke:var(--accent)}
+.av-acc2-fill{fill:var(--accent2)}
+.av-acc2-stroke{stroke:var(--accent2)}
+.av-body{transform-box:view-box;transform-origin:200px 470px;animation:breathe 4s ease-in-out infinite}
+@keyframes breathe{50%{transform:translateY(-4px)}}
 .avatar[data-working="1"] .av-body{animation:typebob .45s ease-in-out infinite alternate}
 @keyframes typebob{to{transform:translateY(2.5px)}}
-.av-chest{fill:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;opacity:.9}
-.arc-gear{transform-box:fill-box;transform-origin:center;animation:arcSpin 8s linear infinite}
-@keyframes arcSpin{to{transform:rotate(360deg)}}
-.arc-core-pulse{animation:arcPulse 2.4s ease-in-out infinite alternate}
-@keyframes arcPulse{0%{opacity:.75;transform:scale(.94)}100%{opacity:1;transform:scale(1.06)}}
-.drone-companion{transform-box:fill-box;transform-origin:center;animation:droneBob 3.6s ease-in-out infinite alternate}
-@keyframes droneBob{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-12px) rotate(4deg)}}
-.drone-eye{animation:droneBlink 2.8s ease-in-out infinite alternate}
-@keyframes droneBlink{0%,75%{opacity:1}85%{opacity:.2}95%,100%{opacity:1}}
+.av-chest{fill:var(--accent);font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;opacity:.85}
 .av-eye{transform-box:fill-box;transform-origin:center;animation:blinkEye 5s infinite}
 @keyframes blinkEye{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.08)}}
-.eye-optic-glow{filter:drop-shadow(0 0 6px var(--accent))}
-.av-mouth{transform-box:fill-box;transform-origin:center}
-.voice-spectrum{transform-box:fill-box;transform-origin:center bottom}
-.voice-spectrum .v-bar{transform-box:fill-box;transform-origin:center bottom;opacity:.45}
-.talking .voice-spectrum .v-bar{animation:audioWave .3s ease-in-out infinite alternate}
-.talking .v-bar.vb-1{animation-delay:.02s}
-.talking .v-bar.vb-2{animation-delay:.08s}
-.talking .v-bar.vb-3{animation-delay:.15s}
-.talking .v-bar.vb-4{animation-delay:.22s}
-.talking .v-bar.vb-5{animation-delay:.05s}
-.talking .v-bar.vb-6{animation-delay:.18s}
-.talking .v-bar.vb-7{animation-delay:.11s}
-.talking .v-bar.vb-8{animation-delay:.25s}
-.talking .v-bar.vb-9{animation-delay:.07s}
-@keyframes audioWave{from{transform:scaleY(.35);opacity:.4}to{transform:scaleY(1.4);opacity:1}}
+.av-mouth{transform-box:fill-box;transform-origin:50% 25%}
+.talking .av-mouth{animation:talk .2s ease-in-out infinite alternate}
+@keyframes talk{from{transform:scaleY(.6) scaleX(.94)}to{transform:scaleY(1.3)}}
+.av-brows{transform-box:fill-box}
+.talking .av-brows{animation:brow .5s ease-in-out infinite alternate}
+@keyframes brow{to{transform:translateY(-3px)}}
 .av-arm-wrap{opacity:clamp(0, calc(1 - var(--p2) * 2.5), 1)}
-.av-arm{transform-box:view-box;transform-origin:316px 370px;animation:armWave 7s ease-in-out 2.6s infinite}
-@keyframes armWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(7deg)}9%{transform:rotate(-4deg)}14%{transform:rotate(7deg)}19%{transform:rotate(-4deg)}24%{transform:rotate(5deg)}29%{transform:rotate(0)}}
-.av-hand-w{transform-box:view-box;transform-origin:366px 270px;animation:handWave 7s ease-in-out 2.6s infinite}
-@keyframes handWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(14deg)}9%{transform:rotate(-12deg)}14%{transform:rotate(14deg)}19%{transform:rotate(-12deg)}24%{transform:rotate(10deg)}29%{transform:rotate(0)}}
+.av-arm{transform-box:view-box;transform-origin:318px 388px;animation:armWave 7s ease-in-out 2.6s infinite}
+@keyframes armWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(6deg)}9%{transform:rotate(-3deg)}14%{transform:rotate(6deg)}19%{transform:rotate(-3deg)}24%{transform:rotate(4deg)}29%{transform:rotate(0)}}
+.av-hand-w{transform-box:view-box;transform-origin:358px 282px;animation:handWave 7s ease-in-out 2.6s infinite}
+@keyframes handWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(18deg)}9%{transform:rotate(-14deg)}14%{transform:rotate(18deg)}19%{transform:rotate(-14deg)}24%{transform:rotate(12deg)}29%{transform:rotate(0)}}
 .av-desk{opacity:clamp(0, calc(var(--p2) * 2), 1);transform:translateY(calc((1 - var(--p2)) * 170px))}
-.holo-card{transform-box:fill-box;transform-origin:center;animation:holoFloat 4s ease-in-out infinite alternate}
-.holo-card.r{animation-delay:-2s}
-@keyframes holoFloat{0%{transform:translateY(0)}100%{transform:translateY(-6px)}}
 .av-hand{transform-box:fill-box;animation:typing .2s ease-in-out infinite alternate}
 .av-hand.r{animation-delay:.1s}
 @keyframes typing{to{transform:translateY(-2.5px)}}
+.av-logo{animation:logo 2.4s ease-in-out infinite}
+@keyframes logo{50%{opacity:.35}}
+.av-code text{fill:var(--accent);font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;opacity:0;transform-box:fill-box;animation:codeUp 3.6s ease-in infinite}
+.av-code text:nth-child(2){animation-delay:1.2s}
+.av-code text:nth-child(3){animation-delay:2.4s}
+@keyframes codeUp{0%{opacity:0;transform:translateY(10px)}20%{opacity:.9}100%{opacity:0;transform:translateY(-90px)}}
 .av-steam path{opacity:0;transform-box:fill-box;animation:steam 2.4s ease-in-out infinite}
 .av-steam path:nth-child(2){animation-delay:.8s}
-@keyframes steam{0%{opacity:0;transform:translateY(6px)}40%{opacity:.6}100%{opacity:0;transform:translateY(-22px)}}
+@keyframes steam{0%{opacity:0;transform:translateY(6px)}40%{opacity:.5}100%{opacity:0;transform:translateY(-22px)}}
+
 
 /* ===== what i do cards ===== */
 .wid{position:relative;padding:20px 24px;border:1px dashed var(--line2);background:var(--glass);backdrop-filter:blur(6px);cursor:pointer;transition:background .35s,border-color .35s}
