@@ -620,19 +620,21 @@ function Avatar({ talking = false }) {
               strokeWidth="2"
             />
             <path d="M336 290 L 371 299 L 375 284 L 340 275 Z" fill="#0f131c" />
-            <ellipse
-              cx="334"
-              cy="256"
-              rx="9"
-              ry="15"
-              transform="rotate(-35 334 256)"
-              fill={skin}
-            />
-            <rect x="339" y="216" width="11" height="32" rx="5.5" fill={skin} />
-            <rect x="351" y="207" width="11" height="34" rx="5.5" fill={skin} />
-            <rect x="363" y="208" width="11" height="34" rx="5.5" fill={skin} />
-            <rect x="374" y="217" width="10" height="30" rx="5" fill={skin} />
-            <ellipse cx="358" cy="254" rx="23" ry="26" fill={skin} />
+            <g className="av-hand-w">
+              <ellipse
+                cx="334"
+                cy="256"
+                rx="9"
+                ry="15"
+                transform="rotate(-35 334 256)"
+                fill={skin}
+              />
+              <rect x="339" y="216" width="11" height="32" rx="5.5" fill={skin} />
+              <rect x="351" y="207" width="11" height="34" rx="5.5" fill={skin} />
+              <rect x="363" y="208" width="11" height="34" rx="5.5" fill={skin} />
+              <rect x="374" y="217" width="10" height="30" rx="5" fill={skin} />
+              <ellipse cx="358" cy="254" rx="23" ry="26" fill={skin} />
+            </g>
           </g>
         </g>
 
@@ -2379,12 +2381,14 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 .talking .av-brows{animation:brow .5s ease-in-out infinite alternate}
 @keyframes brow{to{transform:translateY(-3px)}}
 .av-arm-wrap{opacity:clamp(0, calc(1 - var(--p2) * 2.5), 1)}
-.av-arm{transform-box:view-box;transform-origin:318px 388px;animation:wave 7s ease-in-out 2.6s infinite}
-@keyframes wave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(16deg)}9%{transform:rotate(-8deg)}14%{transform:rotate(16deg)}19%{transform:rotate(-8deg)}24%{transform:rotate(12deg)}29%{transform:rotate(0)}}
+.av-arm{transform-box:view-box;transform-origin:318px 388px;animation:armWave 7s ease-in-out 2.6s infinite}
+@keyframes armWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(6deg)}9%{transform:rotate(-3deg)}14%{transform:rotate(6deg)}19%{transform:rotate(-3deg)}24%{transform:rotate(4deg)}29%{transform:rotate(0)}}
+.av-hand-w{transform-box:view-box;transform-origin:358px 282px;animation:handWave 7s ease-in-out 2.6s infinite}
+@keyframes handWave{0%,34%,100%{transform:rotate(0)}4%{transform:rotate(18deg)}9%{transform:rotate(-14deg)}14%{transform:rotate(18deg)}19%{transform:rotate(-14deg)}24%{transform:rotate(12deg)}29%{transform:rotate(0)}}
 .av-desk{opacity:clamp(0, calc(var(--p2) * 2), 1);transform:translateY(calc((1 - var(--p2)) * 170px))}
 .av-hand{transform-box:fill-box;animation:typing .2s ease-in-out infinite alternate}
 .av-hand.r{animation-delay:.1s}
-@keyframes typing{to{transform:translateY(-5px)}}
+@keyframes typing{to{transform:translateY(-2.5px)}}
 .av-logo{animation:logo 2.4s ease-in-out infinite}
 @keyframes logo{50%{opacity:.35}}
 .av-code text{fill:var(--accent);font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;opacity:0;transform-box:fill-box;animation:codeUp 3.6s ease-in infinite}
@@ -2618,10 +2622,10 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 .road-dash{fill:none;stroke:rgba(255,255,255,.8);stroke-width:2.5;stroke-dasharray:12 14;animation:dash 1.2s linear infinite}
 @keyframes dash{to{stroke-dashoffset:-26}}
 .sign-text{fill:#fff8e6;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600}
-.wave{fill:none;stroke:rgba(255,255,255,.55);stroke-width:3;stroke-linecap:round;animation:wave 7s linear infinite}
+.wave{fill:none;stroke:rgba(255,255,255,.55);stroke-width:3;stroke-linecap:round;animation:waterWave 7s linear infinite}
 .wave.w2{animation-duration:9s;opacity:.7}
 .wave.w3{animation-duration:5.5s}
-@keyframes wave{to{transform:translateX(-160px)}}
+@keyframes waterWave{to{transform:translateX(-160px)}}
 .beam{transform-box:view-box;transform-origin:1340px 249px;opacity:var(--beam-op);animation:sweep 5s ease-in-out infinite alternate}
 @keyframes sweep{from{transform:rotate(-12deg)}to{transform:rotate(14deg)}}
 .palm{transform-box:view-box;transform-origin:244px 412px;animation:sway 3.5s ease-in-out infinite alternate}
