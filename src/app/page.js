@@ -1769,10 +1769,12 @@ function useSpeech(lines, start) {
    so the entire page doesn't re-render 20 times a second */
 function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
   const avInRef = useRef(null);
+  const model3dRef = useRef(null);
   const { text: speech, talking } = useSpeech(
     phase === 2 ? SPEECH_WORK : SPEECH_INTRO,
     ready,
   );
+
   const spin = () => {
     const el = avInRef.current;
     if (!el || el.dataset.spin === "1") return;
@@ -1782,22 +1784,63 @@ function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
     }, 1100);
   };
 
+  // 3D holographic cursor parallax tracking (60fps GPU accelerated)
+  useEffect(() => {
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduce) return;
+
+    let raf;
+    let tx = 0, ty = 0, cx = 0, cy = 0;
+    const onMove = (e) => {
+      const midX = window.innerWidth / 2;
+      const midY = window.innerHeight / 2;
+      tx = Math.max(-1, Math.min(1, (e.clientX - midX) / midX));
+      ty = Math.max(-1, Math.min(1, (e.clientY - midY) / midY));
+    };
+
+    const loop = () => {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      if (model3dRef.current) {
+        const rotY = (cx * 15).toFixed(2);
+        const rotX = (-cy * 9).toFixed(2);
+        const trX = (cx * 12).toFixed(2);
+        const trY = (cy * 6).toFixed(2);
+        model3dRef.current.style.transform = `perspective(800px) rotateY(${rotY}deg) rotateX(${rotX}deg) translate3d(${trX}px, ${trY}px, 0)`;
+      }
+      raf = requestAnimationFrame(loop);
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    raf = requestAnimationFrame(loop);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", onMove);
+    };
+  }, []);
+
   return (
     <div className="av-wrap">
       <div
         className="av-in"
         ref={avInRef}
         onClick={spin}
-        title="Click me!"
+        title="Click me to spin! 🌀"
       >
         <div className="av-glow" />
         {avatarImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            className="avatar avatar-img"
-            src={avatarImage}
-            alt={fullName}
-          />
+          <div ref={model3dRef} className="avatar-3d-stage">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="avatar avatar-img avatar-3d-model"
+              src={avatarImage}
+              alt={fullName}
+            />
+            {/* Animated lens glint reflection across developer glasses */}
+            <div className="model-glasses-glint" />
+          </div>
         ) : (
           <Avatar talking={talking} />
         )}
@@ -2876,6 +2919,12 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 .avatar{position:relative;width:100%;height:100%;display:block}
 .avatar-img{object-fit:contain;object-position:bottom;animation:floaty 5s ease-in-out infinite}
 @keyframes floaty{50%{transform:translateY(-10px)}}
+
+.avatar-3d-stage{position:relative;width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;transform-style:preserve-3d;will-change:transform}
+.avatar-3d-model{width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 24px 34px rgba(0,0,0,.38));user-select:none;-webkit-user-drag:none;animation:avatarFloat 4.8s ease-in-out infinite}
+@keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.model-glasses-glint{position:absolute;top:32%;left:36%;width:28%;height:10%;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.65) 50%,transparent 80%);opacity:0;pointer-events:none;border-radius:6px;animation:modelGlint 5.5s ease-in-out infinite}
+@keyframes modelGlint{0%,75%{opacity:0;transform:translateX(-24px) skewX(-15deg)}85%{opacity:.85;transform:translateX(0) skewX(-15deg)}95%,100%{opacity:0;transform:translateX(24px) skewX(-15deg)}}
 
 .bubble{position:absolute;top:8%;left:66%;min-height:44px;padding:12px 18px;border-radius:18px 18px 18px 4px;background:var(--bubble-bg);color:var(--bubble-fg);font-weight:700;font-size:clamp(13px,1.1vw,16px);white-space:nowrap;box-shadow:0 14px 40px -12px rgba(0,0,0,.6);opacity:0;transform:scale(.6);transform-origin:bottom left;transition:opacity .3s,transform .5s cubic-bezier(.2,.9,.3,1.4)}
 .scene.ready .bubble{opacity:max(calc(1 - var(--p1) * 3), calc(var(--p2) * 3 - 2));transform:none;transition-delay:.8s}
