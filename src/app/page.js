@@ -1784,7 +1784,7 @@ function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
     }, 1100);
   };
 
-  // 3D holographic cursor parallax tracking (60fps GPU accelerated)
+  // 3D holographic cursor parallax tracking & ambient sway
   useEffect(() => {
     const reduce = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -1800,15 +1800,16 @@ function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
       ty = Math.max(-1, Math.min(1, (e.clientY - midY) / midY));
     };
 
-    const loop = () => {
+    const loop = (now) => {
       cx += (tx - cx) * 0.08;
       cy += (ty - cy) * 0.08;
+      const autoSway = Math.sin((now || 0) * 0.0018) * 2;
       if (model3dRef.current) {
-        const rotY = (cx * 15).toFixed(2);
+        const rotY = (cx * 15 + autoSway).toFixed(2);
         const rotX = (-cy * 9).toFixed(2);
         const trX = (cx * 12).toFixed(2);
         const trY = (cy * 6).toFixed(2);
-        model3dRef.current.style.transform = `perspective(800px) rotateY(${rotY}deg) rotateX(${rotX}deg) translate3d(${trX}px, ${trY}px, 0)`;
+        model3dRef.current.style.transform = `perspective(850px) rotateY(${rotY}deg) rotateX(${rotX}deg) translate3d(${trX}px, ${trY}px, 0)`;
       }
       raf = requestAnimationFrame(loop);
     };
@@ -1827,23 +1828,29 @@ function AvatarInteractive({ phase, ready, avatarImage, fullName }) {
         className="av-in"
         ref={avInRef}
         onClick={spin}
-        title="Click me to spin! 🌀"
+        title="Click me to spin! 🌀 Hover to rotate in 3D"
       >
         <div className="av-glow" />
-        {avatarImage ? (
-          <div ref={model3dRef} className="avatar-3d-stage">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="avatar avatar-img avatar-3d-model"
-              src={avatarImage}
-              alt={fullName}
-            />
-            {/* Animated lens glint reflection across developer glasses */}
-            <div className="model-glasses-glint" />
-          </div>
-        ) : (
-          <Avatar talking={talking} />
-        )}
+        <div ref={model3dRef} className="avatar-3d-stage">
+          {/* 3D Photorealistic Body Layer */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="avatar-3d-body"
+            src="/uploads/ayush-3d-body-layer.png"
+            alt={fullName}
+          />
+
+          {/* 3D Articulated Waving Hand Layer (Saying "Hi! 👋") */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="avatar-3d-hand"
+            src="/uploads/ayush-3d-hand-layer.png"
+            alt="Ayush Waving Hi"
+          />
+
+          {/* Animated lens glint reflection across developer glasses */}
+          <div className="model-glasses-glint" />
+        </div>
         <div className="bubble">
           <span>{speech}</span>
           <i className="caret" />
@@ -2921,7 +2928,17 @@ html.has-cursor .pf,html.has-cursor .pf *{cursor:none!important}
 @keyframes floaty{50%{transform:translateY(-10px)}}
 
 .avatar-3d-stage{position:relative;width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;transform-style:preserve-3d;will-change:transform}
-.avatar-3d-model{width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 24px 34px rgba(0,0,0,.38));user-select:none;-webkit-user-drag:none;animation:avatarFloat 4.8s ease-in-out infinite}
+.avatar-3d-body{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 24px 34px rgba(0,0,0,.38));user-select:none;-webkit-user-drag:none;animation:avatarFloat 4.8s ease-in-out infinite;pointer-events:none}
+.avatar-3d-hand{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:bottom center;filter:drop-shadow(0 20px 28px rgba(0,0,0,.25));transform-origin:16.7% 79.1%;will-change:transform;user-select:none;-webkit-user-drag:none;animation:avatarFloat 4.8s ease-in-out infinite, waveHi 3.5s ease-in-out infinite;pointer-events:none}
+@keyframes waveHi{
+  0%,100%{transform:rotate(0deg)}
+  8%{transform:rotate(17deg) translateY(-3px)}
+  18%{transform:rotate(-14deg) translateY(1px)}
+  28%{transform:rotate(16deg) translateY(-2px)}
+  38%{transform:rotate(-12deg) translateY(1px)}
+  48%{transform:rotate(10deg) translateY(-1px)}
+  58%{transform:rotate(0deg) translateY(0)}
+}
 @keyframes avatarFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .model-glasses-glint{position:absolute;top:32%;left:36%;width:28%;height:10%;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.65) 50%,transparent 80%);opacity:0;pointer-events:none;border-radius:6px;animation:modelGlint 5.5s ease-in-out infinite}
 @keyframes modelGlint{0%,75%{opacity:0;transform:translateX(-24px) skewX(-15deg)}85%{opacity:.85;transform:translateX(0) skewX(-15deg)}95%,100%{opacity:0;transform:translateX(24px) skewX(-15deg)}}
